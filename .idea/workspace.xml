@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="25ff351a-f303-435b-ada3-5732563ea01a" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="wow.ru" id="472602d4-d7dd-431e-a68f-f00a1d0c6f2c" name="wow.ru" />
+    </servers>
+  </component>
+  <component name="PhpWebServerValidation" path_to_validation_script="F:\OpenServer\domains\wow.ru" selected_validation_type="LOCAL" web_path_to_validation_script="http://wow.ru/" />
+  <component name="ProjectId" id="1jdh7lpxxB8hJv9vc9rZRUEPDGg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\OpenServer\domains\wow.ru" />
+      <recent name="F:\OpenServer\domains\wow.ru\include\Buffs\Priest" />
+      <recent name="F:\OpenServer\domains\wow.ru\include\stat_sourse" />
+      <recent name="F:\OpenServer\domains\wow.ru\include" />
+      <recent name="F:\OpenServer\domains\wow.ru\include\stat_sourse\specs" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Wow" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="wow.ru">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="25ff351a-f303-435b-ada3-5732563ea01a" name="Default Changelist" comment="" />
+      <created>1604139712027</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604139712027</updated>
+      <workItem from="1604139713848" duration="3291000" />
+      <workItem from="1604149208874" duration="7275000" />
+      <workItem from="1604157286799" duration="606000" />
+      <workItem from="1604159517517" duration="2827000" />
+      <workItem from="1604225998753" duration="17822000" />
+      <workItem from="1604332690796" duration="1435000" />
+      <workItem from="1604334787478" duration="8932000" />
+      <workItem from="1604480639139" duration="28720000" />
+      <workItem from="1604594955417" duration="2152000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="540" y="187" key="#Servers" timestamp="1604486275986">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="187" key="#Servers/0.0.1920.1040@0.0.1920.1040" timestamp="1604486275986" />
+    <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604486287366">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604486287366" />
+    <state x="731" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604139813240">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="731" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1604139813240" />
+    <state x="751" y="243" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604491367353">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="751" y="243" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604491367353" />
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604596092260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604596092260" />
+    <state x="675" y="342" width="570" height="469" key="#com.jetbrains.php.debug.validation.PhpWebServerValidationDialog#" timestamp="1604486853844">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="675" y="342" width="570" height="469" key="#com.jetbrains.php.debug.validation.PhpWebServerValidationDialog#/0.0.1920.1040@0.0.1920.1040" timestamp="1604486853844" />
+    <state x="718" y="390" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1604161638658">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="718" y="390" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1604161638658" />
+    <state width="454" height="466" key="DebuggerActiveHint" timestamp="1604503214525">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="454" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1604503214525" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1604141024483">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604141024483" />
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1604523217209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217209" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1604523217209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217209" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1604523217209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217209" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1604523217209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217209" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1604523217210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217210" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1604523217209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217209" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1604523217209">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217209" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1604523217210">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1604523217210" />
+    <state x="772" y="243" key="NewPhpClassDialog" timestamp="1604596707418">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="772" y="243" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604596707418" />
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1604506417205">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1604506417205" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1604486865149">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604486865149" />
+    <state x="1038" y="128" width="585" height="801" key="find.popup" timestamp="1604501984900">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1038" y="128" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604501984900" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1604489770490">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604489770490" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604596993195">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1604596993195" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/include/Caster.php</url>
+          <line>51</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
