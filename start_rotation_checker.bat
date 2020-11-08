@@ -1,0 +1,1 @@
+F:/OpenServer/modules/php/PHP_7.4/php F:\OpenServer\domains\wow.ru\cron_1.php
