@@ -14,7 +14,8 @@ $player = Player::getInstance()
 Place::getInstance()->savePlayer(Place::ANALYZE_PLAYER, $player);
 
 Place::getInstance()->getMyPlayer()
-	->addConduit(new \Mediums\Ventir\Conduits\SwiftPenitence());
+	->addConduit(new \Mediums\Ventir\Conduits\SwiftPenitence())
+	->addConduit(new \Mediums\Ventir\Conduits\Shattered());
 
 for ($i = 1; $i < 20; $i++) {
 	$addPlayer = clone $player;

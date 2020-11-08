@@ -26,7 +26,7 @@ class SwiftPenitence extends \Buff {
 	}
 
 	public function increaseDamage(int $damageCount, \Spell $fromSpell = null): int {
-		if ($fromSpell->getName() == Penance::class && self::isCanApply()) {
+		if (isset($fromSpell) && $fromSpell->getName() == Penance::class && self::isCanApply()) {
 			self::setLastApply();
 			return round($damageCount * self::INC_PERCENT);
 		}

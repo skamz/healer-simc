@@ -11,9 +11,10 @@ $shield = new  \Spells\Priest\PowerWordShield();
 $penance = new \Spells\Priest\DC\Penance();
 $smite = new \Spells\Priest\Smite();
 $radiance = new \Spells\Priest\DC\PowerWordRadiance();
+$solace = new \Spells\Priest\DC\PowerWordSolace();
 
 $db = new Database();
-$rotationInfo = $db->query("select * from priest_dc where iterations < 3 order by rand() limit 1")->fetchArray();
+$rotationInfo = $db->query("select * from priest_dc where iterations < 5 order by rand() limit 1")->fetchArray();
 if (empty($rotationInfo)) {
 	exit;
 }
@@ -30,7 +31,6 @@ while (TimeTicker::getInstance()->tick()) {
 			break;
 		}
 
-
 		$toPlayer = Place::getInstance()->getRandomNumPlayerWithBuff(\Buffs\Priest\Atonement::class);
 		if (\Spells\Priest\DC\Schism::isAvailable() && $nextSpell == "Schism") {
 			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Schism());
@@ -46,6 +46,12 @@ while (TimeTicker::getInstance()->tick()) {
 			array_shift($rotationInfoSteps);
 		} elseif (\Spells\Priest\PowerWordShield::isAvailable() && $nextSpell == "Shield") {
 			Caster::castSpellToPlayer($toPlayer, $shield);
+			array_shift($rotationInfoSteps);
+		} elseif (\Spells\Priest\DC\Mindgames::isAvailable() && $nextSpell == "Mindgames") {
+			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Mindgames());
+			array_shift($rotationInfoSteps);
+		} elseif (\Spells\Priest\DC\PowerWordSolace::isAvailable() && $nextSpell == "Solace") {
+			Caster::castSpellToEnemy($damageEnemy, $solace);
 			array_shift($rotationInfoSteps);
 		}
 
@@ -68,6 +74,12 @@ if (\Spells\Priest\DC\PowerWordRadiance::isAvailable()) {
 }
 if (\Spells\Priest\PowerWordShield::isAvailable()) {
 	$rotationVariables[] = "Shield";
+}
+if (\Spells\Priest\DC\Mindgames::isAvailable()) {
+	$rotationVariables[] = "Mindgames";
+}
+if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
+	$rotationVariables[] = "Solace";
 }
 
 

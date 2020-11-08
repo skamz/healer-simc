@@ -14,7 +14,7 @@ class ShadowfiendAttack extends DcSpell {
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.44642;
 		$return = \Spell::applySecondary($return);
-		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return);
+		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
 

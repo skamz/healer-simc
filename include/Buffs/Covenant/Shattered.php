@@ -11,7 +11,7 @@ class Shattered extends \Buff {
 	const INC_PERCENT = 1.13;
 
 	public function increaseDamage(int $damageCount, \Spell $fromSpell = null): int {
-		if ($fromSpell->getName() == Mindgames::class) {
+		if (isset($fromSpell) && $fromSpell->getName() == Mindgames::class) {
 			return round($damageCount * self::INC_PERCENT);
 		}
 		return $damageCount;

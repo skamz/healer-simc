@@ -19,7 +19,7 @@ class PowerWordRadiance extends DcSpell {
 	public function getHealAmount() {
 		$return = \Player::getInstance()->getInt() * 1.05;
 		$return = $this->applySecondary($return);
-		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return);
+		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);
 		return $return;
 	}
 

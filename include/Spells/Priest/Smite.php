@@ -24,7 +24,7 @@ class Smite extends DcSpell {
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.47 * 1.5 * 0.75; // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)
 		$return = \Spell::applySecondary($return);
-		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return);
+		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
 

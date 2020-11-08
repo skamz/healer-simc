@@ -13,7 +13,7 @@ class PurgeWickedDot extends DcSpell {
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.137 * $this->damageModifier;
 		$return = \Spell::applySecondary($return);
-		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return);
+		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
 

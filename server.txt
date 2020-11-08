@@ -1,0 +1,15 @@
+Вход в панель : https://82.146.58.89:1500/ispmgr
+Пользователь : root
+Пароль : 1FJ22226n4K8
+
+http://wow-sim.ru/
+
+FTP
+admin: 6F1n7Y6t
+
+Database
+wow
+wow
+V9x7D4q1
+
+/usr/bin/flock -w 0 /var/www/admin/data/www/wow-sim.ru/cron_locker/cron1.lock /usr/bin/php /var/www/admin/data/www/wow-sim.ru/cron_1.php

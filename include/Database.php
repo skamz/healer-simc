@@ -13,7 +13,8 @@ class Database {
 	protected $query_closed = true;
 	public $query_count = 0;
 
-	public function __construct($dbname = 'rotations', $dbhost = 'localhost', $dbuser = 'root', $dbpass = 'root', $charset = 'utf8') {
+	//public function __construct($dbname = 'rotations', $dbhost = 'localhost', $dbuser = 'root', $dbpass = 'root', $charset = 'utf8') {
+	public function __construct($dbname = 'wow', $dbhost = 'localhost', $dbuser = 'wow', $dbpass = 'V9x7D4q1', $charset = 'utf8') {
 		$this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 		if ($this->connection->connect_error) {
 			$this->error('Failed to connect to MySQL - ' . $this->connection->connect_error);

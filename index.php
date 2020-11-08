@@ -6,7 +6,7 @@ $player = include(__DIR__ . "/player.php");
 
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 
-TimeTicker::getInstance()->getTotalWorkTime(10);
+TimeTicker::getInstance()->getTotalWorkTime(40);
 
 echo "<hr>";
 
@@ -19,14 +19,14 @@ $solace = new \Spells\Priest\DC\PowerWordSolace();
 
 $isApply = false;
 
-Caster::castSpellToEnemy($damageEnemy, $penance);
-
-
 
 //$workTime = 300 * 10000;
 $time = 0;
 while (TimeTicker::getInstance()->tick()) {
 	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
+		if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
+			Caster::castSpellToEnemy($damageEnemy, $solace);
+		}
 		/*if (\Spells\Priest\DC\PurgeWicked::isAvailable() && \Buffs\Priest\PurgeWicked::isTimeRefreshBuffOnEnemy($damageEnemy)) {
 			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
 		} elseif (\Spells\Priest\DC\Penance::isAvailable()) {

@@ -14,7 +14,7 @@ class MindbenderAttack extends DcSpell  {
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.32589;
 		$return = \Spell::applySecondary($return);
-		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return);
+		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
 

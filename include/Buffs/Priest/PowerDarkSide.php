@@ -12,7 +12,7 @@ class PowerDarkSide extends \Buff {
 	const INC_PERCENT = 1.5;
 
 	public function increaseDamage(int $damageCount, \Spell $fromSpell = null): int {
-		if ($fromSpell->getName() == Penance::class) {
+		if (isset($fromSpell) && $fromSpell->getName() == Penance::class) {
 			return round($damageCount * self::INC_PERCENT);
 		}
 		return $damageCount;
