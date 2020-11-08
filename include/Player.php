@@ -5,11 +5,13 @@ class Player extends Unit {
 
 	private static $instance;
 
-	protected $crit;
-	protected $haste;
-	protected $int;
-	protected $mastery;
-	protected $versatility;
+	protected int $crit;
+	protected int $haste;
+	protected int $int;
+	protected int $mastery;
+	protected int $versatility;
+	protected string $covenant;
+	protected string $covenantMedium;
 
 
 	/**
@@ -89,5 +91,23 @@ class Player extends Unit {
 		Place::registerHeal($amount);
 	}
 
+	public function setConvenant(string $covenant) {
+		$this->covenant = $covenant;
+		return $this;
+	}
+
+	public function setCovenantMedium(string $medium) {
+		$this->covenantMedium = $medium;
+		return $this;
+	}
+
+	public function isVentir() {
+		return $this->covenant == \Enum\Covenant::TYPE_VENTIR;
+	}
+
+	public function addConduit(\Mediums\Ventir\Conduits\Conduit $conduit) {
+		$conduit->apply();
+		return $this;
+	}
 
 }

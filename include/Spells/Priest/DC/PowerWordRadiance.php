@@ -18,13 +18,15 @@ class PowerWordRadiance extends DcSpell {
 	// искупление вины 60% длительностью
 	public function getHealAmount() {
 		$return = \Player::getInstance()->getInt() * 1.05;
-		return $this->applySecondary($return);
+		$return = $this->applySecondary($return);
+		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return);
+		return $return;
 	}
 
 	public function applyBuffs(): array {
 		$atonement = new \Buffs\Priest\Atonement();
-		$duration = $atonement->getBaseDuration() * 0.6;
-		$atonement->setBaseDuration($duration);
+		$duration = $atonement->getDuration() * 0.6;
+		$atonement->setDuration($duration);
 		return [
 			$atonement,
 		];

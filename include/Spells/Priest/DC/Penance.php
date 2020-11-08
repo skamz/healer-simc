@@ -2,6 +2,8 @@
 
 namespace Spells\Priest\DC;
 
+use Buffs\Priest\PowerDarkSide;
+
 /**
  * Class Penance https://www.wowhead.com/spell=172098/penance
  * @package Spells\Priest\DC
@@ -28,7 +30,9 @@ class Penance extends DcSpell {
 
 	protected function getTickDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.4;
-		return $this->applySecondary($return);
+		$return = \Spell::applySecondary($return);
+		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
+		return $return;
 	}
 
 	public function getHealAmount() {
@@ -44,6 +48,10 @@ class Penance extends DcSpell {
 	protected function getTickHealAmount() {
 		$return = \Player::getInstance()->getInt() * 1.25;
 		return $this->applySecondary($return);
+	}
+
+	public function afterSuccessCast() {
+		\Place::getInstance()->getMyPlayer()->removeBuff(PowerDarkSide::class);
 	}
 
 }

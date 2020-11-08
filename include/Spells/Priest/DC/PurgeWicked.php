@@ -4,6 +4,9 @@
 namespace Spells\Priest\DC;
 
 
+use Buffs\Priest\PowerDarkSide;
+use Buffs\RealPPM;
+
 /**
  * Class PurgeWicked Очищение зла https://www.wowhead.com/spell=204197/purge-the-wicked
  * @package Spells\Priest\DC
@@ -16,16 +19,18 @@ class PurgeWicked extends DcSpell {
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.248;
-		return \Spell::applySecondary($return);
+		$return = \Spell::applySecondary($return);
+		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return);
+		return $return;
 	}
 
-	public function getDotAmount() {
-		$return = \Player::getInstance()->getInt() * $this->getTickCount() * 0.137;
-		return \Spell::applySecondary($return);
+	public function applyBuffs(): array {
+		return [
+			new \Buffs\Priest\PurgeWicked(),
+		];
 	}
 
-	public function getTickCount() {
-		$hastePercent = \Player::getInstance()->getStatCalculator()->getHastePercent();
-		return 20 / (2 / (1 + $hastePercent / 100));
+	public function afterSuccessCast() {
+		RealPPM::getInstance()->tryProc(1, new PowerDarkSide());
 	}
 }

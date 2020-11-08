@@ -28,8 +28,6 @@ class CalculatorFactory {
 	}
 
 	public static function createStatCalculator(string $spec): StatCalculator {
-		self::registerSpecSpells($spec);
-
 		$crit = self::createCritCalculator($spec);
 		$mastery = self::createMasteryCalculator($spec);
 		$haste = self::createHasteCalculator($spec);

@@ -3,7 +3,7 @@
 
 class Spell {
 
-	const PING = 0.1;
+	const PING = 0.07;
 
 	/**
 	 * Время восстановления заклинания
@@ -54,10 +54,16 @@ class Spell {
 	protected bool $hasteIsReduceCastTime = false;
 
 	/**
+	 * Сколько плюха летит до таргета
+	 * @var float
+	 */
+	protected float $travelTime = 0;
+
+	/**
 	 * Сколько процентов маны стоит применение заклинания
 	 * @var float
 	 */
-	protected float $manaPercentCost;
+	protected float $manaPercentCost = 0;
 
 	/**
 	 * Количество целей на которые применяется заклинание
@@ -88,6 +94,12 @@ class Spell {
 	 * @var array
 	 */
 	protected array $applyDebuff = [];
+
+	/**
+	 * Модификатор наносимого урона (например когда описание 60% урона)
+	 * @var float|int
+	 */
+	protected float $damageModifier = 1;
 
 	/**
 	 * Если целей несколько, как выбираются остальные цели
@@ -130,7 +142,6 @@ class Spell {
 		return round($return + self::PING, 2);
 	}
 
-
 	protected function applyHaste($baseValue) {
 		$hastePercents = Player::getInstance()->getStatCalculator()->getHastePercent();
 		return $baseValue / (1 + $hastePercents / 100);
@@ -154,7 +165,7 @@ class Spell {
 
 	public static function applyCrit(float $amount, $critCoefficient = 2) {
 		$critPercent = Player::getInstance()->getStatCalculator()->getCritPercent();
-		if (rand(0, 100) <= $critPercent) {
+		if (Helper::isProc($critPercent)) {
 			return $amount * $critCoefficient;
 		}
 		return $amount;
@@ -206,4 +217,12 @@ class Spell {
 	public function getName() {
 		return get_class($this);
 	}
+
+	public function setDamageModifier(float $modifier) {
+		$this->damageModifier = $modifier;
+	}
+
+	public function afterSuccessCast() {
+	}
+
 }

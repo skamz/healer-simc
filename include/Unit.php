@@ -10,11 +10,13 @@ class Unit {
 	protected $buffs = [];
 	protected $debufs = [];
 	protected $name;
+	protected $targetNum;
+	protected $targetType;
 
 	public function addBuff(Buff $buff) {
 		echo TimeTicker::getInstance()->getCombatTimer() . " - Buff " . get_class($buff) . " <span style='background-color: green'>apply</span> to " . $this->getName() . "<br>\n";
-		$existNumBuff = $this->hasBuff($buff);
-		if ($existNumBuff) {
+		$existNumBuff = $this->hasBuff($buff->getName());
+		if (isset($existNumBuff)) {
 			$this->buffs[$existNumBuff]->reApply($buff);
 		} else {
 			$this->buffs[] = $buff;
@@ -22,14 +24,27 @@ class Unit {
 		return $this;
 	}
 
-	public function hasBuff(Buff $buff): ?int {
-		$searchClass = get_class($buff);
+	public function removeBuff(string $buffName) {
 		foreach ($this->buffs as $buffNum => $checkBuff) {
-			if ($searchClass == get_class($checkBuff)) {
+			if ($buffName == get_class($checkBuff)) {
+				$this->fadeBuff($buffNum);
+			}
+		}
+	}
+
+	public function hasBuff(string $buffName): ?int {
+		foreach ($this->buffs as $buffNum => $checkBuff) {
+			if ($buffName == get_class($checkBuff)) {
 				return $buffNum;
 			}
 		}
 		return null;
+	}
+
+	public function getBuffLostTime(int $buffName) {
+		/** @var $buffObj Buff */
+		$buffObj = $this->buffs[$buffName];
+		return $buffObj->getDuration();
 	}
 
 	public function getBuffByNum(int $buffNum): Buff {
@@ -46,6 +61,7 @@ class Unit {
 	}
 
 	public function fadeBuff(int $buffNum) {
+		echo TimeTicker::getInstance()->getCombatTimer() . " Buff " . get_class($this->buffs[$buffNum]) . " <span style='background-color: red'>fade</span> from {$this->getName()}<br>\n";
 		/** @var $buff Buff */
 		$buff = $this->buffs[$buffNum];
 		$buff->applyFade();
@@ -71,6 +87,23 @@ class Unit {
 	public function setName(string $name) {
 		$this->name = $name;
 		return $this;
+	}
+
+	public function applyBuffs(string $callback, $value, Spell $fromSpell = null) {
+		foreach ($this->getBuffs() as $buff) {
+			$value = $buff->$callback($value, $fromSpell);
+		}
+		return $value;
+	}
+
+	public function setTarget(string $type, int $targetNum): self {
+		$this->targetType = $type;
+		$this->targetNum = $targetNum;
+		return $this;
+	}
+
+	public function getTargetNum(): int {
+		return $this->targetNum;
 	}
 
 }

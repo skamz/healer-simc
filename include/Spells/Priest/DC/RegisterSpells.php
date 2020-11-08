@@ -12,7 +12,8 @@ class RegisterSpells extends \Spells\Priest\RegisterSpells {
 			->registerSpell(new PurgeWicked())
 			->registerSpell(new Shadowfiend())
 			->registerSpell(new ShadowMend())
-			->registerSpell(new Schism());
+			->registerSpell(new Schism())
+			->registerSpell(new PowerInfusion());
 	}
 
 }

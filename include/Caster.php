@@ -14,6 +14,7 @@ class Caster {
 
 	protected static function cast(Spell $spell) {
 		SpellState::getInstance()->cast($spell->getName());
+		$spell->afterSuccessCast();
 	}
 
 	public static function castSpellToEnemy(int $enemyId, Spell $spell) {
@@ -53,8 +54,8 @@ class Caster {
 		$damageCount = $spell->getDamageAmount();
 		$damageCount = self::applyBuffDamage($enemyObj, $damageCount);
 
-		echo "Damage enemy by {$damageCount}<br>\n";
 		if ($damageCount > 0) {
+			echo "Damage enemy by {$damageCount}<br>\n";
 			$spell->afterDamage($damageCount);
 		}
 

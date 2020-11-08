@@ -14,7 +14,7 @@ class DcSpell extends \Spell {
 		}
 		foreach (\Place::getInstance()->getPlayersAllNums() as $playerNum) {
 			$checkPlayer = \Place::getInstance()->getPlayer($playerNum);
-			$buffNum = $checkPlayer->hasBuff(new Atonement());
+			$buffNum = $checkPlayer->hasBuff(Atonement::class);
 			if (isset($buffNum)) {
 				$healAmount = Atonement::getHealAmount($damageCount);
 				$checkPlayer->healTaken($healAmount);

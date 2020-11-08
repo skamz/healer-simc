@@ -28,7 +28,7 @@ class BaseCalculator {
 			$return += $calcStat / $statsInPoint;
 			$currentStat -= $calcStat;
 		}
-		$return = round($return, 2);
+
 		if ($addDefaultPercent) {
 			$return += $this->defaultPercent;
 		}

@@ -7,7 +7,8 @@ class Buff {
 	 * Время действия бафа
 	 * @var float
 	 */
-	protected float $duration;
+	protected float $duration = 9999;
+	protected float $baseDuration;
 
 	protected float $tickTimer;
 	protected float $lostToTick;
@@ -23,6 +24,14 @@ class Buff {
 	 */
 	protected StatCalculator $statCalculator;
 
+	public function __construct() {
+		$this->baseDuration = $this->duration;
+	}
+
+	public function getName() {
+		return get_class($this);
+	}
+
 	public function setTickTimer(float $tickTimer) {
 		$this->tickTimer = $tickTimer;
 	}
@@ -31,12 +40,16 @@ class Buff {
 		$this->duration = $buff->duration;
 	}
 
-	public function getBaseDuration() {
+	public function getDuration() {
 		return $this->duration;
 	}
 
-	public function setBaseDuration(float $ducation) {
-		$this->duration = $ducation;
+	public function getBaseDuration() {
+		return $this->baseDuration;
+	}
+
+	public function setDuration(float $duration) {
+		$this->duration = $duration;
 	}
 
 	public function applyTick() {
@@ -58,32 +71,53 @@ class Buff {
 
 	}
 
-	public function applyOnDamage(int $damageCount) {
+	public function applyOnDamage(int $damageCount, Spell $fromSpell = null) {
 		return $damageCount;
 	}
 
-	public function applyOnHeal(int $healCount) {
+	public function applyOnHeal(int $healCount, Spell $fromSpell = null) {
 		return $healCount;
 	}
 
-	public function applyIntPercents(float $percents): float {
+	public function applyIntPercents(float $percents, Spell $fromSpell = null): float {
 		return $percents;
 	}
 
-	public function applyCritPercents(float $percents): float {
+	public function applyCritPercents(float $percents, Spell $fromSpell = null): float {
 		return $percents;
 	}
 
-	public function applyhastePercents(float $percents): float {
+	public function applyHastePercents(float $percents, Spell $fromSpell = null): float {
 		return $percents;
 	}
 
-	public function applyMasteryPercents(float $percents): float {
+	public function applyMasteryPercents(float $percents, Spell $fromSpell = null): float {
 		return $percents;
 	}
 
-	public function applyVersatilityPercents(float $percents): float {
+	public function applyVersatilityPercents(float $percents, Spell $fromSpell = null): float {
 		return $percents;
+	}
+
+	public function increaseDamage(int $damageCount, Spell $fromSpell = null): int {
+		return $damageCount;
+	}
+
+	public function increaseHeal(int $healCount, Spell $fromSpell = null): int {
+		return $healCount;
+	}
+
+	public static function isTimeRefreshBuffOnEnemy(int $enemyNum) {
+		$enemyObj = Place::getInstance()->getEnemy($enemyNum);
+		$buffNum = $enemyObj->hasBuff(get_called_class());
+		if (isset($buffNum)) {
+			$buffObj = $enemyObj->getBuffByNum($buffNum);
+			if ($buffObj->getDuration() / $buffObj->getBaseDuration() < 0.33) {
+				return true;
+			}
+			return false;
+		}
+		return true;
 	}
 
 }

@@ -21,4 +21,8 @@ class DC1 extends BaseRotation {
 			->addSpell(new ShadowMend());
 	}
 
+	protected function execute() {
+
+	}
+
 }

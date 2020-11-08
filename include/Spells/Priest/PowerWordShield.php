@@ -17,6 +17,7 @@ class PowerWordShield extends DcSpell {
 	protected float $manaPercentCost = 3.1;
 
 	public function getHealAmount() {
+		// add mastery if has Atonement
 		$return = \Player::getInstance()->getInt() * 1.8;
 		return $this->applySecondary($return);
 	}

@@ -9,9 +9,14 @@ class Place {
 
 	/**
 	 * Массив игроков
-	 * @var array
+	 * @var array Player[]
 	 */
 	protected array $players = [];
+
+	/**
+	 * @var array \Pets\Pet[]
+	 */
+	protected array $pets = [];
 
 	/**
 	 * Масссив противников
@@ -32,6 +37,19 @@ class Place {
 
 	public function getPlayersAllNums(): array {
 		return array_keys($this->players);
+	}
+
+	public function getRandomNumPlayerWithBuff(string $buffName): int {
+		$list = $this->players;
+		shuffle($list);
+		foreach ($list as $num => $player) {
+			/** @var $player Player */
+			if ($player->hasBuff($buffName)) {
+				continue;
+			}
+			return $num;
+		}
+		return $num;
 	}
 
 	public function getRandomNumPlayer(): int {
@@ -74,6 +92,19 @@ class Place {
 
 	public function saveEnemy(int $num, Enemy $enemy) {
 		$this->enemies[$num] = $enemy;
+	}
+
+	public function addPet(\Pets\Pet $pet): self {
+		$this->pets[] = $pet;
+		return $this;
+	}
+
+	public function getPets(): array {
+		return $this->pets;
+	}
+
+	public function savePets(array $pets) {
+		$this->pets = $pets;
 	}
 
 	public static function registerHeal(int $amount) {

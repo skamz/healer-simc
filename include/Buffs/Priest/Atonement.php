@@ -15,7 +15,4 @@ class Atonement extends \Buff {
 		return $return;
 	}
 
-	public function applyTick() {
-	}
-
 }

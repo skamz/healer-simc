@@ -29,14 +29,27 @@ class TimeTicker {
 		if ($this->lostTime <= 0) {
 			return false;
 		}
-
+		$this->tickPets();
 		$this->tickCombatTimer();
 		$this->tickGcd();
 		$this->tickPlayersBuffs();
 		$this->tickEnemyBuffs();
 		$this->tickSpellCd();
 		$this->tickSpellCasting();
+
 		return true;
+	}
+
+	protected function tickPets() {
+		$pets = Place::getInstance()->getPets();
+		foreach ($pets as $petNum => $pet) {
+			/** @var $pet \Pets\Pet */
+			$pet->tick();
+			if ($pet->isExpire()) {
+				unset($pets[$petNum]);
+			}
+		}
+		Place::getInstance()->savePets($pets);
 	}
 
 	protected function tickGcd() {
@@ -66,7 +79,6 @@ class TimeTicker {
 			/** @var $buff Buff */
 			$buff->tick();
 			if ($buff->isEnd()) {
-				echo $this->getCombatTimer() . " Buff " . get_class($buff) . " <span style='background-color: red'>fade</span> from {$player->getName()}<br>\n";
 				$player->fadeBuff($num);
 			} else {
 				$buffs[$num] = $buff;

@@ -12,6 +12,13 @@ class SpellState {
 
 	protected array $casting;
 
+	public function registerSpellByName(string $spellName) {
+		if (isset($this->spells[$spellName])) {
+			return $this;
+		}
+		return $this->registerSpell(new $spellName());
+	}
+
 	public function registerSpell(Spell $spell) {
 		$name = get_class($spell);
 		$this->spells[$name] = $spell;
@@ -19,6 +26,7 @@ class SpellState {
 	}
 
 	public function cast(string $spellName) {
+		$this->registerSpellByName($spellName);
 		$this->spells[$spellName]->decChangeCount();
 		$this->checkStartCooddownTimer($spellName);
 	}
@@ -33,6 +41,7 @@ class SpellState {
 	}
 
 	protected function checkStartCooddownTimer(string $spellName) {
+		$this->registerSpellByName($spellName);
 		$lostTimer = TimeTicker::getInstance()->getSpellCdTimer($spellName);
 		if (empty($lostTimer) && $this->spells[$spellName]->getChangeCount() < $this->spells[$spellName]->getMaxChangeCount()) {
 			TimeTicker::getInstance()->startSpellCooldown($this->spells[$spellName]);
@@ -40,6 +49,7 @@ class SpellState {
 	}
 
 	public function isAvailable(string $spellName): bool {
+		$this->registerSpellByName($spellName);
 		if (!isset($this->spells[$spellName])) {
 			return false;
 		}
