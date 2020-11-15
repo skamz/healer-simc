@@ -41,7 +41,7 @@ class Caster {
 			$player->healTaken($spell->getHealAmount());
 
 			foreach ($spell->applyBuffs() as $applyBuff) {
-				$player = $player->addBuff($applyBuff);
+				$player = $player->addBuff(clone $applyBuff);
 			}
 		}
 		self::cast($spell);
@@ -60,7 +60,7 @@ class Caster {
 		}
 
 		foreach ($spell->applyBuffs() as $applyBuff) {
-			$enemyObj = $enemyObj->addBuff($applyBuff);
+			$enemyObj = $enemyObj->addBuff(clone $applyBuff);
 		}
 
 		self::cast($spell);

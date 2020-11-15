@@ -10,6 +10,7 @@ class TimeTicker {
 	 */
 	protected $lostTime;
 	protected $combatTimer;
+	protected $iteration = 0;
 
 	protected $lostGcd;
 	protected $spellsCd = [];
@@ -25,6 +26,10 @@ class TimeTicker {
 		$this->lostGcd = $gcd;
 	}
 
+	public function getIteration() {
+		return $this->iteration;
+	}
+
 	public function tick(): bool {
 		if ($this->lostTime <= 0) {
 			return false;
@@ -32,12 +37,17 @@ class TimeTicker {
 		$this->tickPets();
 		$this->tickCombatTimer();
 		$this->tickGcd();
+		$this->tickEvents();
 		$this->tickPlayersBuffs();
 		$this->tickEnemyBuffs();
 		$this->tickSpellCd();
 		$this->tickSpellCasting();
 
 		return true;
+	}
+
+	protected function tickEvents() {
+		Events::getInstance()->applyEvents($this->iteration);
 	}
 
 	protected function tickPets() {
@@ -62,6 +72,7 @@ class TimeTicker {
 	protected function tickCombatTimer() {
 		$this->lostTime -= self::TICK_COUNT;
 		$this->combatTimer += self::TICK_COUNT;
+		$this->iteration++;
 	}
 
 	protected function tickPlayersBuffs() {
@@ -69,7 +80,7 @@ class TimeTicker {
 		foreach ($playerNums as $playerNum) {
 			$player = Place::getInstance()->getPlayer($playerNum);
 			$player = $this->tickUnitBuffs($player);
-			Place::getInstance()->savePlayer($playerNum, $player);
+			//Place::getInstance()->savePlayer($playerNum, $player);
 		}
 	}
 
@@ -78,11 +89,11 @@ class TimeTicker {
 		foreach ($buffs as $num => $buff) {
 			/** @var $buff Buff */
 			$buff->tick();
-			if ($buff->isEnd()) {
+			/*if ($buff->isEnd()) {
 				$player->fadeBuff($num);
 			} else {
 				$buffs[$num] = $buff;
-			}
+			}*/
 		}
 		return $player;
 	}
@@ -92,7 +103,7 @@ class TimeTicker {
 		foreach ($enemyNums as $enemyNum) {
 			$enemy = Place::getInstance()->getEnemy($enemyNum);
 			$enemy = $this->tickUnitBuffs($enemy);
-			Place::getInstance()->saveEnemy($enemyNum, $enemy);
+			//Place::getInstance()->saveEnemy($enemyNum, $enemy);
 		}
 	}
 

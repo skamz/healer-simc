@@ -8,7 +8,7 @@ $command = "{$phpPath} {$script}";
 while (true) {
 	$out = "";
 	exec($command, $out);
-	if (count($out) < 5) {
+	if (count($out) < 2) {
 		break;
 	}
 	echo ($counter++) . " ";

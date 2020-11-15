@@ -3,15 +3,24 @@
 
 class Buff {
 
+	const FULL_TIME = 9999;
+
 	/**
 	 * Время действия бафа
 	 * @var float
 	 */
-	protected float $duration = 9999;
+	protected float $duration = self::FULL_TIME;
 	protected float $baseDuration;
 
 	protected float $tickTimer;
 	protected float $lostToTick;
+
+	protected int $startIterationNum;
+	protected int $iterationEnd;
+
+	protected array $eventsId = [];
+
+	public Unit $unit;
 
 	/**
 	 * Объем поглощения урона
@@ -25,7 +34,25 @@ class Buff {
 	protected StatCalculator $statCalculator;
 
 	public function __construct() {
+		$this->startIterationNum = TimeTicker::getInstance()->getIteration();
 		$this->baseDuration = $this->duration;
+		$this->calcIterationEnd();
+	}
+
+	protected function calcIterationEnd() {
+		$this->iterationEnd = $this->startIterationNum + intval($this->duration / TimeTicker::TICK_COUNT);
+	}
+
+	public function getIterationEnd() {
+		return $this->iterationEnd;
+	}
+
+	public function setFadeEventId(string $eventId) {
+		$this->eventsId["fade"] = $eventId;
+	}
+
+	public function getFadeEventId() {
+		return $this->eventsId["fade"];
 	}
 
 	public function getName() {
@@ -37,7 +64,9 @@ class Buff {
 	}
 
 	public function reApply(Buff $buff) {
-		$this->duration = $buff->duration;
+		$this->setDuration($buff->duration);
+		Events::getInstance()->removeEvent($this->getFadeEventId());
+		//$this->setFadeEventId($fadeEventId);
 	}
 
 	public function getDuration() {
@@ -50,6 +79,7 @@ class Buff {
 
 	public function setDuration(float $duration) {
 		$this->duration = $duration;
+		$this->calcIterationEnd();
 	}
 
 	public function applyTick() {
@@ -118,6 +148,10 @@ class Buff {
 			return false;
 		}
 		return true;
+	}
+
+	public function registerTickEvent() {
+
 	}
 
 }

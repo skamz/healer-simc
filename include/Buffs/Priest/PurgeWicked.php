@@ -4,6 +4,7 @@
 namespace Buffs\Priest;
 
 
+use Events\Event;
 use Spells\Priest\DC\PurgeWickedDot;
 
 class PurgeWicked extends \Debuff {
@@ -16,8 +17,14 @@ class PurgeWicked extends \Debuff {
 
 	public function reApply(\Buff $buff) {
 		$addTime = min($this->duration, $buff->duration * 0.33);
-		$this->duration = $buff->duration + $addTime;
+		$this->setDuration($buff->duration + $addTime);
 		echo "Reapply dot. New duration: " . $this->duration . "<br>";
+	}
+
+	public function registerTickEvent() {
+		$event = new Event($this, "applyTick");
+		$iteration = \TimeTicker::getInstance()->getIteration() + $this->getTickCooldown() / \TimeTicker::TICK_COUNT;
+		\Events::getInstance()->registerEvent($iteration, $event);
 	}
 
 	public function applyTick() {

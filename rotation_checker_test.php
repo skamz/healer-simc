@@ -1,4 +1,5 @@
 <?php
+xhprof_enable(XHPROF_FLAGS_NO_BUILTINS | XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
 
 require_once(__DIR__ . "/autoloader.php");
 
@@ -23,16 +24,17 @@ $smite = new \Spells\Priest\Smite();
 $radiance = new \Spells\Priest\DC\PowerWordRadiance();
 $solace = new \Spells\Priest\DC\PowerWordSolace();
 
-$db = new Database();
+//$db = new Database();
 //$countInfo = $db->query("select count(*) as cnt from priest_dc")->fetchArray();
 //$id = rand(1, $countInfo["cnt"]);
-$id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
+//$id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
 
-$rotationInfo = $db->query("select * from priest_dc_work where iterations = 0 and id = {$id} limit 1 ")->fetchArray();
+/*$rotationInfo = $db->query("select * from priest_dc_work where iterations = 0 and id = {$id} limit 1 ")->fetchArray();
 if (empty($rotationInfo)) {
 	exit;
 }
-$rotationInfoSteps = explode(" ", $rotationInfo["rotation"]);
+$rotationInfoSteps = explode(" ", $rotationInfo["rotation"]);*/
+$rotationInfoSteps = explode(" ", "5 5 5 4 4 1 6 3 7 5 3 5 5 5 5 3 5 2 3 5 1");
 $rotationVariables = [];
 
 //$workTime = 300 * 10000;
@@ -76,6 +78,12 @@ while (TimeTicker::getInstance()->tick()) {
 $totalResult = intval(Place::getTotalHeal());
 echo "total heal: " . $totalResult . "<br>\n";
 
+$saveToDir = "F:/OpenServer/docker/xhprof-php-docker-viewer-master/trases/xhprof/" . time() . ".wowsim.xhprof";
+$xhprof_data = serialize(xhprof_disable());
+file_put_contents($saveToDir, $xhprof_data);
+
+
+exit;
 $saveResult = [
 	"id" => $rotationInfo["id"],
 	"heal" => $totalResult,

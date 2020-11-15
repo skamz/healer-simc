@@ -19,14 +19,18 @@ $solace = new \Spells\Priest\DC\PowerWordSolace();
 
 $isApply = false;
 
+Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
 
 //$workTime = 300 * 10000;
 $time = 0;
 while (TimeTicker::getInstance()->tick()) {
 	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
-		if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
-			Caster::castSpellToEnemy($damageEnemy, $solace);
-		}
+
+
+		//$playerNum = Place::getInstance()->getRandomNumPlayer();
+		//if (\Spells\Priest\DC\PowerWordRadiance::isAvailable()) {
+		//	Caster::castSpellToPlayer($playerNum, $radiance);
+		//}
 		/*if (\Spells\Priest\DC\PurgeWicked::isAvailable() && \Buffs\Priest\PurgeWicked::isTimeRefreshBuffOnEnemy($damageEnemy)) {
 			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
 		} elseif (\Spells\Priest\DC\Penance::isAvailable()) {

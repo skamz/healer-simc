@@ -8,7 +8,6 @@ class Unit {
 	protected $maxMana;
 	protected $maxHealth;
 	protected $buffs = [];
-	protected $debufs = [];
 	protected $name;
 	protected $targetNum;
 	protected $targetType;
@@ -16,12 +15,21 @@ class Unit {
 	public function addBuff(Buff $buff) {
 		echo TimeTicker::getInstance()->getCombatTimer() . " - Buff " . get_class($buff) . " <span style='background-color: green'>apply</span> to " . $this->getName() . "<br>\n";
 		$existNumBuff = $this->hasBuff($buff->getName());
+		$buff->unit = $this;
 		if (isset($existNumBuff)) {
 			$this->buffs[$existNumBuff]->reApply($buff);
 		} else {
 			$this->buffs[] = $buff;
+			$existNumBuff = array_key_last($this->buffs);
 		}
+		$this->registerFadeBuff($existNumBuff);
 		return $this;
+	}
+
+	protected function registerFadeBuff($buffNum) {
+		$event = new \Events\Event($this, "fadeBuff", $buffNum);
+		$eventId = Events::getInstance()->registerEvent($this->buffs[$buffNum]->getIterationEnd(), $event);
+		$this->buffs[$buffNum]->setFadeEventId($eventId);
 	}
 
 	public function removeBuff(string $buffName) {
