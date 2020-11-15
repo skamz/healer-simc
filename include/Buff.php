@@ -40,7 +40,7 @@ class Buff {
 	}
 
 	protected function calcIterationEnd() {
-		$this->iterationEnd = $this->startIterationNum + intval($this->duration / TimeTicker::TICK_COUNT);
+		$this->iterationEnd = TimeTicker::getInstance()->getIteration() + intval($this->duration / TimeTicker::TICK_COUNT);
 	}
 
 	public function getIterationEnd() {
@@ -64,8 +64,8 @@ class Buff {
 	}
 
 	public function reApply(Buff $buff) {
-		$this->setDuration($buff->duration);
 		Events::getInstance()->removeEvent($this->getFadeEventId());
+		$this->setDuration($buff->duration);
 		//$this->setFadeEventId($fadeEventId);
 	}
 

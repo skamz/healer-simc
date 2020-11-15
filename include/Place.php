@@ -39,12 +39,25 @@ class Place {
 		return array_keys($this->players);
 	}
 
-	public function getRandomNumPlayerWithBuff(string $buffName): int {
+	public function getPlayerWithoutBuff(string $buffName) {
+		$return = [];
+		foreach ($this->players as $num => $player) {
+			if ($player->hasBuff($buffName) !== null) {
+				continue;
+			}
+			$return[] = $num;
+		}
+		return $return;
+	}
+
+	public function getRandomNumPlayerWithoutBuff(string $buffName): int {
 		$list = $this->players;
-		shuffle($list);
-		foreach ($list as $num => $player) {
+		$playerKeys = array_keys($list);
+		shuffle($playerKeys);
+		foreach ($playerKeys as $num) {
+			$player = $this->players[$num];
 			/** @var $player Player */
-			if ($player->hasBuff($buffName)) {
+			if ($player->hasBuff($buffName) !== null) {
 				continue;
 			}
 			return $num;

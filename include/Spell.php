@@ -225,4 +225,8 @@ class Spell {
 	public function afterSuccessCast() {
 	}
 
+	public function getSpellCommonTargets(int $playerNum): array {
+		return [$playerNum];
+	}
+
 }

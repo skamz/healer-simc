@@ -16,6 +16,7 @@ class PurgeWicked extends \Debuff {
 	private float $tickDuration;
 
 	public function reApply(\Buff $buff) {
+		\Events::getInstance()->removeEvent($this->getFadeEventId());
 		$addTime = min($this->duration, $buff->duration * 0.33);
 		$this->setDuration($buff->duration + $addTime);
 		echo "Reapply dot. New duration: " . $this->duration . "<br>";
@@ -23,24 +24,25 @@ class PurgeWicked extends \Debuff {
 
 	public function registerTickEvent() {
 		$event = new Event($this, "applyTick");
-		$iteration = \TimeTicker::getInstance()->getIteration() + $this->getTickCooldown() / \TimeTicker::TICK_COUNT;
-		\Events::getInstance()->registerEvent($iteration, $event);
+		$iteration = \TimeTicker::getInstance()->getIteration() + ceil($this->getTickCooldown() / \TimeTicker::TICK_COUNT);
+		if ($iteration < $this->iterationEnd) {
+			\Events::getInstance()->registerEvent($iteration, $event);
+		}
 	}
 
 	public function applyTick() {
-		if (!isset($this->tickDuration)) {
-			$this->tickDuration = $this->getTickCooldown();
-			return true;
-		}
-		$this->tickDuration -= \TimeTicker::TICK_COUNT;
-		if ($this->tickDuration <= 0) {
-			$dot = new PurgeWickedDot();
-			\Caster::castSpellToEnemy(\Place::getInstance()->getRandomEnemy(), $dot);
+		$dot = new PurgeWickedDot();
+		\Caster::castSpellToEnemy(\Place::getInstance()->getRandomEnemy(), $dot);
+		$this->calcLastTickPercent();
+		$this->registerTickEvent();
+	}
 
-			$this->tickDuration = $this->getTickCooldown();
-			if ($this->tickDuration > $this->duration) {
-				$this->lastTickPercent = $this->duration / $this->tickDuration;
-			}
+	protected function calcLastTickPercent() {
+		$iterationTick = $this->getTickCooldown() / \TimeTicker::TICK_COUNT;
+		$iterationTickEnd = \TimeTicker::getInstance()->getIteration() + $iterationTick;
+		if ($iterationTickEnd > $this->iterationEnd) {
+			$diff = $this->iterationEnd - \TimeTicker::getInstance()->getIteration();
+			$this->lastTickPercent = $diff / $iterationTick;
 		}
 	}
 
@@ -48,7 +50,6 @@ class PurgeWicked extends \Debuff {
 		$dot = new PurgeWickedDot();
 		$dot->setDamageModifier($this->lastTickPercent);
 		\Caster::castSpellToEnemy(\Place::getInstance()->getRandomEnemy(), $dot);
-
 	}
 
 	protected function getTickCooldown() {

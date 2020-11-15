@@ -6,6 +6,7 @@ namespace Spells\Priest\DC;
 
 class PowerWordSolace extends DcSpell {
 
+	protected bool $isTriggeredAtonement = true;
 	protected float $gcd = 1.5;
 	protected bool $hasteIsReduceGCd = true;
 	protected float $cd = 15;

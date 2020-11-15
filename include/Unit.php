@@ -21,6 +21,7 @@ class Unit {
 		} else {
 			$this->buffs[] = $buff;
 			$existNumBuff = array_key_last($this->buffs);
+			$buff->registerTickEvent();
 		}
 		$this->registerFadeBuff($existNumBuff);
 		return $this;
@@ -35,6 +36,7 @@ class Unit {
 	public function removeBuff(string $buffName) {
 		foreach ($this->buffs as $buffNum => $checkBuff) {
 			if ($buffName == get_class($checkBuff)) {
+				Events::getInstance()->removeEvent($this->buffs[$buffNum]->getFadeEventId());
 				$this->fadeBuff($buffNum);
 			}
 		}
@@ -71,6 +73,7 @@ class Unit {
 	public function fadeBuff(int $buffNum) {
 		echo TimeTicker::getInstance()->getCombatTimer() . " Buff " . get_class($this->buffs[$buffNum]) . " <span style='background-color: red'>fade</span> from {$this->getName()}<br>\n";
 		/** @var $buff Buff */
+		echo "fade buff num: {$buffNum}<br>\n";
 		$buff = $this->buffs[$buffNum];
 		$buff->applyFade();
 		unset($this->buffs[$buffNum]);

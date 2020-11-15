@@ -1,34 +1,46 @@
 <?php
 
-set_time_limit(0);
-
-function isExists(Database $db, $rotation) {
-	$row = $db->query("select id from priest_dc where rotation='{$rotation}'")->fetchArray();
-	if (empty($row)) {
-		return false;
-	}
-	return true;
-}
+require_once(dirname(__DIR__, 2) . "/autoloader.php");
 
 $db = new Database();
+function startRotation($rotation) {
+	global $db;
+	$db->query("insert into priest_dc set rotation='{$rotation}'");
+}
 
-$spellList = ["smite", "penance", "schism", "radiance", "shield"];
-$length = 9;
+function getBuffList() {
+	$firstState = [
+		"spells" => [
+			4 => 2,
+			5 => 99
+		],
+		"path" => [],
+	];
+	$length = 9;
 
-$paths = [];
-$stack = $spellList;
+	$stack = [$firstState];
 
-do {
-	$currentPath = array_pop($stack);
-	foreach ($spellList as $spell) {
-		$path = "{$currentPath} {$spell}";
-		if (substr_count($path, " ") == $length) {
-			if (!isExists($db, $path)) {
-				$db->query("insert into priest_dc set rotation='{$path}'");
+	$return = [];
+	do {
+		$currentPath = array_pop($stack);
+		foreach ($currentPath["spells"] as $spell => $allowCount) {
+			if ($allowCount == 0) {
+				continue;
 			}
-		} else {
-			array_push($stack, $path);
+			$state = $currentPath;
+			$state["path"][] = $spell;
+			$state["spells"][$spell]--;
+			startRotation(implode(" ", $state["path"]));
+			startRotation("8 " . implode(" ", $state["path"]));
+			echo implode(" ", $state["path"]) . "<br>";
+			if (count($state["path"]) <= $length) {
+				array_push($stack, $state);
+			}
 		}
-	}
-} while (!empty($stack));
+	} while (!empty($stack));
+	return $return;
+}
+
+getBuffList();
+
 

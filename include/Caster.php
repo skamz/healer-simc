@@ -29,7 +29,7 @@ class Caster {
 	public static function applySpellToPlayer(int $toPlayer, Spell $spell) {
 		echo "===========" . TimeTicker::getInstance()->getCombatTimer() . " Cast " . get_class($spell) . " to {$toPlayer}<br>\n";
 		$applyToPlayers = [];
-		$applyToNumbers = Place::getInstance()->getRandomNumPlayers($spell->getTargetCount(), [$toPlayer], [$toPlayer]);
+		$applyToNumbers = $spell->getSpellCommonTargets($toPlayer);
 
 		foreach ($applyToNumbers as $playerNumber) {
 			$applyPlayer = Place::getInstance()->getPlayer($playerNumber);

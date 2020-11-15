@@ -4,6 +4,8 @@
 namespace Spells\Priest\DC;
 
 
+use Buffs\Priest\Atonement;
+
 class PowerWordRadiance extends DcSpell {
 
 	protected float $manaPercentCost = 6.5;
@@ -30,6 +32,15 @@ class PowerWordRadiance extends DcSpell {
 		return [
 			$atonement,
 		];
+	}
+
+	public function getSpellCommonTargets(int $playerNum): array {
+		$playersNum = \Place::getInstance()->getPlayerWithoutBuff(Atonement::class);
+		shuffle($playersNum);
+		$playersNum = array_diff($playersNum, [$playerNum]);
+		$return = array_slice($playersNum, 0, $this->targetCount - 1);
+		$return[] = $playerNum;
+		return $return;
 	}
 
 }

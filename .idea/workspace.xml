@@ -49,10 +49,18 @@
       <recent name="F:\OpenServer\domains\wow.ru\include\stat_sourse" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHP HTTP Request.Wow">
     <configuration name="Wow" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="wow.ru">
       <method v="2" />
     </configuration>
+    <configuration name="rotation_checker_test.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/rotation_checker_test.php">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHP Script.rotation_checker_test.php" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -82,7 +90,7 @@
       <workItem from="1605347970631" duration="1055000" />
       <workItem from="1605360284900" duration="633000" />
       <workItem from="1605361232223" duration="5317000" />
-      <workItem from="1605428401293" duration="4323000" />
+      <workItem from="1605428401293" duration="16562000" />
     </task>
     <servers />
   </component>
@@ -90,6 +98,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="667" y="163" key="#PHP" timestamp="1605435243658">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="667" y="163" key="#PHP/0.0.1920.1040@0.0.1920.1040" timestamp="1605435243658" />
     <state x="540" y="187" key="#Servers" timestamp="1604486275986">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -118,62 +130,62 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="718" y="390" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1604161638658" />
-    <state width="526" height="466" key="DebuggerActiveHint" timestamp="1605432358406">
+    <state width="526" height="466" key="DebuggerActiveHint" timestamp="1605440950659">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="526" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1605432358406" />
+    <state width="526" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1605440950659" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1604141024483">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1604141024483" />
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1605447039935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039935" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1605447039935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039935" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1605447039935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039935" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1605447039935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1605432673345">
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039935" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1605447039936">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673345" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039936" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1605447039936">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039936" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1605447039935">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1605432673344">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039935" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1605447039936">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605432673344" />
-    <state width="1877" height="348" key="GridCell.Tab.2.bottom" timestamp="1605432506314">
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605447039936" />
+    <state width="1877" height="348" key="GridCell.Tab.2.bottom" timestamp="1605434519154">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605432506314" />
-    <state width="1877" height="348" key="GridCell.Tab.2.center" timestamp="1605432506314">
+    <state width="1877" height="348" key="GridCell.Tab.2.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1605434519154" />
+    <state width="1877" height="348" key="GridCell.Tab.2.center" timestamp="1605434519153">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605432506314" />
-    <state width="1877" height="348" key="GridCell.Tab.2.left" timestamp="1605432506313">
+    <state width="1877" height="348" key="GridCell.Tab.2.center/0.0.1920.1040@0.0.1920.1040" timestamp="1605434519153" />
+    <state width="1877" height="348" key="GridCell.Tab.2.left" timestamp="1605434519153">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605432506313" />
-    <state width="1877" height="348" key="GridCell.Tab.2.right" timestamp="1605432506314">
+    <state width="1877" height="348" key="GridCell.Tab.2.left/0.0.1920.1040@0.0.1920.1040" timestamp="1605434519153" />
+    <state width="1877" height="348" key="GridCell.Tab.2.right" timestamp="1605434519153">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605432506314" />
+    <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040@0.0.1920.1040" timestamp="1605434519153" />
     <state x="772" y="243" key="NewPhpClassDialog" timestamp="1605363367936">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -182,22 +194,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605364563905" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1604486865149">
+    <state x="461" y="165" key="SettingsEditor" timestamp="1605442809304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1604486865149" />
-    <state x="1038" y="128" width="585" height="801" key="find.popup" timestamp="1605433295660">
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1605442809304" />
+    <state x="1038" y="128" width="585" height="801" key="find.popup" timestamp="1605447061675">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1038" y="128" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605433295660" />
+    <state x="1038" y="128" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605447061675" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1605113869039">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605113869039" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605365927259">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605446996026">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605365927259" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1605446996026" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -205,26 +217,22 @@
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/include/Events.php</url>
           <line>27</line>
-          <option name="timeStamp" value="8" />
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/include/Unit.php</url>
-          <line>71</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/include/Events.php</url>
+          <line>19</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/include/Unit.php</url>
-          <line>24</line>
-          <option name="timeStamp" value="12" />
+          <url>file://$PROJECT_DIR$/include/Buffs/RealPPM.php</url>
+          <line>13</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="index.php">
-        <watch expression="$this-&gt;buffs[$buffNum]" language="PHP" />
-      </configuration>
-      <configuration name="PhpHttpRequestRunConfigurationType">
-        <watch expression="Place::getInstance()" language="PHP" />
         <watch expression="$this-&gt;buffs[$buffNum]" language="PHP" />
       </configuration>
     </watches-manager>

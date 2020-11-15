@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__ . "/rotation_checker_test.php");
+exit();
 
 require_once(__DIR__ . "/autoloader.php");
 

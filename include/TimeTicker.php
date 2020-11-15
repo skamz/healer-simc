@@ -38,8 +38,8 @@ class TimeTicker {
 		$this->tickCombatTimer();
 		$this->tickGcd();
 		$this->tickEvents();
-		$this->tickPlayersBuffs();
-		$this->tickEnemyBuffs();
+		//$this->tickPlayersBuffs();
+		//$this->tickEnemyBuffs();
 		$this->tickSpellCd();
 		$this->tickSpellCasting();
 
@@ -59,7 +59,6 @@ class TimeTicker {
 				unset($pets[$petNum]);
 			}
 		}
-		Place::getInstance()->savePets($pets);
 	}
 
 	protected function tickGcd() {

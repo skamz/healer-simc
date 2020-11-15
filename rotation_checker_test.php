@@ -1,5 +1,4 @@
 <?php
-xhprof_enable(XHPROF_FLAGS_NO_BUILTINS | XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
 
 require_once(__DIR__ . "/autoloader.php");
 
@@ -10,6 +9,7 @@ const RADIANCE = 4;
 const SHIELD = 5;
 const MINDGAMES = 6;
 const SOLACE = 7;
+const PURGE_WICKED = 8;
 
 
 $player = include(__DIR__ . "/player.php");
@@ -23,19 +23,13 @@ $penance = new \Spells\Priest\DC\Penance();
 $smite = new \Spells\Priest\Smite();
 $radiance = new \Spells\Priest\DC\PowerWordRadiance();
 $solace = new \Spells\Priest\DC\PowerWordSolace();
+$purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 
-//$db = new Database();
-//$countInfo = $db->query("select count(*) as cnt from priest_dc")->fetchArray();
-//$id = rand(1, $countInfo["cnt"]);
-//$id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
 
-/*$rotationInfo = $db->query("select * from priest_dc_work where iterations = 0 and id = {$id} limit 1 ")->fetchArray();
-if (empty($rotationInfo)) {
-	exit;
-}
-$rotationInfoSteps = explode(" ", $rotationInfo["rotation"]);*/
-$rotationInfoSteps = explode(" ", "5 5 5 4 4 1 6 3 7 5 3 5 5 5 5 3 5 2 3 5 1");
+$rotationInfoSteps = explode(" ", "8 4 4 5 5 5 5 5 5 1 6 7 2 8 8 3 3 3 1");
 $rotationVariables = [];
+$maxCountAfterBuff = 9;
+$currentAfterBuff = 0;
 
 //$workTime = 300 * 10000;
 $time = 0;
@@ -47,28 +41,39 @@ while (TimeTicker::getInstance()->tick()) {
 			break;
 		}
 
-		$toPlayer = Place::getInstance()->getRandomNumPlayerWithBuff(\Buffs\Priest\Atonement::class);
-		if (\Spells\Priest\DC\Schism::isAvailable() && ($nextSpell == "Schism" || $nextSpell == SCHISM)) {
+		$toPlayer = Place::getInstance()->getRandomNumPlayerWithoutBuff(\Buffs\Priest\Atonement::class);
+		if (\Spells\Priest\DC\Schism::isAvailable() && $nextSpell == SCHISM) {
 			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Schism());
 			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\Penance::isAvailable() && ($nextSpell == "Penance" || $nextSpell == PENANCE)) {
+			$currentAfterBuff++;
+		} elseif (\Spells\Priest\DC\Penance::isAvailable() && $nextSpell == PENANCE) {
 			Caster::castSpellToEnemy($damageEnemy, $penance);
 			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\Smite::isAvailable() && ($nextSpell == "Smite" || $nextSpell == SMITE)) {
+			$currentAfterBuff++;
+		} elseif (\Spells\Priest\Smite::isAvailable() && $nextSpell == SMITE) {
 			Caster::castSpellToEnemy($damageEnemy, $smite);
 			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\PowerWordRadiance::isAvailable() && ($nextSpell == "Radiance" || $nextSpell == RADIANCE)) {
+			$currentAfterBuff++;
+		} elseif (\Spells\Priest\DC\PowerWordRadiance::isAvailable() && $nextSpell == RADIANCE) {
 			Caster::castSpellToPlayer($toPlayer, $radiance);
 			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\PowerWordShield::isAvailable() && ($nextSpell == "Shield" || $nextSpell == SHIELD)) {
+			$currentAfterBuff = 0;
+		} elseif (\Spells\Priest\PowerWordShield::isAvailable() && $nextSpell == SHIELD) {
 			Caster::castSpellToPlayer($toPlayer, $shield);
 			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\Mindgames::isAvailable() && ($nextSpell == "Mindgames" || $nextSpell == MINDGAMES)) {
+			$currentAfterBuff = 0;
+		} elseif (\Spells\Priest\DC\Mindgames::isAvailable() && $nextSpell == MINDGAMES) {
 			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Mindgames());
 			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\PowerWordSolace::isAvailable() && ($nextSpell == "Solace" || $nextSpell == SOLACE)) {
+			$currentAfterBuff++;
+		} elseif (\Spells\Priest\DC\PowerWordSolace::isAvailable() && $nextSpell == SOLACE) {
 			Caster::castSpellToEnemy($damageEnemy, $solace);
 			array_shift($rotationInfoSteps);
+			$currentAfterBuff++;
+		} elseif (\Spells\Priest\DC\PurgeWicked::isAvailable() && $nextSpell == PURGE_WICKED) {
+			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
+			array_shift($rotationInfoSteps);
+			$currentAfterBuff++;
 		}
 
 	}
@@ -77,11 +82,6 @@ while (TimeTicker::getInstance()->tick()) {
 
 $totalResult = intval(Place::getTotalHeal());
 echo "total heal: " . $totalResult . "<br>\n";
-
-$saveToDir = "F:/OpenServer/docker/xhprof-php-docker-viewer-master/trases/xhprof/" . time() . ".wowsim.xhprof";
-$xhprof_data = serialize(xhprof_disable());
-file_put_contents($saveToDir, $xhprof_data);
-
 
 exit;
 $saveResult = [
@@ -104,20 +104,15 @@ if (\Spells\Priest\DC\Schism::isAvailable()) {
 if (\Spells\Priest\DC\Penance::isAvailable()) {
 	$rotationVariables[] = PENANCE;
 }
-if (\Spells\Priest\Smite::isAvailable()) {
-	$rotationVariables[] = SMITE;
-}
-if (\Spells\Priest\DC\PowerWordRadiance::isAvailable()) {
-	$rotationVariables[] = RADIANCE;
-}
-if (\Spells\Priest\PowerWordShield::isAvailable()) {
-	$rotationVariables[] = SHIELD;
-}
 if (\Spells\Priest\DC\Mindgames::isAvailable()) {
 	$rotationVariables[] = MINDGAMES;
 }
 if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
 	$rotationVariables[] = SOLACE;
+}
+if (empty($rotationVariables)) {
+	$rotationVariables[] = SMITE;
+	$rotationVariables[] = PURGE_WICKED;
 }
 
 
