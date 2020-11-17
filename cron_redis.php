@@ -19,6 +19,7 @@ function fillWork(Database $db, $insertByStep = 5000) {
 $db = new Database();
 
 $insertByStep = 1000;
+$sleepCounter = 0;
 
 while (true) {
 	fillWork($db);
@@ -26,12 +27,20 @@ while (true) {
 	echo "lost count: " . $countInList;
 	if ($countInList > $insertByStep / 2) {
 		echo " - sleep\n";
+		$sleepCounter++;
+		if ($sleepCounter >= 10) {
+			break;
+		}
 		sleep(5);
 		continue;
 	}
+	$sleepCounter = 0;
 	echo " - add\n";
 
-	$rotationRows = $db->query("select id from priest_dc_work where iterations = 0 order by id desc limit {$insertByStep}")->fetchAll();
+	$rotationRows = $db->query("select id from priest_dc_work order by id desc limit {$insertByStep}")->fetchAll();
+	if (empty($rotationRows)) {
+		continue;
+	}
 
 	foreach ($rotationRows as $row) {
 		RedisManager::getInstance()->sadd(RedisManager::ROTATIONS, $row["id"]);

@@ -86,8 +86,8 @@ class Player extends Unit {
 		return $this;
 	}
 
-	public function healTaken(int $amount) {
-		parent::healTaken($amount);
+	public function healTaken(int $amount, string $spellName, Unit $unit = null) {
+		parent::healTaken($amount, $spellName, $this);
 		Place::registerHeal($amount);
 	}
 

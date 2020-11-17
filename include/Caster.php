@@ -27,7 +27,9 @@ class Caster {
 	}
 
 	public static function applySpellToPlayer(int $toPlayer, Spell $spell) {
-		echo "===========" . TimeTicker::getInstance()->getCombatTimer() . " Cast " . get_class($spell) . " to {$toPlayer}<br>\n";
+		if (Details::$isLog) {
+			echo "===========" . TimeTicker::getInstance()->getCombatTimer() . " Cast " . get_class($spell) . " to {$toPlayer}<br>\n";
+		}
 		$applyToPlayers = [];
 		$applyToNumbers = $spell->getSpellCommonTargets($toPlayer);
 
@@ -38,7 +40,7 @@ class Caster {
 
 		foreach ($applyToPlayers as $player) {
 			/** @var $player Player */
-			$player->healTaken($spell->getHealAmount());
+			$player->healTaken($spell->getHealAmount(), $spell->getName());
 
 			foreach ($spell->applyBuffs() as $applyBuff) {
 				$player = $player->addBuff(clone $applyBuff);
@@ -49,13 +51,15 @@ class Caster {
 
 
 	public static function applySpellToEnemy(int $enemyId, Spell $spell) {
-		echo "===========" . TimeTicker::getInstance()->getCombatTimer() . " Cast " . get_class($spell) . "<br>\n";
+		if (Details::$isLog) {
+			echo "===========" . TimeTicker::getInstance()->getCombatTimer() . " Cast " . get_class($spell) . "<br>\n";
+		}
 		$enemyObj = Place::getInstance()->getEnemy($enemyId);
 		$damageCount = $spell->getDamageAmount();
 		$damageCount = self::applyBuffDamage($enemyObj, $damageCount);
 
 		if ($damageCount > 0) {
-			echo "Damage enemy by {$damageCount}<br>\n";
+			Details::damage($damageCount, $spell->getName());
 			$spell->afterDamage($damageCount);
 		}
 

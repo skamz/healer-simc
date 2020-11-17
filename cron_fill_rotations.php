@@ -23,3 +23,5 @@ while (true) {
 
 	echo "add: " . count($insertValues) . "\n";
 }
+
+

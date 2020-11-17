@@ -16,7 +16,7 @@ function getBuffList() {
 		],
 		"path" => [],
 	];
-	$length = 9;
+	$length = 13;
 
 	$stack = [$firstState];
 
@@ -30,7 +30,6 @@ function getBuffList() {
 			$state = $currentPath;
 			$state["path"][] = $spell;
 			$state["spells"][$spell]--;
-			startRotation(implode(" ", $state["path"]));
 			startRotation("8 " . implode(" ", $state["path"]));
 			echo implode(" ", $state["path"]) . "<br>";
 			if (count($state["path"]) <= $length) {

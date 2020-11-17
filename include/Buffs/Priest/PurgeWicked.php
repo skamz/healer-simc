@@ -19,7 +19,7 @@ class PurgeWicked extends \Debuff {
 		\Events::getInstance()->removeEvent($this->getFadeEventId());
 		$addTime = min($this->duration, $buff->duration * 0.33);
 		$this->setDuration($buff->duration + $addTime);
-		echo "Reapply dot. New duration: " . $this->duration . "<br>";
+		echo "Reapply dot. New duration: " . $this->duration . "<br>\n";
 	}
 
 	public function registerTickEvent() {

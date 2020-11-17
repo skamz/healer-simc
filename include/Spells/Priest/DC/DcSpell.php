@@ -17,7 +17,7 @@ class DcSpell extends \Spell {
 			$buffNum = $checkPlayer->hasBuff(Atonement::class);
 			if (isset($buffNum)) {
 				$healAmount = Atonement::getHealAmount($damageCount);
-				$checkPlayer->healTaken($healAmount);
+				$checkPlayer->healTaken($healAmount, Atonement::class);
 			}
 			\Place::getInstance()->savePlayer($playerNum, $checkPlayer);
 		}

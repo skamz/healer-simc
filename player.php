@@ -1,14 +1,50 @@
 <?php
 
+
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = Player::getInstance()
-	->setInt(977)
-	->setCrit(217)
-	->setHaste(256)
-	->setMatery(263)
-	->setVersatility(98)
+	->setInt(1701)
+	->setCrit(123)
+	->setHaste(886)
+	->setMatery(110)
+	->setVersatility(751)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
+
+global $globalRotation;
+$options = getopt("r:i:c:h:m:v", ["rotation:", "int:", "crit:", "haste:", "mastery:", "versa:"]);
+foreach ($options as $name => $value) {
+	switch ($name) {
+		case "int":
+			$player->setInt($value);
+			break;
+
+		case "crit":
+			$player->setCrit($value);
+			break;
+
+		case "haste":
+			$player->setHaste($value);
+			break;
+
+		case "mastery":
+			$player->setMatery($value);
+			break;
+
+		case "versa":
+			$player->setVersatility($value);
+			break;
+
+		case "rotation":
+			$globalRotation = $value;
+			break;
+	}
+}
+print_r($options);
+if (!empty($options)) {
+	Details::$isLog = false;
+}
+
 Place::getInstance()->savePlayer(Place::ANALYZE_PLAYER, $player);
 
 for ($i = 1; $i < 20; $i++) {

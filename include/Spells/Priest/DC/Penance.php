@@ -22,7 +22,6 @@ class Penance extends DcSpell {
 		$return = 0;
 		for ($i = 0; $i < 3; $i++) {
 			$tick = $this->getTickDamageAmount();
-			echo __CLASS__ . " tick damage {$tick}<br>\n";
 			$return += $tick;
 		}
 		return $return;

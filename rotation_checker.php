@@ -29,17 +29,9 @@ $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 
 $db = new Database();
 $id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
-echo "run rotation: {$id}\n";
 
-$rotationInfo = $db->query("select * from priest_dc_work where iterations = 0 and id = {$id} limit 1 ")->fetchArray();
+$rotationInfo = $db->query("select * from priest_dc_work where id = {$id} limit 1 ")->fetchArray();
 if (empty($rotationInfo)) {
-	echo "priest_dc_work row not found\n";
-	$rotationInfo = $db->query("select * from priest_dc where iterations = 0 and id = {$id} limit 1 ")->fetchArray();
-	if(empty($rotationInfo)){
-		echo "not found in main table too\n";
-	}else{
-		echo "FIND IN main table\n";
-	}
 	exit;
 }
 print_r($rotationInfo);

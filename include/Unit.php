@@ -13,7 +13,9 @@ class Unit {
 	protected $targetType;
 
 	public function addBuff(Buff $buff) {
-		echo TimeTicker::getInstance()->getCombatTimer() . " - Buff " . get_class($buff) . " <span style='background-color: green'>apply</span> to " . $this->getName() . "<br>\n";
+		if (Details::$isLog) {
+			echo TimeTicker::getInstance()->getCombatTimer() . " - Buff " . get_class($buff) . " <span style='background-color: green'>apply</span> to " . $this->getName() . "<br>\n";
+		}
 		$existNumBuff = $this->hasBuff($buff->getName());
 		$buff->unit = $this;
 		if (isset($existNumBuff)) {
@@ -71,16 +73,24 @@ class Unit {
 	}
 
 	public function fadeBuff(int $buffNum) {
-		echo TimeTicker::getInstance()->getCombatTimer() . " Buff " . get_class($this->buffs[$buffNum]) . " <span style='background-color: red'>fade</span> from {$this->getName()}<br>\n";
+		if (Details::$isLog) {
+			echo TimeTicker::getInstance()->getCombatTimer() . " Buff " . get_class($this->buffs[$buffNum]) . " <span style='background-color: red'>fade</span> from {$this->getName()}<br>\n";
+		}
 		/** @var $buff Buff */
-		echo "fade buff num: {$buffNum}<br>\n";
 		$buff = $this->buffs[$buffNum];
 		$buff->applyFade();
 		unset($this->buffs[$buffNum]);
 	}
 
-	public function healTaken(int $amount) {
-		echo TimeTicker::getInstance()->getCombatTimer() . " - " . $this->getName() . " taken heal {$amount}<br>\n";
+	public function healTaken(int $amount, string $spellName, Unit $unit = null) {
+		if (Details::$isLog) {
+
+			if (isset($unit)) {
+				echo $unit->getName() . " ";
+			}
+			echo "taken heal {$amount}<br>\n";
+		}
+		Details::heal($amount, $spellName);
 		$this->health += $amount;
 		$this->health = min($this->health, $this->maxHealth);
 		//echo "Heal unit at {$amount}<br>\n";

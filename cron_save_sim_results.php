@@ -3,12 +3,19 @@
 require_once(__DIR__ . "/autoloader.php");
 
 function savePoll(Database $db, array $poll) {
+	if (empty($poll)) {
+		return;
+	}
 	//$db->query("update priest_dc set total_heal = total_heal + {$totalResult}, iterations = iterations + 1, avg_heal = total_heal / iterations where id ={$rotationInfo["id"]}");
 	$sqlValuesList = [];
 	$removeId = [];
 
 	foreach ($poll as $row) {
-		$sqlValuesList[] = "({$row["id"]}, '{$row["rotation"]}',{$row["heal"]},{$row["heal"]}, 1)";
+		$rotation = trim($row["rotation"]);
+		if (empty($rotation)) {
+			continue;
+		}
+		$sqlValuesList[] = "({$row["id"]}, '{$rotation}',{$row["heal"]},{$row["heal"]}, 1)";
 
 		$sql = "delete from priest_dc_work where id = " . $row["id"] . " limit 1";
 		echo $sql . "\n";
@@ -17,17 +24,19 @@ function savePoll(Database $db, array $poll) {
 		$sql = "delete from priest_dc where id = " . $row["id"] . " limit 1";
 		$db->query($sql);
 	}
-	$sql = "insert into priest_dc_result(id, rotation, total_heal, avg_heal, iterations) values" . implode(", ", $sqlValuesList) . " 
+	if (!empty($sqlValuesList)) {
+		$sql = "insert into priest_dc_result(id, rotation, total_heal, avg_heal, iterations) values" . implode(", ", $sqlValuesList) . " 
 		ON DUPLICATE KEY UPDATE 
 			total_heal=total_heal + VALUES(total_heal), 
 			iterations = iterations + 1, 
 			avg_heal = total_heal / iterations";
-	$db->query($sql)->affectedRows();
-
+		$db->query($sql)->affectedRows();
+	}
 }
 
 $db = new Database();
 $poll = [];
+$sleepCounter = 0;
 while (true) {
 	while (RedisManager::getInstance()->scard(RedisManager::SIM_RESULTS) > 0) {
 		$saveRow = RedisManager::getInstance()->spop(RedisManager::SIM_RESULTS);
@@ -35,7 +44,13 @@ while (true) {
 		if (count($poll) >= 10) {
 			savePoll($db, $poll);
 			$poll = [];
+			$sleepCounter = 0;
 		}
 	}
 	sleep(5);
+	$sleepCounter++;
+	if ($sleepCounter >= 5) {
+		break;
+	}
 }
+savePoll($db, $poll);

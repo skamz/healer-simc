@@ -61,7 +61,10 @@ class SpellState {
 	}
 
 	public function startCastingSpell(string $castToType, int $castToNum, Spell $spell) {
-		echo TimeTicker::getInstance()->getCombatTimer() . ": Start cast " . $spell->getName() . "<br>\n";
+		if(Details::$isLog){
+			echo TimeTicker::getInstance()->getCombatTimer() . ": Start cast " . $spell->getName() . "<br>\n";
+		}
+
 		$this->casting = [
 			"cast_type" => $castToType,
 			"cast_to_num" => $castToNum,
