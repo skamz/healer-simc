@@ -35,6 +35,40 @@ class Details {
 		return $return;
 	}
 
+	public static function getSummaryHeal() {
+		$total = self::getTotalHeal();
+		return array_sum($total);
+	}
+
+	public static function getHealBySeconds() {
+		$secondsHeal = [];
+		foreach (self::$heal as $iteration => $info) {
+			$second = floor($iteration * TimeTicker::TICK_COUNT);
+			$secondsHeal[$second] += array_sum($info);
+		}
+		return $secondsHeal;
+	}
+
+	public static function getMedianByPeriod($period = 8) {
+		$secondsHeal = self::getHealBySeconds();
+		if (empty($secondsHeal)) {
+			return 0;
+		}
+
+		$startPeriods = [];
+		$maxSecond = max(array_keys($secondsHeal));
+		for ($i = 0; $i <= max(0, $maxSecond - $period); $i++) {
+			$periodSeconds = self::getSecondsSlice($secondsHeal, $i, $i + $period);
+			$periodMedian = Helper::getMedian($periodSeconds);
+			foreach ($periodSeconds as $healAmount) {
+				$startPeriods[$i] += min($healAmount, $periodMedian);
+			}
+			$startPeriods[$i] = intval($startPeriods[$i] / $period);
+		}
+
+		return max($startPeriods);
+	}
+
 	public static function printTimeHeal() {
 		if (!self::$isLog) return;
 		$pushData = [];
@@ -147,6 +181,56 @@ function drawDamage() {
       chart.draw(data, options);
     }
 </script>';
+	}
+
+	public static function analyzePeakByMedian() {
+		$secondsHeal = self::getHealBySeconds();
+		if (empty($secondsHeal)) {
+			return true;
+		}
+		$isFindPeakSecond = false;
+		$maxSecond = max(array_keys($secondsHeal));
+		for ($i = 3; $i < $maxSecond; $i++) {
+			$slice = self::getSecondsSlice($secondsHeal, 0, $i);
+			$sliceMedian = Helper::getMedian($slice);
+			if ($secondsHeal[$i + 1] > $sliceMedian * 4) {
+				$isFindPeakSecond = $i + 1;
+				echo ($i + 1) . " second is PEAK<br>\n";
+				if (self::analyzeAfterPeak($secondsHeal, $i + 1) === false) {
+					echo "Bad branch, analyzeAfterPeak<br>\n";
+					return false;
+				}
+			}
+		}
+		if ($maxSecond >= 10 && $isFindPeakSecond === false) {
+			echo "Bad branch, no peak<br>\n";
+			return false;
+		}
+		return true;
+	}
+
+	protected static function getSecondsSlice(array $secondsHeal, int $from, int $to): array {
+		$return = [];
+		for ($i = $from; $i < $to; $i++) {
+			$return[$i] = $secondsHeal[$i] ?? 0;
+		}
+		return $return;
+	}
+
+	protected static function analyzeAfterPeak(array $secondsHeal, $peakSecond) {
+		$maxSecond = max(array_keys($secondsHeal));
+		if ($peakSecond + 4 > $maxSecond) {
+			return true;
+		}
+		$sliceBeforePeak = self::getSecondsSlice($secondsHeal, 0, $peakSecond - 1);
+		$sliceAfterPeak = self::getSecondsSlice($secondsHeal, $peakSecond + 1, $peakSecond + 5);
+
+		$medianAfterPeak = Helper::getMedian($sliceAfterPeak);
+		$medianBeforePeak = Helper::getMedian($sliceBeforePeak);
+		if ($medianAfterPeak < $medianBeforePeak * 2) {
+			return false;
+		}
+		return true;
 	}
 
 }

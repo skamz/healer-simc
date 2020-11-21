@@ -17,7 +17,7 @@ const PURGE_WICKED = 8;
 $player = include(__DIR__ . "/player.php");
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 
-$workTime = 30;
+$workTime = 20;
 TimeTicker::getInstance()->getTotalWorkTime($workTime);
 
 $shield = new  \Spells\Priest\PowerWordShield();
@@ -39,7 +39,11 @@ $rotationInfoSteps = explode(" ", $rotationInfo["rotation"]);
 $rotationVariables = [];
 $maxCountAfterBuff = 10;
 $currentAfterBuff = 0;
+$buffCounter = 0;
 $lastPurgeCast = 0;
+$isEmptyBranch = false;
+
+$secondsHeal = [];
 
 //$workTime = 300 * 10000;
 $time = 0;
@@ -53,20 +57,29 @@ while (TimeTicker::getInstance()->tick()) {
 		if ($currentAfterBuff >= $maxCountAfterBuff) {
 			break;
 		}
+		$secondNum = floor(TimeTicker::getInstance()->getCombatTimer());
+		$secondsHeal[$secondNum] = intval(Place::getTotalHeal());
+		if ($secondNum >= 4 && empty($secondsHeal[$secondNum])) {
+			$isEmptyBranch = true;
+			break;
+		}
 
 		$toPlayer = Place::getInstance()->getRandomNumPlayerWithoutBuff(Atonement::class);
 		if (\Spells\Priest\DC\Schism::isAvailable() && $nextSpell == SCHISM) {
 			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Schism());
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+			$buffCounter = 0;
 		} elseif (\Spells\Priest\DC\Penance::isAvailable() && $nextSpell == PENANCE) {
 			Caster::castSpellToEnemy($damageEnemy, $penance);
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+			$buffCounter = 0;
 		} elseif (\Spells\Priest\Smite::isAvailable() && $nextSpell == SMITE) {
 			Caster::castSpellToEnemy($damageEnemy, $smite);
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+			$buffCounter = 0;
 		} elseif (\Spells\Priest\DC\PowerWordRadiance::isAvailable() && $nextSpell == RADIANCE) {
 			Caster::castSpellToPlayer($toPlayer, $radiance);
 			array_shift($rotationInfoSteps);
@@ -75,18 +88,22 @@ while (TimeTicker::getInstance()->tick()) {
 			Caster::castSpellToPlayer($toPlayer, $shield);
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff = 0;
+			$buffCounter++;
 		} elseif (\Spells\Priest\DC\Mindgames::isAvailable() && $nextSpell == MINDGAMES) {
 			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Mindgames());
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+			$buffCounter = 0;
 		} elseif (\Spells\Priest\DC\PowerWordSolace::isAvailable() && $nextSpell == SOLACE) {
 			Caster::castSpellToEnemy($damageEnemy, $solace);
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+			$buffCounter = 0;
 		} elseif (\Spells\Priest\DC\PurgeWicked::isAvailable() && $nextSpell == PURGE_WICKED) {
 			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+			$buffCounter = 0;
 			$lastPurgeCast = TimeTicker::getInstance()->getCombatTimer();
 		}
 
@@ -96,10 +113,12 @@ while (TimeTicker::getInstance()->tick()) {
 
 $totalResult = intval(Place::getTotalHeal());
 echo "total heal: " . $totalResult . "<br>\n";
+$maxPeriodHeal = Details::getMedianByPeriod();
+echo "max median period: " . $maxPeriodHeal . "<br>\n";
 
 $saveResult = [
 	"id" => $rotationInfo["id"],
-	"heal" => $totalResult,
+	"heal" => $maxPeriodHeal,
 	"rotation" => $rotationInfo["rotation"],
 ];
 RedisManager::getInstance()->sadd(RedisManager::SIM_RESULTS, json_encode($saveResult));
@@ -107,7 +126,7 @@ RedisManager::getInstance()->sadd(RedisManager::SIM_RESULTS, json_encode($saveRe
 
 RedisManager::getInstance()->incr("sim_done");
 
-if (TimeTicker::getInstance()->getCombatTimer() >= $workTime || $currentAfterBuff >= $maxCountAfterBuff) {
+if (Details::analyzePeakByMedian() === false || $isEmptyBranch || TimeTicker::getInstance()->getCombatTimer() >= $workTime || $currentAfterBuff >= $maxCountAfterBuff) {
 	exit;
 }
 
@@ -123,6 +142,13 @@ if (\Spells\Priest\DC\Mindgames::isAvailable()) {
 if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
 	$rotationVariables[] = SOLACE;
 }
+if (\Spells\Priest\DC\PowerWordRadiance::isAvailable()) {
+	$rotationVariables[] = RADIANCE;
+}
+if ($buffCounter < 7) {
+	$rotationVariables[] = SHIELD;
+}
+
 if (empty($rotationVariables)) {
 	$rotationVariables[] = SMITE;
 	if (TimeTicker::getInstance()->getCombatTimer() - $lastPurgeCast > 10) {

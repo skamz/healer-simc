@@ -11,4 +11,20 @@ class Helper {
 		return false;
 	}
 
+	public static function getMedian(array $arr) {
+		if (empty($arr)) {
+			return false;
+		}
+		sort($arr);
+		$num = count($arr);
+		$middleVal = floor(($num - 1) / 2);
+		if ($num % 2) {
+			return $arr[$middleVal];
+		} else {
+			$lowMid = $arr[$middleVal];
+			$highMid = $arr[$middleVal + 1];
+			return (($lowMid + $highMid) / 2);
+		}
+	}
+
 }

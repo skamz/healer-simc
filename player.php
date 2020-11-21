@@ -40,7 +40,7 @@ foreach ($options as $name => $value) {
 			break;
 	}
 }
-print_r($options);
+
 if (!empty($options)) {
 	Details::$isLog = false;
 }

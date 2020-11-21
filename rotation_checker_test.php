@@ -27,7 +27,12 @@ $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 
 global $globalRotation;
 
-$rotationInfoSteps = explode(" ", $globalRotation);
+if (empty($_GET["r"])) {
+	$_GET["r"] = "8 5 7 4 5 4 5 1 5 5 5 5 5 2 6 5 5 5 5 7";
+}
+$rotationInfoSteps = explode(" ", $_GET["r"]);
+
+echo "Rotation: " . $_GET["r"] . "<br>\n";
 $rotationVariables = [];
 $maxCountAfterBuff = 9;
 $currentAfterBuff = 0;
@@ -39,6 +44,13 @@ while (TimeTicker::getInstance()->tick()) {
 		if (!empty($rotationInfoSteps)) {
 			$nextSpell = current($rotationInfoSteps);
 		} else {
+			break;
+		}
+		$secondNum = floor(TimeTicker::getInstance()->getCombatTimer());
+		$secondsHeal[$secondNum] = intval(Place::getTotalHeal());
+		if ($secondNum >= 4 && empty($secondsHeal[$secondNum])) {
+			echo "isEmptyBranch<br>";
+			$isEmptyBranch = true;
 			break;
 		}
 
@@ -83,10 +95,12 @@ while (TimeTicker::getInstance()->tick()) {
 
 $totalResult = intval(Place::getTotalHeal());
 echo "total heal: " . $totalResult . "<br>\n";
-
+echo "summary heal: " . Details::getSummaryHeal() . "<br>\n";
 
 Details::printDamage();
 Details::printHeal();
+echo "max median period: " . Details::getMedianByPeriod() . "<br>\n";
+Details::analyzePeakByMedian();
 
 
 exit;
