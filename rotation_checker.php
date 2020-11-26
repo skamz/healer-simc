@@ -27,7 +27,7 @@ $radiance = new \Spells\Priest\DC\PowerWordRadiance();
 $solace = new \Spells\Priest\DC\PowerWordSolace();
 $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 
-$db = new Database();
+$db = Database::getInstance();
 $id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
 
 $rotationInfo = $db->query("select * from priest_dc_work where id = {$id} limit 1 ")->fetchArray();
@@ -145,15 +145,15 @@ if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
 if (\Spells\Priest\DC\PowerWordRadiance::isAvailable()) {
 	$rotationVariables[] = RADIANCE;
 }
-if ($buffCounter < 7) {
-	$rotationVariables[] = SHIELD;
-}
 
 if (empty($rotationVariables)) {
 	$rotationVariables[] = SMITE;
 	if (TimeTicker::getInstance()->getCombatTimer() - $lastPurgeCast > 10) {
 		$rotationVariables[] = PURGE_WICKED;
 	}
+}
+if ($buffCounter < 7) {
+	$rotationVariables[] = SHIELD;
 }
 
 $insertValues = [];

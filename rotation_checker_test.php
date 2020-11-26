@@ -28,7 +28,7 @@ $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 global $globalRotation;
 
 if (empty($_GET["r"])) {
-	$_GET["r"] = "8 5 7 4 5 4 5 1 5 5 5 5 5 2 6 5 5 5 5 7";
+	$_GET["r"] = "8 5 5 7 5 1 5 5 5 5 5 5 5 2 4 5 4 5 5 7 6 5";
 }
 $rotationInfoSteps = explode(" ", $_GET["r"]);
 

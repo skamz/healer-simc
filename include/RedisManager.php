@@ -6,6 +6,7 @@ class RedisManager {
 	const ROTATIONS = "rotations";
 	const SIM_RESULTS = "sim_results";
 	const FUTURE_ROTATION = "future_rotation";
+	const AVG_RESULT = "avg_result";
 
 	use \Traits\Singleton;
 
@@ -34,6 +35,18 @@ class RedisManager {
 
 	public function incr($key) {
 		$this->redis->incr($key);
+	}
+
+	public function get($key) {
+		return $this->redis->get($key);
+	}
+
+	public function set($key, $value) {
+		return $this->redis->set($key, $value);
+	}
+
+	public function del($key) {
+		return $this->redis->del($key);
 	}
 
 }

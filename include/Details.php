@@ -49,7 +49,7 @@ class Details {
 		return $secondsHeal;
 	}
 
-	public static function getMedianByPeriod($period = 8) {
+	public static function getMedianByPeriod($period = 10) {
 		$secondsHeal = self::getHealBySeconds();
 		if (empty($secondsHeal)) {
 			return 0;
@@ -193,6 +193,10 @@ function drawDamage() {
 		for ($i = 3; $i < $maxSecond; $i++) {
 			$slice = self::getSecondsSlice($secondsHeal, 0, $i);
 			$sliceMedian = Helper::getMedian($slice);
+			if (empty($sliceMedian)) {
+				echo "Bad branch, start fail<br>\n";
+				return false;
+			}
 			if ($secondsHeal[$i + 1] > $sliceMedian * 4) {
 				$isFindPeakSecond = $i + 1;
 				echo ($i + 1) . " second is PEAK<br>\n";
@@ -202,12 +206,36 @@ function drawDamage() {
 				}
 			}
 		}
-		if ($maxSecond >= 10 && $isFindPeakSecond === false) {
-			echo "Bad branch, no peak<br>\n";
-			return false;
+		if ($maxSecond >= 10) {
+			if ($isFindPeakSecond === false) {
+				echo "Bad branch, no peak<br>\n";
+				return false;
+			}
+			/*$maxPeriodHeal = self::getMedianByPeriod(4);
+			$avgResult = self::getAvgResult();
+			if ($maxPeriodHeal > 0 and $avgResult > $maxPeriodHeal) {
+				echo "Avg more what 10 seconds<br>\n";
+				return false;
+			}*/
 		}
 		return true;
 	}
+
+	public static function getAvgResult() {
+		$avgCache = RedisManager::getInstance()->get(RedisManager::AVG_RESULT);
+		if (empty($avgCache)) {
+			$db = Database::getInstance();
+			$avgInfo = $db->query("select avg(avg_heal) as aheal, count(*) as cnt from priest_dc_result where iterations > 0")->fetchArray();
+			if ($avgInfo["cnt"] < 500) {
+				return false;
+			}
+			$avgCache = $avgInfo["aheal"];
+			RedisManager::getInstance()->set(RedisManager::AVG_RESULT, $avgCache);
+		}
+		return $avgCache;
+
+	}
+
 
 	protected static function getSecondsSlice(array $secondsHeal, int $from, int $to): array {
 		$return = [];

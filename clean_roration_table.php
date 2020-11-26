@@ -9,7 +9,7 @@ do {
 
 	print_r($avgInfo);
 	if ($avgInfo["cnt"] >= 2000) {
-		$sql = "select id from priest_dc_result where iterations > 0 and avg_heal > 0 and avg_heal < " . intval($avgInfo["aheal"]) . " limit 5000";
+		$sql = "select id from priest_dc_result where iterations > 0 and avg_heal < " . intval($avgInfo["aheal"]) . " limit 5000";
 		echo $sql . "\n";
 		$idsRows = $db->query($sql)->fetchAll();
 		$ids = array_column($idsRows, "id");
@@ -19,6 +19,7 @@ do {
 			$sql = "delete from priest_dc_result where id in (" . implode(",", $part) . ")";
 			$db->query($sql);
 		}
+		RedisManager::getInstance()->del(RedisManager::AVG_RESULT);
 
 	} else {
 		break;

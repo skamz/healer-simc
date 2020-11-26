@@ -7,6 +7,8 @@
 
 class Database {
 
+	use \Traits\Singleton;
+
 	protected $connection;
 	protected $query;
 	protected $show_errors = true;
