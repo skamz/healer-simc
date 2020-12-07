@@ -30,6 +30,10 @@ class Place {
 		return $this->players[self::ANALYZE_PLAYER];
 	}
 
+	public function getAllPlayers() {
+		return $this->players;
+	}
+
 	public function addPlayer(Player $player): self {
 		$this->players[] = $player;
 		return $this;

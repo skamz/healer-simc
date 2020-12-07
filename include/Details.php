@@ -49,6 +49,19 @@ class Details {
 		return $secondsHeal;
 	}
 
+	public static function getHealFromSpell($spellName) {
+		$baseSpellName = basename($spellName);
+		$return = 0;
+		foreach (self::$heal as $iteration => $info) {
+			foreach ($info as $spell => $amount) {
+				if ($spell == $baseSpellName) {
+					$return += $amount;
+				}
+			}
+		}
+		return $return;
+	}
+
 	public static function getMedianByPeriod($period = 10) {
 		$secondsHeal = self::getHealBySeconds();
 		if (empty($secondsHeal)) {

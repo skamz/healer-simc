@@ -18,7 +18,7 @@ class PowerWordShield extends DcSpell {
 
 	public function getHealAmount() {
 		// add mastery if has Atonement
-		$return = \Player::getInstance()->getInt() * 1.8;
+		$return = \Player::getInstance()->getInt() * 1.65;
 		return $this->applySecondary($return);
 	}
 

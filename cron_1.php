@@ -12,10 +12,10 @@ while (true) {
 	$out = [];
 	exec($command, $out);
 	if (RedisManager::getInstance()->scard(RedisManager::ROTATIONS) < 1) {
-		if ($emptyIteration++ > 10) {
+		if ($emptyIteration++ > 100) {
 			break;
 		}
-		sleep(5);
+		sleep(1);
 		continue;
 	}
 	$emptyIteration = 0;

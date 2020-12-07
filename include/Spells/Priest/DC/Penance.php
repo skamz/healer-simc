@@ -28,7 +28,7 @@ class Penance extends DcSpell {
 	}
 
 	protected function getTickDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.4;
+		$return = \Player::getInstance()->getInt() * 0.376;
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;

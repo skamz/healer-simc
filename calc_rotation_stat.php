@@ -21,13 +21,15 @@ function getAverageHeal($cmd, $iterationCount) {
 	$steps = [];
 
 	$prev = false;
-	$iteration = -100;
+	$totalIterations = 0;
+	$iteration = -5000;
 	do {
+		$totalIterations++;
 		$healAmount = getCommandResult($cmd);
 		if ($healAmount !== false) {
 			$steps[] = $healAmount;
 		}
-		if ($iteration++ > 100) {
+		if ($iteration++ > 500) {
 			if ($prev === false) {
 				$prev = round(array_sum($steps) / count($steps));
 				$iteration = 0;
@@ -50,6 +52,7 @@ function getAverageHeal($cmd, $iterationCount) {
 			}
 		}
 	} while (true);
+	echo "Total done iterations: {$totalIterations}\n";
 	return array_sum($steps) / count($steps);
 }
 

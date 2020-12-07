@@ -13,7 +13,7 @@ class Schism extends DcSpell {
 	protected bool $isTriggeredAtonement = true;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 1.5;
+		$return = \Player::getInstance()->getInt() * 1.41;
 		return $this->applySecondary($return);
 	}
 

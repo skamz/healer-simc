@@ -4,21 +4,17 @@
 namespace Spells\Priest\DC;
 
 
-class PowerWordSolace extends DcSpell {
+class ShadowWordPainDot extends DcSpell {
 
+	protected float $cd = 0;
+	protected float $gcd = 0;
 	protected bool $isTriggeredAtonement = true;
-	protected float $gcd = 1.5;
-	protected bool $hasteIsReduceGCd = true;
-	protected float $cd = 15;
-	protected bool $hasteIsReduceCd = true;
-	protected float $travelTime = 0.5;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.752;
+		$return = \Player::getInstance()->getInt() * 0.09591816562 * $this->damageModifier;
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
-
 
 }

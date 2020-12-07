@@ -7,11 +7,7 @@ namespace Spells\Priest\DC;
 use Buffs\Priest\PowerDarkSide;
 use Buffs\RealPPM;
 
-/**
- * Class PurgeWicked Очищение зла https://www.wowhead.com/spell=204197/purge-the-wicked
- * @package Spells\Priest\DC
- */
-class PurgeWicked extends DcSpell {
+class ShadowWordPain extends DcSpell {
 
 	protected float $manaPercentCost = 1.8;
 	protected float $gcd = 1.5;
@@ -26,7 +22,7 @@ class PurgeWicked extends DcSpell {
 
 	public function applyBuffs(): array {
 		return [
-			new \Buffs\Priest\PurgeWicked(),
+			new \Buffs\Priest\ShadowWordPain(),
 		];
 	}
 

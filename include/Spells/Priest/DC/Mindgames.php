@@ -17,7 +17,7 @@ class Mindgames extends DcSpell {
 	protected float $cd = 45;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 3;
+		$return = \Player::getInstance()->getInt() * 2.900207755;
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;

@@ -21,5 +21,17 @@ class BaseRotation {
 		return $this;
 	}
 
+	/**
+	 * Известен ли спел (талант)
+	 * @param $spellName
+	 * @return bool
+	 */
+	public function isKnowSpell($spellName) {
+		if (isset($this->spellBook[$spellName])) {
+			return true;
+		}
+		return false;
+	}
+
 
 }

@@ -10,9 +10,23 @@ const SHIELD = 5;
 const MINDGAMES = 6;
 const SOLACE = 7;
 const PURGE_WICKED = 8;
+const MIND_BLAST = 9;
 
 
 $player = include(__DIR__ . "/player.php");
+Player::getInstance()->setInt(1277)
+	->setCrit(327)
+	->setHaste(408)
+	->setVersatility(229)
+	->setMatery(432);
+/*
+Player::getInstance()->setInt(733)
+	->setCrit(239)
+	->setHaste(298)
+	->setVersatility(0)
+	->setMatery(393);
+*/
+echo "hast percent: " . Player::getInstance()->getStatCalculator()->getHastePercent() . "<br>";
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 
 $workTime = 30;
@@ -24,35 +38,45 @@ $smite = new \Spells\Priest\Smite();
 $radiance = new \Spells\Priest\DC\PowerWordRadiance();
 $solace = new \Spells\Priest\DC\PowerWordSolace();
 $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
+$mindBlast = new \Spells\Priest\DC\MindBlast();
 
 global $globalRotation;
 
 if (empty($_GET["r"])) {
-	$_GET["r"] = "8 5 5 7 5 1 5 5 5 5 5 5 5 2 4 5 4 5 5 7 6 5";
+	$_GET["r"] = "1 1 1 8 5 5 5 5 5 5 4 4 2 6 1 7 3 3 3 3 3 3 3 1 3 7";
 }
+$wasMoreAtonement = false;
 $rotationInfoSteps = explode(" ", $_GET["r"]);
 
 echo "Rotation: " . $_GET["r"] . "<br>\n";
 $rotationVariables = [];
 $maxCountAfterBuff = 9;
 $currentAfterBuff = 0;
+$preventEnd = false;
+
+$rotationsGenerator = new \Rotations\Priest\DC1();
 
 //$workTime = 300 * 10000;
 $time = 0;
 while (TimeTicker::getInstance()->tick()) {
 	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
+		$atonementCount = Helper::getCountPlayersWithBuff(\Buffs\Priest\Atonement::class);
+		if ($atonementCount >= 10) {
+			$wasMoreAtonement = true;
+		}
+		if ($wasMoreAtonement && $atonementCount <= 4) {
+			echo "atonementCount={$atonementCount}. Break";
+			$preventEnd = true;
+			break;
+		}
+		echo "Next by gen: " . $rotationsGenerator->execute() . "<br>";
+
 		if (!empty($rotationInfoSteps)) {
 			$nextSpell = current($rotationInfoSteps);
 		} else {
 			break;
 		}
-		$secondNum = floor(TimeTicker::getInstance()->getCombatTimer());
-		$secondsHeal[$secondNum] = intval(Place::getTotalHeal());
-		if ($secondNum >= 4 && empty($secondsHeal[$secondNum])) {
-			echo "isEmptyBranch<br>";
-			$isEmptyBranch = true;
-			break;
-		}
+
 
 		$toPlayer = Place::getInstance()->getRandomNumPlayerWithoutBuff(\Buffs\Priest\Atonement::class);
 		if (\Spells\Priest\DC\Schism::isAvailable() && $nextSpell == SCHISM) {
@@ -87,6 +111,9 @@ while (TimeTicker::getInstance()->tick()) {
 			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
 			array_shift($rotationInfoSteps);
 			$currentAfterBuff++;
+		} elseif (\Spells\Priest\DC\MindBlast::isAvailable() && $nextSpell == MIND_BLAST) {
+			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
+			array_shift($rotationInfoSteps);
 		}
 
 	}
@@ -99,9 +126,18 @@ echo "summary heal: " . Details::getSummaryHeal() . "<br>\n";
 
 Details::printDamage();
 Details::printHeal();
+echo "Atonement heal: " . Details::getHealFromSpell(\Buffs\Priest\Atonement::class) . "<br>\n";
 echo "max median period: " . Details::getMedianByPeriod() . "<br>\n";
 Details::analyzePeakByMedian();
 
+if($preventEnd){
+	exit("GG");
+}
+
+$rotationsGenerator = new \Rotations\Priest\DC1();
+$nextSpellName = $rotationsGenerator->execute();
+$nextSpellNum = $rotationsGenerator->getSpellNum($nextSpellName);
+echo "Next spell {$nextSpellName} ({$nextSpellNum})\n";
 
 exit;
 $saveResult = [

@@ -18,7 +18,7 @@ function fillWork(Database $db, $insertByStep = 5000) {
 
 $db = new Database();
 
-$insertByStep = 1000;
+$insertByStep = 50;
 $sleepCounter = 0;
 
 while (true) {
@@ -28,10 +28,10 @@ while (true) {
 	if ($countInList > $insertByStep / 2) {
 		echo " - sleep\n";
 		$sleepCounter++;
-		if ($sleepCounter >= 10) {
+		if ($sleepCounter >= 100) {
 			break;
 		}
-		sleep(5);
+		sleep(1);
 		continue;
 	}
 	$sleepCounter = 0;

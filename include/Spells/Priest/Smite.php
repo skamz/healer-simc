@@ -22,7 +22,7 @@ class Smite extends DcSpell {
 	protected bool $hasteIsReduceCd = true;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.47 * 1.5 * 0.75; // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)
+		$return = \Player::getInstance()->getInt() * 0.44125 * 1.5 * 0.75; // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;

@@ -2,16 +2,15 @@
 
 require_once(dirname(__DIR__, 2) . "/autoloader.php");
 
-$db = new Database();
 function startRotation($rotation) {
-	global $db;
-	$db->query("insert into priest_dc set rotation='{$rotation}'");
+	echo "add: " . $rotation . "<br>\n";
+	Database::getInstance()->query("insert into priest_dc set rotation='{$rotation}'");
 }
 
 function getBuffList() {
 	$firstState = [
 		"spells" => [
-			4 => 2,
+			4 => 0,
 			5 => 99
 		],
 		"path" => [],
@@ -30,8 +29,7 @@ function getBuffList() {
 			$state = $currentPath;
 			$state["path"][] = $spell;
 			$state["spells"][$spell]--;
-			startRotation("8 " . implode(" ", $state["path"]));
-			echo implode(" ", $state["path"]) . "<br>";
+			startRotation(implode(" ", $state["path"]) . " 4 4");
 			if (count($state["path"]) <= $length) {
 				array_push($stack, $state);
 			}
