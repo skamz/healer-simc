@@ -3,11 +3,11 @@
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = Player::getInstance()
-	->setInt(1277)
-	->setCrit(327)
-	->setHaste(408)
-	->setMatery(432)
-	->setVersatility(229)
+	->setInt(1426)
+	->setCrit(547)
+	->setHaste(374)
+	->setMatery(512)
+	->setVersatility(364)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 

@@ -4,7 +4,7 @@ require_once(dirname(__DIR__, 2) . "/autoloader.php");
 
 function startRotation($rotation) {
 	echo "add: " . $rotation . "<br>\n";
-	Database::getInstance()->query("insert into priest_dc set rotation='{$rotation}'");
+	Database::getInstance()->query("insert into priest_dc set rotation='8 {$rotation}'");
 }
 
 function getBuffList() {

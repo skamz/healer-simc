@@ -20,6 +20,9 @@ $radiance = new \Spells\Priest\DC\PowerWordRadiance();
 $solace = new \Spells\Priest\DC\PowerWordSolace();
 $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 $mindBlast = new \Spells\Priest\DC\MindBlast();
+$mindbender = new \Spells\Priest\DC\Mindbender();
+$halo = new \Spells\Priest\DC\Halo();
+
 
 $db = Database::getInstance();
 $id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
@@ -46,7 +49,7 @@ $preventEnd = false;
 $time = 0;
 while (TimeTicker::getInstance()->tick()) {
 	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
-		echo "Next step: {$nextSpell}; lost step: " . implode(" ", $rotationInfoSteps) . " \n";
+		//echo "Next step: {$nextSpell}; lost step: " . implode(" ", $rotationInfoSteps) . " \n";
 		if (!empty($rotationInfoSteps)) {
 			$nextSpell = current($rotationInfoSteps);
 		} else {
@@ -108,6 +111,15 @@ while (TimeTicker::getInstance()->tick()) {
 			$lastPurgeCast = TimeTicker::getInstance()->getCombatTimer();
 		} elseif (\Spells\Priest\DC\MindBlast::isAvailable() && $nextSpell == DC1::MIND_BLAST) {
 			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
+			array_shift($rotationInfoSteps);
+		} elseif (\Spells\Priest\DC\Halo::isAvailable() && $nextSpell == DC1::HALO) {
+			Caster::castSpellToEnemy($damageEnemy, $halo);
+			array_shift($rotationInfoSteps);
+		} elseif ($nextSpell == DC1::SHADOW_PAIN) {
+			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
+			array_shift($rotationInfoSteps);
+		} elseif (\Spells\Priest\DC\Mindbender::isAvailable() && $nextSpell == DC1::MINDBENDER) {
+			Caster::castSpellToEnemy($damageEnemy, $mindbender);
 			array_shift($rotationInfoSteps);
 		}
 

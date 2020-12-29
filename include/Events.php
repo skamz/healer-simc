@@ -32,14 +32,28 @@ class Events {
 		unset($this->events[$iteration]);
 	}
 
-	public function removeEvent($eventId){
+	public function removeEvent($eventId) {
 		[$iterationStep, $eventNum] = explode("_", $eventId, 2);
 		if (isset($this->events[$iterationStep][$eventNum])) {
 			unset($this->events[$iterationStep][$eventNum]);
 		}
 	}
 
-	public function moveBuffFade($eventId): ?string {
+	public function prolongBuffByName(string $buffName, int $addSteps) {
+		$players = Place::getInstance()->getAllPlayers();
+		/** @var Player $player */
+		foreach ($players as $player) {
+			/** @var Buff $buff */
+			foreach ($player->getBuffs() as $buff){
+				if ($buff->getName() == $buffName) {
+					$this->moveBuffFade($buff->getFadeEventId(), $addSteps);
+				}
+			}
+		}
+	}
+
+
+	public function moveBuffFade($eventId, int $addSteps): ?string {
 		[$iterationStep, $eventNum] = explode("_", $eventId, 2);
 		if (isset($this->events[$iterationStep][$eventNum])) {
 			/** @var \Events\Event $event */
@@ -50,7 +64,8 @@ class Events {
 			[$buffNum] = $event->getArgs();
 			$buff = $unit->getBuffByNum($buffNum);
 			$iterationEnd = $buff->getIterationEnd();
-			return $this->registerEvent($iterationEnd, $event);
+
+			return $this->registerEvent($iterationEnd + $addSteps, $event);
 		}
 		return null;
 	}

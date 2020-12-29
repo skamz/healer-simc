@@ -184,6 +184,9 @@ class Spell {
 	public function afterDamage(int $damageCount) {
 	}
 
+	public function afterHeal(int $healCount) {
+	}
+
 	public function getTargetCount(): ?int {
 		return $this->targetCount;
 	}

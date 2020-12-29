@@ -125,7 +125,7 @@ class Database {
 
 	public function error($error) {
 		if ($this->show_errors) {
-			exit($error);
+			throw new Exception($error);
 		}
 	}
 

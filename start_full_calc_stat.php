@@ -1,11 +1,10 @@
 <?php
 
 
-
 require_once(__DIR__ . "/autoloader.php");
 $player = include(__DIR__ . "/player.php");
 
-const INC_AMOUNT = 100;
+const INC_AMOUNT = 150;
 
 function renameResultTable($resultType) {
 	$sql = "rename table priest_dc_result to priest_dc_result_{$resultType}";
@@ -116,17 +115,31 @@ function printBestRotations(array $statInfo) {
 	}
 }
 
-// drop tables
-$dropTables = [
-	"priest_dc_result",
-	"priest_dc_result_base",
-	"priest_dc_result_int",
-	"priest_dc_result_crit",
-	"priest_dc_result_haste",
-	"priest_dc_result_mastery",
-	"priest_dc_result_versa",
-];
-/*
+function dropTables() {
+	// drop tables
+	$dropTables = [
+		"priest_dc_result",
+		"priest_dc_result_base",
+		"priest_dc_result_int",
+		"priest_dc_result_crit",
+		"priest_dc_result_haste",
+		"priest_dc_result_mastery",
+		"priest_dc_result_versa",
+	];
+	foreach ($dropTables as $dropTable) {
+		try {
+			$sql = "drop table {$dropTable}";
+			Database::getInstance()->query($sql);
+		} catch (Exception $e) {
+		}
+	}
+}
+
+echo "Drop old tables\n";
+dropTables();
+
+
+echo "\n\n =================== Start calc BASE ===================\n";
 createResultTable();
 Helper::fillStartRotations();
 waitCalculation();
@@ -171,6 +184,6 @@ RedisManager::getInstance()->set(RedisManager::STAT_VERSA, Player::getInstance()
 Helper::fillStartRotations();
 waitCalculation();
 renameResultTable("versa");
-*/
+
 
 getBaseRotations();

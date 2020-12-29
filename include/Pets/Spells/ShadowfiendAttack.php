@@ -8,6 +8,7 @@ use Spells\Priest\DC\DcSpell;
 
 class ShadowfiendAttack extends DcSpell {
 
+	protected bool $isTriggeredAtonement = true;
 	protected float $cd = 1.5;
 	protected bool $hasteIsReduceCd = true;
 

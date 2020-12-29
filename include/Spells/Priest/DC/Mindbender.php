@@ -4,16 +4,20 @@
 namespace Spells\Priest\DC;
 
 
+use Buffs\Priest\Atonement;
+
 class Mindbender extends DcSpell {
 
-	// cd=1.65
+	const PROLONG_BY_LEG = 3;
 
-	protected bool $isTriggeredAtonement = true;
-
-	public function getTickDamage() {
-		$return = \Player::getInstance()->getInt() * 0.32589;
-		return \Spell::applySecondary($return);
+	public function getDamageAmount() {
+		$this->summonPet();
+		\Events::getInstance()->prolongBuffByName(Atonement::class, intval(self::PROLONG_BY_LEG / \TimeTicker::TICK_COUNT));
+		return 0;
 	}
 
+	protected function summonPet() {
+		\Place::getInstance()->addPet(new \Pets\Mindbender());
+	}
 
 }

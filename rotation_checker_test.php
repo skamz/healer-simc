@@ -11,14 +11,17 @@ const MINDGAMES = 6;
 const SOLACE = 7;
 const PURGE_WICKED = 8;
 const MIND_BLAST = 9;
+const MINDBENDER = 10;
 
 
 $player = include(__DIR__ . "/player.php");
-Player::getInstance()->setInt(1277)
-	->setCrit(327)
-	->setHaste(408)
-	->setVersatility(229)
-	->setMatery(432);
+/*Player::getInstance()//->setInt(1277)
+	//->setCrit(327)
+	->setHaste(676);
+	//->setVersatility(229)
+	//->setMatery(432);
+
+
 /*
 Player::getInstance()->setInt(733)
 	->setCrit(239)
@@ -39,11 +42,12 @@ $radiance = new \Spells\Priest\DC\PowerWordRadiance();
 $solace = new \Spells\Priest\DC\PowerWordSolace();
 $purgeWicked = new \Spells\Priest\DC\PurgeWicked();
 $mindBlast = new \Spells\Priest\DC\MindBlast();
+$mindbender = new \Spells\Priest\DC\Mindbender();
 
 global $globalRotation;
 
 if (empty($_GET["r"])) {
-	$_GET["r"] = "1 1 1 8 5 5 5 5 5 5 4 4 2 6 1 7 3 3 3 3 3 3 3 1 3 7";
+	$_GET["r"] = "5 5 5 5 5 5 4 4 10 2 6 1 3 3 3 3 3 3 3 1 3";
 }
 $wasMoreAtonement = false;
 $rotationInfoSteps = explode(" ", $_GET["r"]);
@@ -114,6 +118,9 @@ while (TimeTicker::getInstance()->tick()) {
 		} elseif (\Spells\Priest\DC\MindBlast::isAvailable() && $nextSpell == MIND_BLAST) {
 			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
 			array_shift($rotationInfoSteps);
+		} elseif (\Spells\Priest\DC\Mindbender::isAvailable() && $nextSpell == MINDBENDER) {
+			Caster::castSpellToEnemy($damageEnemy, $mindbender);
+			array_shift($rotationInfoSteps);
 		}
 
 	}
@@ -130,7 +137,7 @@ echo "Atonement heal: " . Details::getHealFromSpell(\Buffs\Priest\Atonement::cla
 echo "max median period: " . Details::getMedianByPeriod() . "<br>\n";
 Details::analyzePeakByMedian();
 
-if($preventEnd){
+if ($preventEnd) {
 	exit("GG");
 }
 

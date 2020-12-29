@@ -56,9 +56,14 @@ class TimeTicker {
 			/** @var $pet \Pets\Pet */
 			$pet->tick();
 			if ($pet->isExpire()) {
-				unset($pets[$petNum]);
+				if ($this->combatTimer - floor($this->combatTimer) <= self::TICK_COUNT) {
+					unset($pets[$petNum]);
+					gc_collect_cycles();
+				}
+
 			}
 		}
+		Place::getInstance()->savePets($pets);
 	}
 
 	protected function tickGcd() {

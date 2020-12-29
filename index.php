@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/rotation_checker_test.php");
+require_once(__DIR__ . "/rotation_checker.php");
 exit();
 
 /**

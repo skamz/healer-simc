@@ -6,6 +6,7 @@ namespace Rotations\Priest;
 
 use Rotations\BaseRotation;
 use Spells\Priest\DC\Halo;
+use Spells\Priest\DC\Mindbender;
 use Spells\Priest\DC\MindBlast;
 use Spells\Priest\DC\Mindgames;
 use Spells\Priest\DC\Penance;
@@ -15,6 +16,7 @@ use Spells\Priest\DC\PurgeWicked;
 use Spells\Priest\DC\PurgeWickedDot;
 use Spells\Priest\DC\Schism;
 use Spells\Priest\DC\ShadowMend;
+use Spells\Priest\DC\ShadowWordPain;
 use Spells\Priest\PowerWordShield;
 use Spells\Priest\Smite;
 
@@ -30,7 +32,8 @@ class DC1 extends BaseRotation {
 	const PURGE_WICKED = 8;
 	const MIND_BLAST = 9;
 	const HALO = 10;
-
+	const MINDBENDER = 11;
+	const SHADOW_PAIN = 12;
 
 	private array $talents = [];
 
@@ -43,8 +46,10 @@ class DC1 extends BaseRotation {
 	}
 
 	protected function fillSpellBook() {
-		$this->setTalents(3, new PowerWordSolace());
+		$this->setTalents(3, new Mindbender());
+		//$this->setTalents(3, new PowerWordSolace());
 		$this->setTalents(6, new PurgeWicked());
+		//$this->setTalents(6, new Halo());
 	}
 
 	public function getDotTimer() {
@@ -52,14 +57,16 @@ class DC1 extends BaseRotation {
 	}
 
 	public function execute() {
-		if (Schism::isAvailable()) {
+		if ($this->isKnowSpell(Mindbender::class) and Mindbender::isAvailable()) {
+			return Mindbender::class;
+		} elseif (Schism::isAvailable()) {
 			return Schism::class;
 		} elseif (Mindgames::isAvailable()) {
 			return Mindgames::class;
-		} elseif ($this->isKnowSpell(Halo::class) && Halo::isAvailable()) {
-			return Halo::class;
 		} elseif (Penance::isAvailable()) {
 			return Penance::class;
+		} elseif ($this->isKnowSpell(Halo::class) && Halo::isAvailable()) {
+			return Halo::class;
 		} elseif ($this->isKnowSpell(PowerWordSolace::class) && PowerWordSolace::isAvailable()) {
 			return PowerWordSolace::class;
 		} elseif (MindBlast::isAvailable()) {
@@ -91,6 +98,12 @@ class DC1 extends BaseRotation {
 
 			case Smite::class:
 				return self::SMITE;
+
+			case Mindbender::class:
+				return self::MINDBENDER;
+
+			case ShadowWordPain::class:
+				return self::SHADOW_PAIN;
 		}
 		exit("неизвестный спелл");
 	}
