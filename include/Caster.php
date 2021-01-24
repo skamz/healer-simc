@@ -75,6 +75,10 @@ class Caster {
 			/** @var $buff Buff */
 			$damageCount = $buff->applyOnDamage($damageCount);
 		}
+		foreach (Player::getInstance()->getBuffs() as $buff) {
+			/** @var $buff Buff */
+			$damageCount = $buff->applyOnDamage($damageCount);
+		}
 		return $damageCount;
 	}
 

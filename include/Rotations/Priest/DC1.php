@@ -5,6 +5,7 @@ namespace Rotations\Priest;
 
 
 use Buffs\Priest\Atonement;
+use Buffs\Priest\SinsMany;
 use Caster;
 use Exceptions\PreventEndException;
 use Helper;
@@ -54,8 +55,10 @@ class DC1 extends BaseRotation {
 	protected function fillSpellBook() {
 		$this->setTalents(3, new Mindbender());
 		//$this->setTalents(3, new PowerWordSolace());
+		$this->setTalents(5, new \Spells\Priest\DC\SinsMany());
 		$this->setTalents(6, new PurgeWicked());
 		//$this->setTalents(6, new Halo());
+
 	}
 
 	public function getDotTimer() {

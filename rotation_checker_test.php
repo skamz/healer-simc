@@ -24,8 +24,9 @@ $player = include(__DIR__ . "/player.php");
 	//->setMatery(432);
 
 
-/*
-Player::getInstance()->setInt(733)
+
+Player::getInstance()
+	->setInt(929)
 	->setCrit(239)
 	->setHaste(298)
 	->setVersatility(0)
@@ -52,7 +53,7 @@ $mindbender = new \Spells\Priest\DC\Mindbender();
 global $globalRotation;
 
 if (empty($_GET["r"])) {
-	$_GET["r"] = "8 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3";
+	$_GET["r"] = "8 6 5 5 5 5 5 5 5 5 5 4 4 11 6 1 9 3 3 3 3 3 3";
 }
 $wasMoreAtonement = false;
 $rotationInfoSteps = explode(" ", $_GET["r"]);

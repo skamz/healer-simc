@@ -1,5 +1,5 @@
 <?php
-
+exit;
 require_once(__DIR__ . "/autoloader.php");
 
 function fillWork(Database $db, $insertByStep = 5000) {

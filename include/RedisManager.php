@@ -55,4 +55,11 @@ class RedisManager {
 		return $this->redis->del($key);
 	}
 
+	public static function getStatCalcKeys($type) {
+		return [
+			"data" => "json_rotation_data_{$type}",
+			"progress" => "json_rotation_progress_{$type}",
+		];
+	}
+
 }

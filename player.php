@@ -1,13 +1,13 @@
 <?php
-
+const INC_AMOUNT = 100;
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = Player::getInstance()
 	->setInt(1925)
-	->setCrit(308)
+	->setCrit(279)
 	->setHaste(881)
 	->setMatery(412)
-	->setVersatility(419)
+	->setVersatility(487)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 
