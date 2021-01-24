@@ -1,5 +1,7 @@
 <?php
 
+use Rotations\Priest\DC1;
+
 require_once(__DIR__ . "/autoloader.php");
 
 const PENANCE = 1;
@@ -29,7 +31,10 @@ Player::getInstance()->setInt(733)
 	->setVersatility(0)
 	->setMatery(393);
 */
-echo "hast percent: " . Player::getInstance()->getStatCalculator()->getHastePercent() . "<br>";
+echo "Crit: " . Player::getInstance()->getStatCalculator()->getCritPercent() . "<br>\n";
+echo "Haste: " . Player::getInstance()->getStatCalculator()->getHastePercent() . "<br>\n";
+echo "Mastery: " . Player::getInstance()->getStatCalculator()->getMasteryPercent() . "<br>\n";
+echo "Versa: " . Player::getInstance()->getStatCalculator()->getVersatilityPercent() . "<br>\n";
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 
 $workTime = 30;
@@ -47,7 +52,7 @@ $mindbender = new \Spells\Priest\DC\Mindbender();
 global $globalRotation;
 
 if (empty($_GET["r"])) {
-	$_GET["r"] = "5 5 5 5 5 5 4 4 10 2 6 1 3 3 3 3 3 3 3 1 3";
+	$_GET["r"] = "8 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3";
 }
 $wasMoreAtonement = false;
 $rotationInfoSteps = explode(" ", $_GET["r"]);
@@ -59,72 +64,11 @@ $currentAfterBuff = 0;
 $preventEnd = false;
 
 $rotationsGenerator = new \Rotations\Priest\DC1();
-
-//$workTime = 300 * 10000;
-$time = 0;
-while (TimeTicker::getInstance()->tick()) {
-	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
-		$atonementCount = Helper::getCountPlayersWithBuff(\Buffs\Priest\Atonement::class);
-		if ($atonementCount >= 10) {
-			$wasMoreAtonement = true;
-		}
-		if ($wasMoreAtonement && $atonementCount <= 4) {
-			echo "atonementCount={$atonementCount}. Break";
-			$preventEnd = true;
-			break;
-		}
-		echo "Next by gen: " . $rotationsGenerator->execute() . "<br>";
-
-		if (!empty($rotationInfoSteps)) {
-			$nextSpell = current($rotationInfoSteps);
-		} else {
-			break;
-		}
-
-
-		$toPlayer = Place::getInstance()->getRandomNumPlayerWithoutBuff(\Buffs\Priest\Atonement::class);
-		if (\Spells\Priest\DC\Schism::isAvailable() && $nextSpell == SCHISM) {
-			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Schism());
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-		} elseif (\Spells\Priest\DC\Penance::isAvailable() && $nextSpell == PENANCE) {
-			Caster::castSpellToEnemy($damageEnemy, $penance);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-		} elseif (\Spells\Priest\Smite::isAvailable() && $nextSpell == SMITE) {
-			Caster::castSpellToEnemy($damageEnemy, $smite);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-		} elseif (\Spells\Priest\DC\PowerWordRadiance::isAvailable() && $nextSpell == RADIANCE) {
-			Caster::castSpellToPlayer($toPlayer, $radiance);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff = 0;
-		} elseif (\Spells\Priest\PowerWordShield::isAvailable() && $nextSpell == SHIELD) {
-			Caster::castSpellToPlayer($toPlayer, $shield);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff = 0;
-		} elseif (\Spells\Priest\DC\Mindgames::isAvailable() && $nextSpell == MINDGAMES) {
-			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Mindgames());
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-		} elseif (\Spells\Priest\DC\PowerWordSolace::isAvailable() && $nextSpell == SOLACE) {
-			Caster::castSpellToEnemy($damageEnemy, $solace);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-		} elseif (\Spells\Priest\DC\PurgeWicked::isAvailable() && $nextSpell == PURGE_WICKED) {
-			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-		} elseif (\Spells\Priest\DC\MindBlast::isAvailable() && $nextSpell == MIND_BLAST) {
-			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
-			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\Mindbender::isAvailable() && $nextSpell == MINDBENDER) {
-			Caster::castSpellToEnemy($damageEnemy, $mindbender);
-			array_shift($rotationInfoSteps);
-		}
-
-	}
-
+try {
+	$rotation = new DC1();
+	$rotation->run($rotationInfoSteps);
+} catch (\Exceptions\PreventEndException $ex) {
+	$preventEnd = true;
 }
 
 $totalResult = intval(Place::getTotalHeal());

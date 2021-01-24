@@ -23,7 +23,7 @@ class Pet extends \Unit {
 	}
 
 	public function __destruct() {
-		echo \TimeTicker::getInstance()->getCombatTimer() . " pet die\n";
+		#echo \TimeTicker::getInstance()->getCombatTimer() . " pet die\n";
 		$this->onExpire();
 	}
 

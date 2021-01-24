@@ -9,6 +9,9 @@ use Buffs\Priest\Atonement;
 class Mindbender extends DcSpell {
 
 	const PROLONG_BY_LEG = 3;
+	protected float $cd = 60;
+	protected float $gcd = 1.5;
+	protected bool $hasteIsReduceGCd = true;
 
 	public function getDamageAmount() {
 		$this->summonPet();

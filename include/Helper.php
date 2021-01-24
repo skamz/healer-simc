@@ -95,4 +95,20 @@ class Helper {
 		exec($command);
 	}
 
+	public static function calcStatWeight(array $incResults) {
+		foreach ($incResults as $stat => $incHps) {
+			$incResults[$stat] = round($incHps / INC_AMOUNT, 1);
+		}
+		print_r($incResults);
+		$max = max($incResults);
+		foreach ($incResults as $stat => $incHps) {
+			$incResults[$stat] = round($incHps / $max, 2);
+		}
+
+		uasort($incResults, function($a, $b) {
+			return $b * 100 - $a * 100;
+		});
+		return $incResults;
+	}
+
 }

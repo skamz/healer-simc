@@ -3,11 +3,11 @@
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = Player::getInstance()
-	->setInt(1426)
-	->setCrit(547)
-	->setHaste(374)
-	->setMatery(512)
-	->setVersatility(364)
+	->setInt(1925)
+	->setCrit(308)
+	->setHaste(881)
+	->setMatery(412)
+	->setVersatility(419)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 
@@ -41,10 +41,6 @@ foreach ($options as $name => $value) {
 	}
 }
 
-if (!empty($options)) {
-	Details::$isLog = false;
-}
-
 Place::getInstance()->savePlayer(Place::ANALYZE_PLAYER, $player);
 
 for ($i = 1; $i < 20; $i++) {
@@ -54,9 +50,8 @@ for ($i = 1; $i < 20; $i++) {
 }
 Place::getInstance()->getMyPlayer()
 	->setConvenant(\Enum\Covenant::TYPE_VENTIR)
-	->setCovenantMedium(\Enum\Medium::VENTIR_NADYA);
-//->addConduit(new \Mediums\Ventir\Conduits\SwiftPenitence())
-//->addConduit(new \Mediums\Ventir\Conduits\Shattered());
+	->setCovenantMedium(\Enum\Medium::VENTIR_NADYA)
+	->addConduit(new \Mediums\Ventir\Conduits\Shattered());
 
 Place::getInstance()->addEnemy((new Enemy())->setName("Boss"));
 return $player;

@@ -23,6 +23,9 @@ class TimeTicker {
 	}
 
 	public function startGcd(float $gcd) {
+		if ($gcd <= 0) {
+			return false;
+		}
 		$this->lostGcd = $gcd;
 	}
 

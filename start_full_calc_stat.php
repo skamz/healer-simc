@@ -4,7 +4,7 @@
 require_once(__DIR__ . "/autoloader.php");
 $player = include(__DIR__ . "/player.php");
 
-const INC_AMOUNT = 150;
+const INC_AMOUNT = 1000;
 
 function renameResultTable($resultType) {
 	$sql = "rename table priest_dc_result to priest_dc_result_{$resultType}";
@@ -30,10 +30,31 @@ function waitEmptyWork() {
 
 }
 
+function removeNotFull() {
+	$sql = "delete FROM `priest_dc_result` WHERE `rotation` not like '%2 6 1 9%'";
+	Database::getInstance()->query($sql);
+}
+
+function removeLowValue() {
+	$sql = "select avg(avg_heal) as tavg from 
+		(SELECT avg_heal FROM `priest_dc_result` order by `avg_heal` desc limit 20) as t";
+	$topAvgInfo = Database::getInstance()->query($sql)->fetchArray();
+
+	$removeBy = intval($topAvgInfo["tavg"] * 0.8);
+	$sql = "delete from priest_dc_result where avg_heal<{$removeBy}";
+	Database::getInstance()->query($sql);
+}
+
 function waitCalculation() {
 	do {
 		sleep(10);
 		$doneIterations = Helper::getDoneIterations();
+		if ($doneIterations > 10) {
+			removeNotFull();
+			if ($doneIterations > 20) {
+				removeLowValue();
+			}
+		}
 		echo "Current done iterations: {$doneIterations} (" . round($doneIterations / Settings::RECALC_ITERATION_COUNT * 100) . "%)      \r";
 	} while ($doneIterations < Settings::RECALC_ITERATION_COUNT);
 	waitEmptyWork();
@@ -78,18 +99,7 @@ function getBaseRotations() {
 		"mastery" => $statInfo["mastery"]["heal"] - $statInfo["base"]["heal"],
 		"varsa" => $statInfo["varsa"]["heal"] - $statInfo["base"]["heal"],
 	];
-	foreach ($incResults as $stat => $incHps) {
-		$incResults[$stat] = round($incHps / INC_AMOUNT, 1);
-	}
-	print_r($incResults);
-	$max = max($incResults);
-	foreach ($incResults as $stat => $incHps) {
-		$incResults[$stat] = round($incHps / $max, 2);
-	}
-
-	uasort($incResults, function($a, $b) {
-		return $b * 100 - $a * 100;
-	});
+	$incResults = Helper::calcStatWeight($incResults);
 	print_r($incResults);
 
 	printBestRotations($statInfo);

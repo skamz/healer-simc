@@ -8,7 +8,7 @@ use Spells\Priest\DC\Mindgames;
 
 class Shattered extends \Buff {
 
-	const INC_PERCENT = 1.13;
+	const INC_PERCENT = 1.182;
 
 	public function increaseDamage(int $damageCount, \Spell $fromSpell = null): int {
 		if (isset($fromSpell) && $fromSpell->getName() == Mindgames::class) {

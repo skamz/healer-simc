@@ -5,7 +5,6 @@ use Rotations\Priest\DC1;
 
 require_once(__DIR__ . "/autoloader.php");
 
-
 $player = include(__DIR__ . "/player.php");
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 Helper::resetStats();
@@ -45,86 +44,11 @@ $wasMoreAtonement = false;
 $preventEnd = false;
 
 
-//$workTime = 300 * 10000;
-$time = 0;
-while (TimeTicker::getInstance()->tick()) {
-	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
-		//echo "Next step: {$nextSpell}; lost step: " . implode(" ", $rotationInfoSteps) . " \n";
-		if (!empty($rotationInfoSteps)) {
-			$nextSpell = current($rotationInfoSteps);
-		} else {
-			break;
-		}
-		/*if ($currentAfterBuff >= $maxCountAfterBuff) {
-			break;
-		}*/
-		$atonementCount = Helper::getCountPlayersWithBuff(\Buffs\Priest\Atonement::class);
-		if ($atonementCount >= 10) {
-			$wasMoreAtonement = true;
-		}
-		if ($wasMoreAtonement && $atonementCount <= 4) {
-			echo "atonementCount={$atonementCount}. Break";
-			$preventEnd = true;
-			break;
-		}
-
-		$toPlayer = Place::getInstance()->getRandomNumPlayerWithoutBuff(Atonement::class);
-		if (\Spells\Priest\DC\Schism::isAvailable() && $nextSpell == DC1::SCHISM) {
-			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Schism());
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-			$buffCounter = 0;
-		} elseif (\Spells\Priest\DC\Penance::isAvailable() && $nextSpell == DC1::PENANCE) {
-			Caster::castSpellToEnemy($damageEnemy, $penance);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-			$buffCounter = 0;
-		} elseif (\Spells\Priest\Smite::isAvailable() && $nextSpell == DC1::SMITE) {
-			Caster::castSpellToEnemy($damageEnemy, $smite);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-			$buffCounter = 0;
-		} elseif (\Spells\Priest\DC\PowerWordRadiance::isAvailable() && $nextSpell == DC1::RADIANCE) {
-			Caster::castSpellToPlayer($toPlayer, $radiance);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff = 0;
-		} elseif (\Spells\Priest\PowerWordShield::isAvailable() && $nextSpell == DC1::SHIELD) {
-			Caster::castSpellToPlayer($toPlayer, $shield);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff = 0;
-			$buffCounter++;
-		} elseif (\Spells\Priest\DC\Mindgames::isAvailable() && $nextSpell == DC1::MINDGAMES) {
-			Caster::castSpellToEnemy($damageEnemy, new \Spells\Priest\DC\Mindgames());
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-			$buffCounter = 0;
-		} elseif (\Spells\Priest\DC\PowerWordSolace::isAvailable() && $nextSpell == DC1::SOLACE) {
-			Caster::castSpellToEnemy($damageEnemy, $solace);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-			$buffCounter = 0;
-		} elseif (\Spells\Priest\DC\PurgeWicked::isAvailable() && $nextSpell == DC1::PURGE_WICKED) {
-			Caster::castSpellToEnemy($damageEnemy, $purgeWicked);
-			array_shift($rotationInfoSteps);
-			$currentAfterBuff++;
-			$buffCounter = 0;
-			$lastPurgeCast = TimeTicker::getInstance()->getCombatTimer();
-		} elseif (\Spells\Priest\DC\MindBlast::isAvailable() && $nextSpell == DC1::MIND_BLAST) {
-			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
-			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\Halo::isAvailable() && $nextSpell == DC1::HALO) {
-			Caster::castSpellToEnemy($damageEnemy, $halo);
-			array_shift($rotationInfoSteps);
-		} elseif ($nextSpell == DC1::SHADOW_PAIN) {
-			Caster::castSpellToEnemy($damageEnemy, $mindBlast);
-			array_shift($rotationInfoSteps);
-		} elseif (\Spells\Priest\DC\Mindbender::isAvailable() && $nextSpell == DC1::MINDBENDER) {
-			Caster::castSpellToEnemy($damageEnemy, $mindbender);
-			array_shift($rotationInfoSteps);
-		}
-
-	}
-
+try {
+	$rotation = new DC1();
+	$rotation->run($rotationInfoSteps);
+} catch (\Exceptions\PreventEndException $ex) {
+	$preventEnd = true;
 }
 
 $totalResult = intval(Place::getTotalHeal());

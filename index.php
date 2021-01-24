@@ -1,10 +1,10 @@
 <?php
-require_once(__DIR__ . "/rotation_checker.php");
-exit();
+//require_once(__DIR__ . "/rotation_checker_test.php");
+//exit();
 
 /**
  * Best rotation:
-	8 5 5 5 5 5 5 4 4 2 6 1 7 9 3
+ * 8 5 5 5 5 5 5 4 4 2 6 1 7 9 3
  */
 
 require_once(__DIR__ . "/autoloader.php");
@@ -12,6 +12,11 @@ require_once(__DIR__ . "/autoloader.php");
 $player = include(__DIR__ . "/player.php");
 
 $damageEnemy = Place::getInstance()->getRandomEnemy();
+
+echo "Crit: " . Player::getInstance()->getStatCalculator()->getCritPercent() . "\n";
+echo "Haste: " . Player::getInstance()->getStatCalculator()->getHastePercent() . "\n";
+echo "Mastery: " . Player::getInstance()->getStatCalculator()->getMasteryPercent() . "\n";
+echo "Versa: " . Player::getInstance()->getStatCalculator()->getVersatilityPercent() . "\n";
 
 TimeTicker::getInstance()->getTotalWorkTime(40);
 
@@ -55,7 +60,7 @@ while (TimeTicker::getInstance()->tick()) {
 		} elseif ($num == 5 && \Spells\Priest\DC\Schism::isAvailable()) {
 			Caster::castSpellToEnemy($damageEnemy, $schism);
 			$num++;
-		}elseif ($num == 6 && \Spells\Priest\DC\Mindgames::isAvailable()){
+		} elseif ($num == 6 && \Spells\Priest\DC\Mindgames::isAvailable()) {
 			Caster::castSpellToEnemy($damageEnemy, $mindgames);
 			$num++;
 		}
