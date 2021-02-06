@@ -56,6 +56,8 @@ Place::getInstance()->getMyPlayer()
 
 \Buffs\RealPPM::getInstance()->initProc([
 	\Buffs\CelestialGuidance::class,
+	\Buffs\GladiatorInsignia::class,
+	\Buffs\Priest\PowerDarkSide::class,
 ]);
 
 Place::getInstance()->addEnemy((new Enemy())->setName("Boss"));

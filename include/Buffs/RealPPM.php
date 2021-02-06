@@ -25,8 +25,22 @@ class RealPPM {
 		$seconds = min($lastChance, 3.5);
 		$real_ppm = $ppm * (1 + $hastePercent / 100);
 		$oldRppmChance = $real_ppm * ($seconds / 60);
-		//$return = ($ppm * (1 + $hastePercent / 100) * $lastChance) / 60;
 		return $oldRppmChance * 100;
+		//return $this->applyBLP($procBuff, $ppm, $oldRppmChance) * 100;
+	}
+
+	protected function applyBLP(string $procBuff, $ppm, $oldRppmChance) {
+		/*
+		double last_success = std::min( accumulated_bad_luck_protection, max_bad_luck_prot() ).total_seconds();
+		double expected_average_proc_interval = 60.0 / real_ppm;
+
+		rppm_chance =
+			std::max( 1.0, 1 + ( ( last_success / expected_average_proc_interval - 1.5 ) * 3.0 ) ) * old_rppm_chance;
+		*/
+		$lastSuccess = $this->getLastProc($procBuff);
+		$expectedAverageProcInterval = 60 / $ppm;
+		$rppmChance = max(1, 1 + (($lastSuccess / $expectedAverageProcInterval - 1.5) * 3)) * $oldRppmChance;
+		return $rppmChance;
 	}
 
 	protected function getLastChance(string $procBuff) {
