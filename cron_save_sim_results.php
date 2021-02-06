@@ -1,5 +1,5 @@
 <?php
-
+exit;
 require_once(__DIR__ . "/autoloader.php");
 
 function savePoll(Database $db, array $poll) {

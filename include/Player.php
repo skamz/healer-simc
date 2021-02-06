@@ -33,7 +33,14 @@ class Player extends Unit {
 	}
 
 	public function getInt() {
-		return $this->int;
+		$return = $this->int;
+		if ($this->hasBuff(\Buffs\GladiatorInsignia::class)) {
+			$return += \Buffs\GladiatorInsignia::INC_VALUE;
+		}
+		if ($this->hasBuff(\Buffs\CelestialGuidance::class)) {
+			$return *= 1 + \Buffs\CelestialGuidance::PERCENT / 100;
+		}
+		return $return;
 	}
 
 	public function getCritCount() {

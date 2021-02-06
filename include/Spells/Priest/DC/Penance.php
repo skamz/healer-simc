@@ -50,6 +50,7 @@ class Penance extends DcSpell {
 	}
 
 	public function afterSuccessCast() {
+		parent::afterSuccessCast();
 		\Place::getInstance()->getMyPlayer()->removeBuff(PowerDarkSide::class);
 	}
 

@@ -1,13 +1,13 @@
 <?php
-const INC_AMOUNT = 100;
+const INC_AMOUNT = 50;
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = Player::getInstance()
-	->setInt(1925)
-	->setCrit(279)
-	->setHaste(881)
-	->setMatery(412)
-	->setVersatility(487)
+	->setInt(1839)
+	->setCrit(362)
+	->setHaste(965)
+	->setMatery(472)
+	->setVersatility(287)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 
@@ -51,7 +51,12 @@ for ($i = 1; $i < 20; $i++) {
 Place::getInstance()->getMyPlayer()
 	->setConvenant(\Enum\Covenant::TYPE_VENTIR)
 	->setCovenantMedium(\Enum\Medium::VENTIR_NADYA)
-	->addConduit(new \Mediums\Ventir\Conduits\Shattered());
+	//->addConduit(new \Mediums\Ventir\Conduits\Shattered());
+	->addConduit(new \Mediums\Ventir\Conduits\RabidShadows());
+
+\Buffs\RealPPM::getInstance()->initProc([
+	\Buffs\CelestialGuidance::class,
+]);
 
 Place::getInstance()->addEnemy((new Enemy())->setName("Boss"));
 return $player;

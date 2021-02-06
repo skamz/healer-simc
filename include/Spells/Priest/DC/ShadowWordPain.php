@@ -27,6 +27,7 @@ class ShadowWordPain extends DcSpell {
 	}
 
 	public function afterSuccessCast() {
+		parent::afterSuccessCast();
 		RealPPM::getInstance()->tryProc(1, new PowerDarkSide());
 	}
 }

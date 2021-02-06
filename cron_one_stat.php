@@ -55,8 +55,8 @@ function getCommand($rotation, $type, $incAmount = INC_AMOUNT) {
 	return $command;
 }
 
-function getRotation($rotation, $type, $iterations = 10000) {
-	global $redisStatJsonProgress;
+function getRotation($rotation, $type, $iterations = 100000) {
+	global $redisStatJsonProgress, $redisStatJsonData;
 	$calcTypes = ["base", "int", "crit", "haste", "versa", "mastery"];
 
 	$execCommand = getCommand($rotation, $type);
@@ -64,8 +64,13 @@ function getRotation($rotation, $type, $iterations = 10000) {
 
 	$summary = [];
 	for ($iter = 0; $iter < $iterations; $iter++) {
-		echo round($iter / $iterations * 100) . " % \r";
-		RedisManager::getInstance()->set($redisStatJsonProgress, round($iter / $iterations * 100));
+		if ($iter % 100 == 0) {
+			echo round($iter / $iterations * 100) . " % \r";
+			RedisManager::getInstance()->set($redisStatJsonProgress, round($iter / $iterations * 100));
+			$avg = round(array_sum($summary) / count($summary));
+			RedisManager::getInstance()->set($redisStatJsonData, $avg);
+		}
+
 		$out = [];
 
 		exec($execCommand, $out);
@@ -99,7 +104,6 @@ function analyze($rotationsData) {
 	}
 
 }
-
 
 
 print_R($args);

@@ -3,6 +3,16 @@
 
 class Caster {
 
+	public static function playerCastSpell(int $toUnit, Spell $spell, bool $isEnemy) {
+		\Buffs\RealPPM::getInstance()->tryProc(3, new \Buffs\CelestialGuidance());
+		\Buffs\RealPPM::getInstance()->tryProc(1.5, new \Buffs\GladiatorInsignia());
+		if ($isEnemy) {
+			self::castSpellToEnemy($toUnit, $spell);
+		} else {
+			self::castSpellToPlayer($toUnit, $spell);
+		}
+	}
+
 	public static function castSpellToPlayer(int $toPlayer, Spell $spell) {
 		if ($spell->getCastTime() > 0) {
 			SpellState::getInstance()->startCastingSpell(SpellState::CAST_TO_PLAYER, $toPlayer, $spell);

@@ -3,6 +3,16 @@
 require_once(__DIR__ . "/autoloader.php");
 include(__DIR__ . "/player.php");
 
+function printFormatedStat(array $calcTypes) {
+	$statInfo = getData($calcTypes);
+	$stats = analyzeOnceRotation($statInfo);
+	$return = [];
+	foreach ($stats as $name => $stat) {
+		$return[] = "{$name}: $stat";
+	}
+	return implode(", ", $return);
+}
+
 function viewProgress(array $calcTypes) {
 	$redisKeys = [];
 	foreach ($calcTypes as $type) {
@@ -16,14 +26,12 @@ function viewProgress(array $calcTypes) {
 			$progress = $redis->get($redisTypeKeys["progress"]);
 			if ($progress < 100) {
 				$waitData[] = "{$type} ({$progress}%)";
-			} else {
-				echo "$type - Done\n";
-			}
+			} 
 		}
 		if (empty($waitData)) {
 			break;
 		} else {
-			echo " Progress: " . implode("; ", $waitData)."       \r";
+			echo " Progress: " . implode("; ", $waitData) . ". " . printFormatedStat($calcTypes) . "       \r";
 			sleep(10);
 		}
 	}
@@ -40,8 +48,7 @@ function getData(array $calcTypes) {
 	foreach ($redisKeys as $type => $redisTypeKeys) {
 		$statInfo[$type] = $redis->get($redisTypeKeys["data"]);
 	}
-	print_r($statInfo);
-	analyzeOnceRotation($statInfo);
+	return $statInfo;
 }
 
 
@@ -54,7 +61,7 @@ function analyzeOnceRotation(array $statInfo) {
 		"versa" => round(($statInfo["versa"] - $statInfo["base"]) / INC_AMOUNT),
 	];
 	$incResults = Helper::calcStatWeight($incResults);
-	print_r($incResults);
+	return $incResults;
 }
 
 function startProcesses($calcTypes) {
@@ -78,10 +85,16 @@ $rotations = [
 ];
 
 
+$args = getopt("", ["type:"]);
+
 $calcTypes = ["base", "int", "crit", "haste", "versa", "mastery"];
-startProcesses($calcTypes);
+if ($args["type"] == "start") {
+	startProcesses($calcTypes);
+}
 viewProgress($calcTypes);
-getData($calcTypes);
+$statInfo = getData($calcTypes);
+print_r($statInfo);
+print_r(analyzeOnceRotation($statInfo));
 
 // setsid nohup /usr/bin/php /var/www/admin/data/www/wow-sim.ru/cron_one_stat.php --rotation="8 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3" --type=crit > /dev/null &
 

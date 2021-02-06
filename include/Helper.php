@@ -99,7 +99,6 @@ class Helper {
 		foreach ($incResults as $stat => $incHps) {
 			$incResults[$stat] = round($incHps / INC_AMOUNT, 1);
 		}
-		print_r($incResults);
 		$max = max($incResults);
 		foreach ($incResults as $stat => $incHps) {
 			$incResults[$stat] = round($incHps / $max, 2);
