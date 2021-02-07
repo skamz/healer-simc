@@ -159,10 +159,10 @@ class DC1 extends BaseRotation {
 					Caster::playerCastSpell($damageEnemy, $smite, true);
 					array_shift($rotationInfoSteps);
 				} elseif (PowerWordRadiance::isAvailable() && $nextSpell == DC1::RADIANCE) {
-					Caster::playerCastSpell($damageEnemy, $radiance, false);
+					Caster::playerCastSpell($toPlayer, $radiance, false);
 					array_shift($rotationInfoSteps);
 				} elseif (PowerWordShield::isAvailable() && $nextSpell == DC1::SHIELD) {
-					Caster::playerCastSpell($damageEnemy, $shield, false);
+					Caster::playerCastSpell($toPlayer, $shield, false);
 					array_shift($rotationInfoSteps);
 				} elseif (Mindgames::isAvailable() && $nextSpell == DC1::MINDGAMES) {
 					Caster::playerCastSpell($damageEnemy, new Mindgames(), true);
