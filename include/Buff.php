@@ -105,7 +105,7 @@ class Buff {
 		return $damageCount;
 	}
 
-	public function applyOnHeal(int $healCount, Spell $fromSpell = null) {
+	public function applyOnHeal(int $healCount, Spell $fromSpell = null, Player $target = null) {
 		return $healCount;
 	}
 

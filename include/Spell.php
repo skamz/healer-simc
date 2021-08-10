@@ -102,6 +102,12 @@ class Spell {
 	protected float $damageModifier = 1;
 
 	/**
+	 * Модификатор исцеления (например когда описание 60% хила)
+	 * @var float|int
+	 */
+	protected float $healModifier = 1;
+
+	/**
 	 * Если целей несколько, как выбираются остальные цели
 	 * @var bool
 	 */

@@ -59,6 +59,13 @@ class Caster {
 		self::cast($spell);
 	}
 
+	public static function hotHealPlayer(Player $player, Spell $spell){
+		if (Details::$isLog) {
+			echo ">>>>" . TimeTicker::getInstance()->getCombatTimer() . " Hot heal " . get_class($spell) . " to {$player->getName()}<br>\n";
+		}
+		$player->healTaken($spell->getHealAmount(), $spell->getName());
+	}
+
 
 	public static function applySpellToEnemy(int $enemyId, Spell $spell) {
 		if (Details::$isLog) {
