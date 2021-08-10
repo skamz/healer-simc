@@ -11,6 +11,9 @@ use Exceptions\PreventEndException;
 use Helper;
 use Place;
 use Rotations\BaseRotation;
+use Spells\Priest\AscendedBlast;
+use Spells\Priest\AscendedNova;
+use Spells\Priest\BoonOfAscended;
 use Spells\Priest\DC\Halo;
 use Spells\Priest\DC\Mindbender;
 use Spells\Priest\DC\MindBlast;
@@ -27,6 +30,7 @@ use Spells\Priest\PowerWordShield;
 use Spells\Priest\Smite;
 use TimeTicker;
 
+// 2 6 1 7 9 3
 class DC1 extends BaseRotation {
 
 	const PENANCE = 1;
@@ -41,16 +45,10 @@ class DC1 extends BaseRotation {
 	const HALO = 10;
 	const MINDBENDER = 11;
 	const SHADOW_PAIN = 12;
+	const BOON_OF_ASCENDED = 13;
+	const ASCENDED_BLAST = 14;
+	const ASCENDED_NOVA = 15;
 
-	private array $talents = [];
-
-	public function setTalents($tier, $spell) {
-		if (!empty($this->talents[$tier])) {
-			exit("Талант не может быть выбран, уже взят другой из этой строки");
-		}
-		$this->talents[$tier] = true;
-		$this->addSpell($spell);
-	}
 
 	protected function fillSpellBook() {
 		$this->setTalents(3, new Mindbender());
@@ -113,6 +111,15 @@ class DC1 extends BaseRotation {
 
 			case ShadowWordPain::class:
 				return self::SHADOW_PAIN;
+
+			case BoonOfAscended::class:
+				return self::BOON_OF_ASCENDED;
+
+			case AscendedBlast::class:
+				return self::ASCENDED_BLAST;
+
+			case AscendedNova::class:
+				return self::ASCENDED_NOVA;
 		}
 		exit("неизвестный спелл");
 	}
@@ -130,7 +137,6 @@ class DC1 extends BaseRotation {
 
 		$damageEnemy = Place::getInstance()->getRandomEnemy();
 		$wasMoreAtonement = false;
-
 
 		while (TimeTicker::getInstance()->tick()) {
 			if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {

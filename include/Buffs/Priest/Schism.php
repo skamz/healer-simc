@@ -4,6 +4,8 @@
 namespace Buffs\Priest;
 
 
+use Spells\SpellSchool\Shadow;
+
 class Schism extends \Debuff {
 
 	protected float $duration = 9;

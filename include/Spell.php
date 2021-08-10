@@ -102,16 +102,12 @@ class Spell {
 	protected float $damageModifier = 1;
 
 	/**
-	 * Модификатор исцеления (например когда описание 60% хила)
-	 * @var float|int
-	 */
-	protected float $healModifier = 1;
-
-	/**
 	 * Если целей несколько, как выбираются остальные цели
 	 * @var bool
 	 */
 	protected bool $isSmart = false;
+
+	protected string $spellSchool;
 
 	public function __construct() {
 	}
@@ -187,6 +183,9 @@ class Spell {
 		return [];
 	}
 
+	public function applySpecial() {
+	}
+
 	public function afterDamage(int $damageCount) {
 	}
 
@@ -236,6 +235,10 @@ class Spell {
 
 	public function getSpellCommonTargets(int $playerNum): array {
 		return [$playerNum];
+	}
+
+	public function getSpellSchool() {
+		return $this->spellSchool;
 	}
 
 }

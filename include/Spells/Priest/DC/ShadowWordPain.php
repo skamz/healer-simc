@@ -6,12 +6,14 @@ namespace Spells\Priest\DC;
 
 use Buffs\Priest\PowerDarkSide;
 use Buffs\RealPPM;
+use Spells\SpellSchool\Shadow;
 
 class ShadowWordPain extends DcSpell {
 
 	protected float $manaPercentCost = 1.8;
 	protected float $gcd = 1.5;
 	protected bool $isTriggeredAtonement = true;
+	protected string $spellSchool = Shadow::class;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.209564;

@@ -5,6 +5,7 @@ namespace Spells\Priest;
 
 
 use Spells\Priest\DC\DcSpell;
+use Spells\SpellSchool\Holy;
 
 /**
  * Class Smite https://www.wowhead.com/spell=585/smite
@@ -20,6 +21,7 @@ class Smite extends DcSpell {
 	protected bool $hasteIsReduceGCd = true;
 	protected bool $hasteIsReduceCastTime = true;
 	protected bool $hasteIsReduceCd = true;
+	protected string $spellSchool = Holy::class;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.44125 * 1.5 * 0.75; // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)

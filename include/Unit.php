@@ -53,6 +53,14 @@ class Unit {
 		return null;
 	}
 
+	public function getBuff(string $buffName): ?Buff {
+		$buffNum = $this->hasBuff($buffName);
+		if (empty($buffNum)) {
+			return null;
+		}
+		return $this->getBuffByNum($buffNum);
+	}
+
 	public function getBuffLostTime(int $buffName) {
 		/** @var $buffObj Buff */
 		$buffObj = $this->buffs[$buffName];

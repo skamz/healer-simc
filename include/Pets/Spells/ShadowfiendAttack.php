@@ -6,12 +6,14 @@ namespace Pets\Spells;
 
 use Buffs\Covenant\RabidShadows;
 use Spells\Priest\DC\DcSpell;
+use Spells\SpellSchool\Physical;
 
 class ShadowfiendAttack extends DcSpell {
 
 	protected bool $isTriggeredAtonement = true;
 	protected float $cd = 1.5;
 	protected bool $hasteIsReduceCd = true;
+	protected string $spellSchool = Physical::class;
 
 	public function __construct() {
 		parent::__construct();

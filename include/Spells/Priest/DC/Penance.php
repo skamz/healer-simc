@@ -3,6 +3,7 @@
 namespace Spells\Priest\DC;
 
 use Buffs\Priest\PowerDarkSide;
+use Spells\SpellSchool\Holy;
 
 /**
  * Class Penance https://www.wowhead.com/spell=172098/penance
@@ -17,6 +18,7 @@ class Penance extends DcSpell {
 	protected bool $hasteIsReduceCastTime = true;
 	protected float $manaPercentCost = 1.6;
 	protected bool $isTriggeredAtonement = true;
+	protected string $spellSchool = Holy::class;
 
 	public function getDamageAmount() {
 		$return = 0;

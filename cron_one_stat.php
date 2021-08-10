@@ -55,7 +55,7 @@ function getCommand($rotation, $type, $incAmount = INC_AMOUNT) {
 	return $command;
 }
 
-function getRotation($rotation, $type, $iterations = 100000) {
+function getRotation($rotation, $type, $iterations = 50000) {
 	global $redisStatJsonProgress, $redisStatJsonData;
 	$calcTypes = ["base", "int", "crit", "haste", "versa", "mastery"];
 

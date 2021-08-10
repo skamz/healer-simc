@@ -5,6 +5,7 @@ namespace Spells\Priest\DC;
 
 
 use Buffs\Priest\Atonement;
+use Spells\SpellSchool\Holy;
 
 class PowerWordRadiance extends DcSpell {
 
@@ -16,6 +17,7 @@ class PowerWordRadiance extends DcSpell {
 	protected int $changeCount = 2;
 	protected int $maxChangeCount = 2;
 	protected bool $hasteIsReduceCastTime = true;
+	protected string $spellSchool = Holy::class;
 
 	// искупление вины 60% длительностью
 	public function getHealAmount() {

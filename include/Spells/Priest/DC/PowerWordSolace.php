@@ -4,6 +4,8 @@
 namespace Spells\Priest\DC;
 
 
+use Spells\SpellSchool\Holy;
+
 class PowerWordSolace extends DcSpell {
 
 	protected bool $isTriggeredAtonement = true;
@@ -12,6 +14,7 @@ class PowerWordSolace extends DcSpell {
 	protected float $cd = 15;
 	protected bool $hasteIsReduceCd = true;
 	protected float $travelTime = 0.5;
+	protected string $spellSchool = Holy::class;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.752;

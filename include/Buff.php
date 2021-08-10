@@ -17,6 +17,7 @@ class Buff {
 
 	protected int $startIterationNum;
 	protected int $iterationEnd;
+	protected int $stackCount = 1;
 
 	protected array $eventsId = [];
 
@@ -105,7 +106,7 @@ class Buff {
 		return $damageCount;
 	}
 
-	public function applyOnHeal(int $healCount, Spell $fromSpell = null, Player $target = null) {
+	public function applyOnHeal(int $healCount, Spell $fromSpell = null) {
 		return $healCount;
 	}
 
@@ -152,6 +153,11 @@ class Buff {
 
 	public function registerTickEvent() {
 
+	}
+
+	public function increaseStackCount(int $intCount): int {
+		$this->stackCount += $intCount;
+		return $this->stackCount;
 	}
 
 }

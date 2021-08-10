@@ -6,6 +6,7 @@ namespace Rotations;
 
 class BaseRotation {
 
+	protected array $talents = [];
 	protected array $spellBook = [];
 
 	public function __construct() {
@@ -32,6 +33,15 @@ class BaseRotation {
 		}
 		return false;
 	}
+
+	public function setTalents($tier, $spell) {
+		if (!empty($this->talents[$tier])) {
+			exit("Талант не может быть выбран, уже взят другой из этой строки");
+		}
+		$this->talents[$tier] = true;
+		$this->addSpell($spell);
+	}
+
 
 
 }
