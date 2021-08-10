@@ -30,7 +30,7 @@ class Penance extends DcSpell {
 	}
 
 	protected function getTickDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.376;
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
@@ -40,20 +40,39 @@ class Penance extends DcSpell {
 		$return = 0;
 		for ($i = 0; $i < 3; $i++) {
 			$tick = $this->getTickHealAmount();
-			echo __CLASS__ . " tick heal {$tick}<br>\n";
 			$return += $tick;
 		}
-		return $return;
+		return round($return);
 	}
 
 	protected function getTickHealAmount() {
-		$return = \Player::getInstance()->getInt() * 1.25;
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_HEAL);
 		return $this->applySecondary($return);
 	}
 
 	public function afterSuccessCast() {
 		parent::afterSuccessCast();
 		\Place::getInstance()->getMyPlayer()->removeBuff(PowerDarkSide::class);
+	}
+
+	public function getRealDamageSPParams(): array {
+		return [
+			1082 => 455,
+			1061 => 446,
+			1056 => 444,
+			1000 => 421,
+			979 => 412,
+		];
+	}
+
+	public function getRealHealSPParams(): array {
+		return [
+			1082 => 1352,
+			1061 => 1326,
+			1056 => 1320,
+			1000 => 1250,
+			979 => 1223,
+		];
 	}
 
 }

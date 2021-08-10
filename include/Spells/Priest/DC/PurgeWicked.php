@@ -20,10 +20,20 @@ class PurgeWicked extends DcSpell {
 	protected string $spellSchool = Fire::class;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.209564;
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
+	}
+
+	public function getRealDamageSPParams(): array {
+		return [
+			1087 => 255,
+			1056 => 248,
+			1000 => 234,
+			979 => 230,
+			918 => 215,
+		];
 	}
 
 	public function applyBuffs(): array {

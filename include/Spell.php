@@ -5,6 +5,10 @@ class Spell {
 
 	const PING = 0.07;
 
+	const SP_TYPE_DAMAGE = 1;
+	const SP_TYPE_HEAL = 2;
+
+
 	/**
 	 * Время восстановления заклинания
 	 * @var float
@@ -101,6 +105,8 @@ class Spell {
 	 */
 	protected float $damageModifier = 1;
 
+	protected float $realSPCoef;
+
 	/**
 	 * Если целей несколько, как выбираются остальные цели
 	 * @var bool
@@ -176,7 +182,7 @@ class Spell {
 	public static function applySecondary(float $amount) {
 		$amount = self::applyVersatility($amount);
 		$amount = self::applyCrit($amount);
-		return $amount;
+		return round($amount);
 	}
 
 	public function applyBuffs(): array {
@@ -239,6 +245,33 @@ class Spell {
 
 	public function getSpellSchool() {
 		return $this->spellSchool;
+	}
+
+	public function getRealDamageSPParams(): array {
+		throw new Exception("Damage params not set");
+	}
+
+	public function getRealHealSPParams(): array {
+		throw new Exception("Damage params not set");
+	}
+
+	public function getRealSPParams(int $type) {
+		switch ($type) {
+			case Spell::SP_TYPE_DAMAGE:
+				return $this->getRealDamageSPParams();
+				break;
+
+			case Spell::SP_TYPE_HEAL:
+				return $this->getRealHealSPParams();
+				break;
+		}
+	}
+
+	public function getRealSP(int $type) {
+		if (!isset($this->realSPCoef)) {
+			$this->realSPCoef = Helper::calcRealSPCoef(get_class($this), $type);
+		}
+		return $this->realSPCoef;
 	}
 
 }

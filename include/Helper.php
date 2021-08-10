@@ -3,6 +3,9 @@
 
 class Helper {
 
+	protected static $spellRealSP = [];
+
+
 	public static function isProc($chance, $max = 100, $precision = 100) {
 		$rnd = rand(0, $max * $precision) / $precision;
 		if ($chance >= $rnd) {
@@ -108,6 +111,24 @@ class Helper {
 			return $b * 100 - $a * 100;
 		});
 		return $incResults;
+	}
+
+	public static function calcRealSPCoef(string $className, int $type): float {
+		if (empty(self::$spellRealSP[$className]) || empty(self::$spellRealSP[$className][$type])) {
+			if (empty(self::$spellRealSP[$className])) {
+				self::$spellRealSP[$className] = [];
+			}
+
+			$spell = new $className();
+			/** @var Spell $spell */
+			$params = $spell->getRealSPParams($type);
+			$values = [];
+			foreach ($params as $int => $amount) {
+				$values[] = $amount / $int;
+			}
+			self::$spellRealSP[$className][$type] = array_sum($values) / count($values);
+		}
+		return self::$spellRealSP[$className][$type];
 	}
 
 }

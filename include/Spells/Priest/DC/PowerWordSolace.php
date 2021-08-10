@@ -17,11 +17,21 @@ class PowerWordSolace extends DcSpell {
 	protected string $spellSchool = Holy::class;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.752;
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
 
+	public function getRealDamageSPParams(): array {
+		return [
+			1094 => 921,
+			1056 => 889,
+			1012 => 852,
+			986 => 830,
+			979 => 824,
+
+		];
+	}
 
 }

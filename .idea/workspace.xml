@@ -62,15 +62,19 @@
     </key>
   </component>
   <component name="RunManager" selected="PHP HTTP Request.Wow">
-    <configuration name="Wow" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="wow.ru">
+    <configuration name="Wow" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="wow.ru" url="/view_spell_values.php">
       <method v="2" />
     </configuration>
-    <configuration name="rotation_checker_test.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/rotation_checker_test.php">
+    <configuration name="view_spell_values.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/view_spell_values.php">
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="PHP HTTP Request.Wow" />
+      <item itemvalue="PHP Script.view_spell_values.php" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="PHP Script.rotation_checker_test.php" />
+        <item itemvalue="PHP Script.view_spell_values.php" />
       </list>
     </recent_temporary>
   </component>
@@ -105,6 +109,7 @@
       <workItem from="1605428401293" duration="6690000" />
       <workItem from="1627807088693" duration="10260000" />
       <workItem from="1627884905247" duration="44000" />
+      <workItem from="1628620823552" duration="4669000" />
     </task>
     <servers />
   </component>
@@ -112,15 +117,6 @@
     <option name="version" value="3" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/rotation_checker_test.php</url>
-          <line>49</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="index.php">
         <watch expression="$this-&gt;buffs[$buffNum]" language="PHP" />

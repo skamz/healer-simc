@@ -24,10 +24,20 @@ class Smite extends DcSpell {
 	protected string $spellSchool = Holy::class;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 0.44125 * 1.5 * 0.75; // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE); // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
+	}
+
+	public function getRealDamageSPParams(): array {
+		return [
+			1087 => 605,
+			1082 => 602,
+			1061 => 590,
+			1056 => 588,
+			1000 => 556,
+		];
 	}
 
 }

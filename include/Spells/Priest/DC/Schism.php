@@ -16,13 +16,24 @@ class Schism extends DcSpell {
 	protected string $spellSchool = Shadow::class;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 1.41;
-		return $this->applySecondary($return);
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
+		$return = $this->applySecondary($return);
+		return \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 	}
 
 	public function applyBuffs(): array {
 		return [
 			new \Buffs\Priest\Schism(),
+		];
+	}
+
+	public function getRealDamageSPParams(): array {
+		return [
+			1087 => 1716,
+			1000 => 1579,
+			995 => 1571,
+			979 => 1546,
+			918 => 1449,
 		];
 	}
 
