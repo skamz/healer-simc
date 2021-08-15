@@ -10,7 +10,7 @@ class CircleHealing extends HolySpell {
 
 	// уменьшает кд
 	// дает баф при тале
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		$return = \Player::getInstance()->getInt() * 1.102417726;
 		$return = $this->applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);

@@ -9,7 +9,7 @@ TimeTicker::getInstance()->getTotalWorkTime($workTime);
 $rejuve = new \Spells\Druid\Restor\Rejuvenation();
 $toPlayer = Place::getInstance()->getRandomNumPlayer();
 
-Caster::playerCastSpell($toPlayer, $rejuve, false);
+Caster::playerCastSpell($toPlayer, $rejuve);
 while (TimeTicker::getInstance()->tick()) {
 	if (!TimeTicker::getInstance()->isGcd() && !TimeTicker::getInstance()->isCastingProgress()) {
 		//Caster::playerCastSpell($toPlayer, $rejuve, false);

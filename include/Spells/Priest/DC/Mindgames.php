@@ -18,6 +18,7 @@ class Mindgames extends DcSpell {
 	protected float $manaPercentCost = 2;
 	protected float $cd = 45;
 	protected string $spellSchool = Shadow::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 2.537;

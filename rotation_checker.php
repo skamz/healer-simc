@@ -9,7 +9,7 @@ $player = include(__DIR__ . "/player.php");
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 Helper::resetStats();
 
-$workTime = 40;
+$workTime = 10;
 TimeTicker::getInstance()->getTotalWorkTime($workTime);
 
 $shield = new  \Spells\Priest\PowerWordShield();

@@ -38,10 +38,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ToolWindowCommit.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -49,7 +55,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="ssh.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -109,7 +115,17 @@
       <workItem from="1605428401293" duration="6690000" />
       <workItem from="1627807088693" duration="10260000" />
       <workItem from="1627884905247" duration="44000" />
-      <workItem from="1628620823552" duration="4669000" />
+      <workItem from="1628620823552" duration="5015000" />
+      <workItem from="1628702679261" duration="3661000" />
+      <workItem from="1628778070477" duration="3626000" />
+      <workItem from="1628784144432" duration="6039000" />
+      <workItem from="1628792149406" duration="1498000" />
+      <workItem from="1628799165575" duration="81000" />
+      <workItem from="1629014742260" duration="4484000" />
+      <workItem from="1629025335824" duration="152000" />
+      <workItem from="1629027364302" duration="1477000" />
+      <workItem from="1629036447882" duration="417000" />
+      <workItem from="1629044928994" duration="590000" />
     </task>
     <servers />
   </component>
@@ -122,5 +138,9 @@
         <watch expression="$this-&gt;buffs[$buffNum]" language="PHP" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

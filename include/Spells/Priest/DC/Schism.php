@@ -14,6 +14,7 @@ class Schism extends DcSpell {
 	protected float $castTime = 1.5;
 	protected bool $isTriggeredAtonement = true;
 	protected string $spellSchool = Shadow::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
@@ -29,11 +30,11 @@ class Schism extends DcSpell {
 
 	public function getRealDamageSPParams(): array {
 		return [
-			1087 => 1716,
-			1000 => 1579,
-			995 => 1571,
-			979 => 1546,
-			918 => 1449,
+			1179 => 1662,
+			1148 => 1619,
+			1097 => 1547,
+			1071 => 1510,
+			1010 => 1424,
 		];
 	}
 

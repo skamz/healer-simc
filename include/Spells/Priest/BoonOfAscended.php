@@ -13,10 +13,15 @@ class BoonOfAscended extends DcSpell {
 	protected bool $isTriggeredAtonement = true;
 	protected string $spellSchool = Arcane::class;
 
+	public function getHealAmount(): int {
+		return 0;
+	}
+
 	public function applyBuffs(): array {
 		$toPlayerModel = \Place::getInstance()->getMyPlayer();
 		$toPlayerModel->addBuff(new \Buffs\Priest\BoonOfAscended());
 		return [];
 	}
+
 
 }

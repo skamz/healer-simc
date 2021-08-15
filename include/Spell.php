@@ -108,6 +108,12 @@ class Spell {
 	protected float $realSPCoef;
 
 	/**
+	 * Наносит ли спец урон цели?
+	 * @var bool
+	 */
+	protected bool $isDamageSpell = false;
+
+	/**
 	 * Если целей несколько, как выбираются остальные цели
 	 * @var bool
 	 */
@@ -159,7 +165,7 @@ class Spell {
 		throw new Exception("Наносимый урон не определен");
 	}
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		throw new Exception("Объем исцеления не определен");
 	}
 
@@ -272,6 +278,10 @@ class Spell {
 			$this->realSPCoef = Helper::calcRealSPCoef(get_class($this), $type);
 		}
 		return $this->realSPCoef;
+	}
+
+	public function isDamageSpell(): bool {
+		return $this->isDamageSpell;
 	}
 
 }

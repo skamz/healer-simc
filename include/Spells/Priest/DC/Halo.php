@@ -13,6 +13,7 @@ class Halo extends DcSpell {
 	protected bool $hasteIsReduceGCd = true;
 	protected float $cd = 40;
 	protected string $spellSchool = Holy::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.9677858903;

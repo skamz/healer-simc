@@ -19,6 +19,7 @@ class Penance extends DcSpell {
 	protected float $manaPercentCost = 1.6;
 	protected bool $isTriggeredAtonement = true;
 	protected string $spellSchool = Holy::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = 0;
@@ -36,7 +37,7 @@ class Penance extends DcSpell {
 		return $return;
 	}
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		$return = 0;
 		for ($i = 0; $i < 3; $i++) {
 			$tick = $this->getTickHealAmount();
@@ -57,11 +58,12 @@ class Penance extends DcSpell {
 
 	public function getRealDamageSPParams(): array {
 		return [
-			1082 => 455,
-			1061 => 446,
-			1056 => 444,
-			1000 => 421,
-			979 => 412,
+			1179 => 1329 / 3,
+			1148 => 1294 / 3,
+			1097 => 1237 / 3,
+			1071 => 1208 / 3,
+			1010 => 1139 / 3,
+
 		];
 	}
 

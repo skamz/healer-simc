@@ -18,7 +18,7 @@ class ShadowMend extends DcSpell {
 	protected bool $hasteIsReduceCastTime = true;
 	protected string $spellSchool = Shadow::class;
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		$return = \Player::getInstance()->getInt() * 3.2;
 		return $this->applySecondary($return);
 	}

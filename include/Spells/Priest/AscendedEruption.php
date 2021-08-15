@@ -17,7 +17,7 @@ class AscendedEruption extends DcSpell {
 		return $return;
 	}
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		$return = \Player::getInstance()->getInt() * 1.59;
 		$return = $this->applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);

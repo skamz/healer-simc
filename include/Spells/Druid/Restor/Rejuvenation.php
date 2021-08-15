@@ -8,7 +8,7 @@ class Rejuvenation extends \Spell {
 	protected float $manaPercentCost = 2.2;
 	protected float $gcd = 1.5;
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		return 0;
 	}
 

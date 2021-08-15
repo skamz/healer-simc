@@ -4,6 +4,11 @@
 namespace Rotations;
 
 
+use Buffs\Priest\Atonement;
+use Exceptions\CombatTimeDone;
+use Rotations\Priest\DC1;
+use Rotations\Priest\DCSpells;
+
 class BaseRotation {
 
 	protected array $talents = [];
@@ -42,6 +47,45 @@ class BaseRotation {
 		$this->addSpell($spell);
 	}
 
+	public function applySpell(int $spellNumber) {
+		$spellClass = DCSpells::getSpellClass($spellNumber);
+		/** @var \Spell $spell */
+		$spell = new $spellClass();
 
+		while (\TimeTicker::getInstance()->tick()) {
+			if (!\TimeTicker::getInstance()->isGcd() && !\TimeTicker::getInstance()->isCastingProgress()) {
+				if ($spell->isAvailable()) {
+					$toUnit = $this->getSpellTargetId($spell);
+					\Caster::playerCastSpell($toUnit, $spell);
+					return true;
+				}
+			}
+		}
+		throw new CombatTimeDone();
+	}
+
+	public function getSpellTargetId(\Spell $spell): int {
+		// кто в таргете
+		if ($spell->isDamageSpell()) {
+			$toUnit = \Place::getInstance()->getRandomEnemy();
+		} else {
+			$toUnit = \Place::getInstance()->getRandomNumPlayerWithoutBuff(Atonement::class);
+		}
+		return $toUnit;
+	}
+
+
+	public function run($rotationInfoSteps) {
+		if (empty($damageEnemy)) {
+			$damageEnemy = \Place::getInstance()->getRandomEnemy();
+		}
+
+		while (!empty($rotationInfoSteps)) {
+			$nextSpell = array_shift($rotationInfoSteps);
+			$this->applySpell($nextSpell);
+		}
+
+
+	}
 
 }

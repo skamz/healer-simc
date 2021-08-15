@@ -33,23 +33,6 @@ use TimeTicker;
 // 2 6 1 7 9 3
 class DC1 extends BaseRotation {
 
-	const PENANCE = 1;
-	const SCHISM = 2;
-	const SMITE = 3;
-	const RADIANCE = 4;
-	const SHIELD = 5;
-	const MINDGAMES = 6;
-	const SOLACE = 7;
-	const PURGE_WICKED = 8;
-	const MIND_BLAST = 9;
-	const HALO = 10;
-	const MINDBENDER = 11;
-	const SHADOW_PAIN = 12;
-	const BOON_OF_ASCENDED = 13;
-	const ASCENDED_BLAST = 14;
-	const ASCENDED_NOVA = 15;
-
-
 	protected function fillSpellBook() {
 		$this->setTalents(3, new Mindbender());
 		//$this->setTalents(3, new PowerWordSolace());
@@ -83,48 +66,13 @@ class DC1 extends BaseRotation {
 	}
 
 
-	public function getSpellNum($spellName) {
-		switch ($spellName) {
-			case Schism::class:
-				return self::SCHISM;
-
-			case Mindgames::class:
-				return self::MINDGAMES;
-
-			case Halo::class:
-				return self::HALO;
-
-			case Penance::class:
-				return self::PENANCE;
-
-			case PowerWordSolace::class:
-				return self::SOLACE;
-
-			case MindBlast::class:
-				return self::MIND_BLAST;
-
-			case Smite::class:
-				return self::SMITE;
-
-			case Mindbender::class:
-				return self::MINDBENDER;
-
-			case ShadowWordPain::class:
-				return self::SHADOW_PAIN;
-
-			case BoonOfAscended::class:
-				return self::BOON_OF_ASCENDED;
-
-			case AscendedBlast::class:
-				return self::ASCENDED_BLAST;
-
-			case AscendedNova::class:
-				return self::ASCENDED_NOVA;
-		}
-		exit("неизвестный спелл");
-	}
-
+	/**
+	 * @param $rotationInfoSteps
+	 * @throws PreventEndException
+	 * @deprecated
+	 */
 	public function run($rotationInfoSteps) {
+
 		$shield = new  PowerWordShield();
 		$penance = new Penance();
 		$smite = new Smite();
@@ -155,40 +103,40 @@ class DC1 extends BaseRotation {
 				}
 
 				$toPlayer = Place::getInstance()->getRandomNumPlayerWithoutBuff(Atonement::class);
-				if (Schism::isAvailable() && $nextSpell == DC1::SCHISM) {
+				if (Schism::isAvailable() && $nextSpell == DCSpells::SCHISM) {
 					Caster::playerCastSpell($damageEnemy, new Schism(), true);
 					array_shift($rotationInfoSteps);
-				} elseif (Penance::isAvailable() && $nextSpell == DC1::PENANCE) {
+				} elseif (Penance::isAvailable() && $nextSpell == DCSpells::PENANCE) {
 					Caster::playerCastSpell($damageEnemy, $penance, true);
 					array_shift($rotationInfoSteps);
-				} elseif (Smite::isAvailable() && $nextSpell == DC1::SMITE) {
+				} elseif (Smite::isAvailable() && $nextSpell == DCSpells::SMITE) {
 					Caster::playerCastSpell($damageEnemy, $smite, true);
 					array_shift($rotationInfoSteps);
-				} elseif (PowerWordRadiance::isAvailable() && $nextSpell == DC1::RADIANCE) {
+				} elseif (PowerWordRadiance::isAvailable() && $nextSpell == DCSpells::RADIANCE) {
 					Caster::playerCastSpell($toPlayer, $radiance, false);
 					array_shift($rotationInfoSteps);
-				} elseif (PowerWordShield::isAvailable() && $nextSpell == DC1::SHIELD) {
+				} elseif (PowerWordShield::isAvailable() && $nextSpell == DCSpells::SHIELD) {
 					Caster::playerCastSpell($toPlayer, $shield, false);
 					array_shift($rotationInfoSteps);
-				} elseif (Mindgames::isAvailable() && $nextSpell == DC1::MINDGAMES) {
+				} elseif (Mindgames::isAvailable() && $nextSpell == DCSpells::MINDGAMES) {
 					Caster::playerCastSpell($damageEnemy, new Mindgames(), true);
 					array_shift($rotationInfoSteps);
-				} elseif (PowerWordSolace::isAvailable() && $nextSpell == DC1::SOLACE) {
+				} elseif (PowerWordSolace::isAvailable() && $nextSpell == DCSpells::SOLACE) {
 					Caster::playerCastSpell($damageEnemy, $solace, true);
 					array_shift($rotationInfoSteps);
-				} elseif (PurgeWicked::isAvailable() && $nextSpell == DC1::PURGE_WICKED) {
+				} elseif (PurgeWicked::isAvailable() && $nextSpell == DCSpells::PURGE_WICKED) {
 					Caster::playerCastSpell($damageEnemy, $purgeWicked, true);
 					array_shift($rotationInfoSteps);
-				} elseif (MindBlast::isAvailable() && $nextSpell == DC1::MIND_BLAST) {
+				} elseif (MindBlast::isAvailable() && $nextSpell == DCSpells::MIND_BLAST) {
 					Caster::playerCastSpell($damageEnemy, $mindBlast, true);
 					array_shift($rotationInfoSteps);
-				} elseif (Halo::isAvailable() && $nextSpell == DC1::HALO) {
+				} elseif (Halo::isAvailable() && $nextSpell == DCSpells::HALO) {
 					Caster::playerCastSpell($damageEnemy, $halo, true);
 					array_shift($rotationInfoSteps);
-				} elseif ($nextSpell == DC1::SHADOW_PAIN) {
+				} elseif ($nextSpell == DCSpells::SHADOW_PAIN) {
 					Caster::playerCastSpell($damageEnemy, new ShadowWordPain(), true);
 					array_shift($rotationInfoSteps);
-				} elseif (Mindbender::isAvailable() && $nextSpell == DC1::MINDBENDER) {
+				} elseif (Mindbender::isAvailable() && $nextSpell == DCSpells::MINDBENDER) {
 					Caster::playerCastSpell($damageEnemy, $mindbender, true);
 					array_shift($rotationInfoSteps);
 				}

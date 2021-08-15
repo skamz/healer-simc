@@ -10,7 +10,7 @@ class HealSpell extends \Spell {
 		throw new \Exception("getSpellPower not set");
 	}
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		$return = \Player::getInstance()->getInt() * $this->getSpellPower();
 		$return = $this->applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);

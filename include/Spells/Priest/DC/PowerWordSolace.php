@@ -15,6 +15,7 @@ class PowerWordSolace extends DcSpell {
 	protected bool $hasteIsReduceCd = true;
 	protected float $travelTime = 0.5;
 	protected string $spellSchool = Holy::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
@@ -25,12 +26,11 @@ class PowerWordSolace extends DcSpell {
 
 	public function getRealDamageSPParams(): array {
 		return [
-			1094 => 921,
-			1056 => 889,
-			1012 => 852,
-			986 => 830,
-			979 => 824,
-
+			1179 => 886,
+			1148 => 863,
+			1097 => 825,
+			1071 => 805,
+			1010 => 759,
 		];
 	}
 

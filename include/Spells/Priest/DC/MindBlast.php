@@ -14,6 +14,7 @@ class MindBlast extends DcSpell {
 	protected float $cd = 15;
 	protected bool $hasteIsReduceCd = true;
 	protected string $spellSchool = Shadow::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
@@ -24,11 +25,11 @@ class MindBlast extends DcSpell {
 
 	public function getRealDamageSPParams(): array {
 		return [
-			1087 => 907,
-			1061 => 886,
-			1056 => 881,
-			1000 => 835,
-			979 => 817,
+			1179 => 879,
+			1148 => 856,
+			1097 => 818,
+			1071 => 798,
+			1010 => 753,
 		];
 	}
 

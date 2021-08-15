@@ -3,11 +3,11 @@ const INC_AMOUNT = 50;
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = Player::getInstance()
-	->setInt(1087)
+	->setInt(1783)
 	->setCrit(0)
 	->setHaste(544)
 	->setMatery(270)
-	->setVersatility(0)
+	->setVersatility(344)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 

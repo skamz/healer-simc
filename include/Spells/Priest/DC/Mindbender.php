@@ -14,6 +14,7 @@ class Mindbender extends DcSpell {
 	protected float $gcd = 1.5;
 	protected bool $hasteIsReduceGCd = true;
 	protected string $spellSchool = Physical::class;
+	protected bool $isDamageSpell = true;
 
 	public function applySpecial() {
 		$this->summonPet();

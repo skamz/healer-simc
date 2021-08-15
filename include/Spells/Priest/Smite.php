@@ -22,6 +22,7 @@ class Smite extends DcSpell {
 	protected bool $hasteIsReduceCastTime = true;
 	protected bool $hasteIsReduceCd = true;
 	protected string $spellSchool = Holy::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE); // 47% base; +50% rank2 -25% (id=137032;Passive, Hidden)
@@ -32,11 +33,11 @@ class Smite extends DcSpell {
 
 	public function getRealDamageSPParams(): array {
 		return [
-			1087 => 605,
-			1082 => 602,
-			1061 => 590,
-			1056 => 588,
-			1000 => 556,
+			1179 => 586,
+			1148 => 570,
+			1097 => 545,
+			1071 => 532,
+			1010 => 502,
 		];
 	}
 

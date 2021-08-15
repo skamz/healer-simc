@@ -14,6 +14,8 @@ class RedisManager {
 	const STAT_VERSA = "stat_versa";
 	const STAT_MASTERY = "stat_mastery";
 
+	const KEY_FILL_WORK_LOCK = "fill_work_lock";
+
 	use \Traits\Singleton;
 
 	protected Redis $redis;
@@ -49,6 +51,10 @@ class RedisManager {
 
 	public function set($key, $value) {
 		return $this->redis->set($key, $value);
+	}
+
+	public function setex($key, $value, $ttl) {
+		return $this->redis->setex($key, $ttl, $value);
 	}
 
 	public function del($key) {

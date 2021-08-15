@@ -12,6 +12,8 @@ echo "Penance (Исповедь) damage: " . (new \Spells\Priest\DC\Penance())->
 echo "MindBlast (Взрыв разума): " . (new \Spells\Priest\DC\MindBlast())->getDamageAmount() . "<br>";
 echo "PowerWordSolace (Слово силы: утешение): " . (new \Spells\Priest\DC\PowerWordSolace())->getDamageAmount() . "<br>";
 echo "Schism (Схизма): " . (new \Spells\Priest\DC\Schism())->getDamageAmount() . "<br>";
+echo "AscendedBlast (Взрыв перерождения): " . (new \Spells\Priest\AscendedBlast())->getDamageAmount() . "<br>";
+echo "AscendedNova (Кольцо перерождения): " . (new \Spells\Priest\AscendedNova())->getDamageAmount() . "<br>";
 echo "PurgeWicked (Очищение зла): " . (new \Spells\Priest\DC\PurgeWicked())->getDamageAmount() . "<br>";
 Caster::applySpellToEnemy(Place::getInstance()->getRandomEnemy(), new \Spells\Priest\DC\PurgeWicked());
 

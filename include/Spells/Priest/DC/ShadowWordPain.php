@@ -14,6 +14,7 @@ class ShadowWordPain extends DcSpell {
 	protected float $gcd = 1.5;
 	protected bool $isTriggeredAtonement = true;
 	protected string $spellSchool = Shadow::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * 0.209564;

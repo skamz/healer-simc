@@ -159,6 +159,14 @@ function drawHeal() {
 </script>';
 	}
 
+	public static function getTotalDamage() {
+		$return = 0;
+		foreach (self::$damage as $name => $value) {
+			$return += $value;
+		}
+		return $return;
+	}
+
 	public static function printDamage() {
 		if (!self::$isLog) return;
 		arsort(self::$damage);

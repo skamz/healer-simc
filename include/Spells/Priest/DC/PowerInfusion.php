@@ -12,7 +12,7 @@ class PowerInfusion extends DcSpell {
 	protected float $gcd = 0;
 	protected string $spellSchool = Holy::class;
 
-	public function getHealAmount() {
+	public function getHealAmount(): int {
 		return 0;
 	}
 
