@@ -33,13 +33,14 @@ class AscendedBlast extends DcSpell {
 		return 0;
 	}
 
-	public function getDamageAmount() {
+	public function getDamageAmount(): int {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
 	}
 
+	// это костыль, есть баф CourageousAscension который сейчас не применяется
 	public function getRealDamageSPParams(): array {
 		return [
 			1370 => 3162,

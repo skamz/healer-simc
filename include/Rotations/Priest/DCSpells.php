@@ -2,6 +2,7 @@
 
 namespace Rotations\Priest;
 
+
 use Spells\Priest\AscendedBlast;
 use Spells\Priest\AscendedNova;
 use Spells\Priest\BoonOfAscended;
@@ -10,9 +11,13 @@ use Spells\Priest\DC\Mindbender;
 use Spells\Priest\DC\MindBlast;
 use Spells\Priest\DC\Mindgames;
 use Spells\Priest\DC\Penance;
+use Spells\Priest\DC\PowerWordRadiance;
 use Spells\Priest\DC\PowerWordSolace;
+use Spells\Priest\DC\PurgeWicked;
 use Spells\Priest\DC\Schism;
+use Spells\Priest\DC\Shadowfiend;
 use Spells\Priest\DC\ShadowWordPain;
+use Spells\Priest\PowerWordShield;
 use Spells\Priest\Smite;
 
 class DCSpells {
@@ -32,6 +37,7 @@ class DCSpells {
 	const BOON_OF_ASCENDED = 13;
 	const ASCENDED_BLAST = 14;
 	const ASCENDED_NOVA = 15;
+	const SHADOWFIEND = 16;
 
 	public static function getAliases(): array {
 		return [
@@ -40,6 +46,9 @@ class DCSpells {
 			Halo::class => self::HALO,
 			Penance::class => self::PENANCE,
 			PowerWordSolace::class => self::SOLACE,
+			PowerWordRadiance::class => self::RADIANCE,
+			PowerWordShield::class => self::SHIELD,
+			PurgeWicked::class => self::PURGE_WICKED,
 			MindBlast::class => self::MIND_BLAST,
 			Smite::class => self::SMITE,
 			Mindbender::class => self::MINDBENDER,
@@ -47,6 +56,7 @@ class DCSpells {
 			BoonOfAscended::class => self::BOON_OF_ASCENDED,
 			AscendedBlast::class => self::ASCENDED_BLAST,
 			AscendedNova::class => self::ASCENDED_NOVA,
+			Shadowfiend::class => self::SHADOWFIEND,
 		];
 	}
 
@@ -54,7 +64,7 @@ class DCSpells {
 		$spellList = self::getAliases();
 		$spellListFlip = array_flip($spellList);
 		if (empty($spellListFlip[$spellNum])) {
-			throw new \Exception("неизвестный спелл");
+			throw new \Exception("неизвестный спелл {$spellNum}");
 		}
 		return $spellListFlip[$spellNum];
 	}

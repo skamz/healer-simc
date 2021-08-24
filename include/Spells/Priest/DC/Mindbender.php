@@ -18,11 +18,16 @@ class Mindbender extends DcSpell {
 
 	public function applySpecial() {
 		$this->summonPet();
-		\Events::getInstance()->prolongBuffByName(Atonement::class, intval(self::PROLONG_BY_LEG / \TimeTicker::TICK_COUNT));
+		//@todo action by leg
+		//\Events::getInstance()->prolongBuffByName(Atonement::class, intval(self::PROLONG_BY_LEG / \TimeTicker::TICK_COUNT));
 	}
 
 	protected function summonPet() {
 		\Place::getInstance()->addPet(new \Pets\Mindbender());
+	}
+
+	public function getDamageAmount() {
+		return 0;
 	}
 
 }

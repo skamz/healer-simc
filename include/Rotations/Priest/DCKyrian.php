@@ -2,13 +2,13 @@
 
 namespace Rotations\Priest;
 
-use Buffs\Priest\Schism;
 use Pets\Mindbender;
 use Rotations\BaseRotation;
 use Spells\Priest\DC\Halo;
 use Spells\Priest\DC\MindBlast;
 use Spells\Priest\DC\Penance;
 use Spells\Priest\DC\PowerWordSolace;
+use Spells\Priest\DC\Schism;
 use Spells\Priest\Smite;
 
 class DCKyrian extends BaseRotation {

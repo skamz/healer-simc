@@ -11,8 +11,10 @@ function storeResult($id) {
 function addSpells(array $spellList, string $rotation) {
 	$return = [];
 	foreach ($spellList as $spellClass) {
-		$spellNum = \Rotations\Priest\DCSpells::getSpellNum($spellClass);
-		$return[] = trim("{$rotation} {$spellNum}");
+		if ($spellClass::isAvailable()) {
+			$spellNum = \Rotations\Priest\DCSpells::getSpellNum($spellClass);
+			$return[] = trim("{$rotation} {$spellNum}");
+		}
 	}
 	registerRotations($return);
 }
@@ -40,6 +42,9 @@ $spellList = [
 
 $db = Database::getInstance();
 $id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
+if (empty($id) && $argv >= 2) {
+	$id = 1800430;
+}
 
 $rotationInfo = $db->query("select * from priest_dc_work where id = {$id} limit 1 ")->fetchArray();
 if (empty($rotationInfo)) {
@@ -53,12 +58,14 @@ try {
 	$rotation = new \Rotations\BaseRotation();
 	$rotation->run($rotationInfoSteps);
 } catch (\Exceptions\CombatTimeDone $ex) {
+} finally {
+	echo \Legendary\Priest\ClarityOfMind::isActive() ? "Leg ClarityOfMind apply" : "not leg";
+	storeResult($id);
 }
 
-storeResult($id);
 
 if (TimeTicker::getInstance()->getCombatTimer() >= $workTime) {
 	exit("Time over");
 }
+$rotation->skipGcd();
 addSpells($spellList, trim($rotationInfo["rotation"]));
-

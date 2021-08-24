@@ -34,6 +34,7 @@ class StatCalculator {
 		if (!isset($critCount)) {
 			$critCount = Player::getInstance()->getCritCount();
 		}
+		$critCount = Player::getInstance()->applyBuffs("applyCritAmount", $critCount);
 		$return = $this->critCalculator->calcPercent($critCount);
 		$return = Player::getInstance()->applyBuffs("applyCritPercents", $return);
 		return $return;
@@ -43,6 +44,7 @@ class StatCalculator {
 		if (!isset($masteryCount)) {
 			$masteryCount = Player::getInstance()->getMasteryCount();
 		}
+		$masteryCount = Player::getInstance()->applyBuffs("applyMasteryAmount", $masteryCount);
 		$return = $this->masteryCalculator->calcPercent($masteryCount);
 		$return = Player::getInstance()->applyBuffs("applyMasteryPercents", $return);
 		return $return;
@@ -52,6 +54,7 @@ class StatCalculator {
 		if (!isset($hasteCount)) {
 			$hasteCount = Player::getInstance()->getHasteCount();
 		}
+		$hasteCount = Player::getInstance()->applyBuffs("applyHasteAmount", $hasteCount);
 		$return = $this->hasteCalculator->calcPercent($hasteCount);
 		$return = Player::getInstance()->applyBuffs("applyHastePercents", $return);
 		return $return;
@@ -62,6 +65,7 @@ class StatCalculator {
 		if (!isset($versatilityCount)) {
 			$versatilityCount = Player::getInstance()->getVersatilityCount();
 		}
+		$versatilityCount = Player::getInstance()->applyBuffs("applyVersatilityAmount", $versatilityCount);
 		$return = $this->versaCalculator->calcPercent($versatilityCount);
 		$return = Player::getInstance()->applyBuffs("applyVersatilityPercents", $return);
 		return $return;

@@ -18,6 +18,7 @@ class PurgeWicked extends DcSpell {
 	protected float $gcd = 1.5;
 	protected bool $isTriggeredAtonement = true;
 	protected string $spellSchool = Fire::class;
+	protected bool $isDamageSpell = true;
 
 	public function getDamageAmount() {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);

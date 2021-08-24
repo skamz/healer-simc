@@ -1,7 +1,5 @@
 <?php
 
-use Rotations\Priest\DC1;
-
 require_once(__DIR__ . "/autoloader.php");
 
 const PENANCE = 1;
@@ -38,7 +36,7 @@ echo "Mastery: " . Player::getInstance()->getStatCalculator()->getMasteryPercent
 echo "Versa: " . Player::getInstance()->getStatCalculator()->getVersatilityPercent() . "<br>\n";
 $damageEnemy = Place::getInstance()->getRandomEnemy();
 
-$workTime = 30;
+$workTime = 40;
 TimeTicker::getInstance()->getTotalWorkTime($workTime);
 
 $shield = new  \Spells\Priest\PowerWordShield();
@@ -64,9 +62,9 @@ $maxCountAfterBuff = 9;
 $currentAfterBuff = 0;
 $preventEnd = false;
 
-$rotationsGenerator = new \Rotations\Priest\DC1();
+
 try {
-	$rotation = new DC1();
+	$rotation = new \Rotations\Priest\DCKyrian();
 	$rotation->run($rotationInfoSteps);
 } catch (\Exceptions\PreventEndException $ex) {
 	$preventEnd = true;
@@ -86,54 +84,3 @@ if ($preventEnd) {
 	exit("GG");
 }
 
-$rotationsGenerator = new \Rotations\Priest\DC1();
-$nextSpellName = $rotationsGenerator->execute();
-$nextSpellNum = $rotationsGenerator->getSpellNum($nextSpellName);
-echo "Next spell {$nextSpellName} ({$nextSpellNum})\n";
-
-exit;
-$saveResult = [
-	"id" => $rotationInfo["id"],
-	"heal" => $totalResult,
-	"rotation" => $rotationInfo["rotation"],
-];
-RedisManager::getInstance()->sadd(RedisManager::SIM_RESULTS, json_encode($saveResult));
-//$db->query("update priest_dc set total_heal = total_heal + {$totalResult}, iterations = iterations + 1, avg_heal = total_heal / iterations where id ={$rotationInfo["id"]}");
-
-RedisManager::getInstance()->incr("sim_done");
-
-if (TimeTicker::getInstance()->getCombatTimer() >= $workTime) {
-	exit;
-}
-
-if (\Spells\Priest\DC\Schism::isAvailable()) {
-	$rotationVariables[] = SCHISM;
-}
-if (\Spells\Priest\DC\Penance::isAvailable()) {
-	$rotationVariables[] = PENANCE;
-}
-if (\Spells\Priest\DC\Mindgames::isAvailable()) {
-	$rotationVariables[] = MINDGAMES;
-}
-if (\Spells\Priest\DC\PowerWordSolace::isAvailable()) {
-	$rotationVariables[] = SOLACE;
-}
-if (empty($rotationVariables)) {
-	$rotationVariables[] = SMITE;
-	$rotationVariables[] = PURGE_WICKED;
-}
-
-
-print_r($rotationVariables);
-$insertValues = [];
-foreach ($rotationVariables as $nextSpell) {
-	$testRotation = "{$rotationInfo["rotation"]} {$nextSpell}";
-	//$row = $db->query("select 1 from 	priest_dc_future where rotation='{$testRotation}' limit 1")->fetchArray();
-	//if (empty($row)) {
-	RedisManager::getInstance()->sadd(RedisManager::FUTURE_ROTATION, $testRotation);
-	//$insertValues[] = $testRotation;
-	//}
-}
-if (!empty($insertValues)) {
-	$db->query("insert ignore into priest_dc(rotation) values('" . implode("'), ('", $insertValues) . "')");
-}

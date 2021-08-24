@@ -1,7 +1,7 @@
 <?php
 
 
-class Buff {
+abstract class Buff {
 
 	const FULL_TIME = 9999;
 
@@ -16,7 +16,7 @@ class Buff {
 	protected float $lostToTick;
 
 	protected int $startIterationNum;
-	protected int $iterationEnd;
+	protected int $iterationEnd = 0;
 	protected int $stackCount = 1;
 
 	protected array $eventsId = [];
@@ -45,6 +45,9 @@ class Buff {
 	}
 
 	public function getIterationEnd() {
+		if (!isset($this->iterationEnd)) {
+			echo get_class($this) . "<br>";
+		}
 		return $this->iterationEnd;
 	}
 
@@ -128,6 +131,26 @@ class Buff {
 
 	public function applyVersatilityPercents(float $percents, Spell $fromSpell = null): float {
 		return $percents;
+	}
+
+	public function applyIntAmount(int $amount, Spell $fromSpell = null): float {
+		return $amount;
+	}
+
+	public function applyCritAmount(int $amount, Spell $fromSpell = null): float {
+		return $amount;
+	}
+
+	public function applyMasteryAmount(int $amount, Spell $fromSpell = null): float {
+		return $amount;
+	}
+
+	public function applyHasteAmount(int $amount, Spell $fromSpell = null): float {
+		return $amount;
+	}
+
+	public function applyVersatilityAmount(int $amount, Spell $fromSpell = null): float {
+		return $amount;
 	}
 
 	public function increaseDamage(int $damageCount, Spell $fromSpell = null): int {

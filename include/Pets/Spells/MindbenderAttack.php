@@ -17,6 +17,7 @@ class MindbenderAttack extends DcSpell {
 
 	public function __construct() {
 		parent::__construct();
+		//@todo Хуяевая реализация, нужно сделаьт через метод самого бафа
 		if (\Player::getInstance()->hasBuff(\Buffs\Covenant\RabidShadows::class) !== null) {
 			$this->cd /= 1 + RabidShadows::PERCENT / 100;
 		}

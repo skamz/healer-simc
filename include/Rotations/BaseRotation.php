@@ -84,8 +84,14 @@ class BaseRotation {
 			$nextSpell = array_shift($rotationInfoSteps);
 			$this->applySpell($nextSpell);
 		}
+	}
 
-
+	public function skipGcd() {
+		while (\TimeTicker::getInstance()->tick()) {
+			if (!\TimeTicker::getInstance()->isGcd()) {
+				break;
+			}
+		}
 	}
 
 }

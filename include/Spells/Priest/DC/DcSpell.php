@@ -23,4 +23,20 @@ class DcSpell extends \Spell {
 		}
 	}
 
+	public function getRealHealSPParams(): array {
+		throw new \Exception("getRealHealSPParams not set");
+	}
+
+	public function getRealDamageSPParams(): array {
+		throw new \Exception("getRealDamageSPParams not set");
+	}
+
+	public function getDamageAmount() {
+		throw new \Exception("getDamageAmount not set");
+	}
+
+	public function getHealAmount(): int {
+		throw new \Exception("getHealAmount not set: ".get_class($this));
+	}
+
 }

@@ -4,10 +4,8 @@
 namespace Mediums\Ventir\Conduits;
 
 
-class Conduit {
+abstract class Conduit {
 
-	public function apply() {
-
-	}
+	abstract public function apply();
 
 }

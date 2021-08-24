@@ -60,11 +60,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\OpenServer\domains\wow.ru\include" />
+      <recent name="F:\OpenServer\domains\wow.ru\include\Buffs\Covenant\Kyrian" />
       <recent name="F:\OpenServer\domains\wow.ru\include\Events" />
       <recent name="F:\OpenServer\domains\wow.ru\include\Mediums\Ventir" />
       <recent name="F:\OpenServer\domains\wow.ru" />
-      <recent name="F:\OpenServer\domains\wow.ru\include\Buffs\Priest" />
-      <recent name="F:\OpenServer\domains\wow.ru\include\stat_sourse" />
     </key>
   </component>
   <component name="RunManager" selected="PHP HTTP Request.Wow">
@@ -126,6 +126,9 @@
       <workItem from="1629027364302" duration="1477000" />
       <workItem from="1629036447882" duration="417000" />
       <workItem from="1629044928994" duration="590000" />
+      <workItem from="1629125512860" duration="1453000" />
+      <workItem from="1629224595103" duration="6349000" />
+      <workItem from="1629316114961" duration="3072000" />
     </task>
     <servers />
   </component>

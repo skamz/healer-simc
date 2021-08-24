@@ -24,6 +24,13 @@ function fillWork() {
 }
 
 function getTopValue() {
+	$key = RedisManager::AVG_RESULT_WORK_LOCK;
+	$lockValue = RedisManager::getInstance()->get($key);
+	if (!empty($lockValue)) {
+		echo "Lock value: {$lockValue}\n";
+		return $lockValue;
+	}
+
 	$sql = "select avg(dmg) from (
     			select total_heal/iterations as dmg 
     			from priest_dc_work 
@@ -31,8 +38,10 @@ function getTopValue() {
     			order by dmg desc
     			limit 100
    			 ) as t";
-	$return = Database::getInstance()->query($sql)->fetchArray();
-	return array_shift($return);
+	$data = Database::getInstance()->query($sql)->fetchArray();
+	$return = array_shift($data);
+	RedisManager::getInstance()->setex($key, $return, Helper::ONE_MINUTE * 5);
+	return $return;
 }
 
 function getCountInWork() {
@@ -80,7 +89,7 @@ function getCheckRotations(int $iterations, int $avgFilter) {
 
 $db = new Database();
 
-$insertByStep = 1000;
+$insertByStep = 5000;
 $sleepCounter = 0;
 
 while (true) {
@@ -90,7 +99,7 @@ while (true) {
 	if ($countInList > $insertByStep / 2) {
 		echo " - sleep\n";
 		$sleepCounter++;
-		if ($sleepCounter >= 100) {
+		if ($sleepCounter >= 500) {
 			break;
 		}
 		sleep(1);
@@ -125,4 +134,8 @@ while (true) {
 		RedisManager::getInstance()->sadd(RedisManager::ROTATIONS, $row["id"]);
 	}
 	echo "add count: " . count($rotationRows) . "\n";
+	if (count($rotationRows) < $insertByStep) {
+		echo "Близко ко концу, speel 10 sec\n";
+		sleep(10);
+	}
 }

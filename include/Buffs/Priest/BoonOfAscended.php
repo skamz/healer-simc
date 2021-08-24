@@ -6,17 +6,16 @@ use Spells\Priest\AscendedBlast;
 use Spells\Priest\AscendedEruption;
 use Spells\Priest\AscendedNova;
 
+//@todo CourageousAscension buff
 class BoonOfAscended extends \Buff {
 
-	//  Урон и исцеление от "Волны перерождения" усилены на 3% за стак
-	const INCREASE_BY_STACK = 0.03;
+	//  Урон и исцеление от "Волны перерождения" усилены на 3% за стак (+1 от CourageousAscension hardcode)
+	const INCREASE_BY_STACK = 0.04;
 
-	protected float $duration = 20;
+	protected float $duration = 10;
 
 	public function increaseAscendedSpell(int $amount, \Spell $fromSpell = null): int {
 		$increase = [
-			AscendedBlast::class,
-			AscendedNova::class,
 			AscendedEruption::class,
 		];
 		if (empty($fromSpell) || !in_array($fromSpell->getName(), $increase)) {
@@ -47,5 +46,6 @@ class BoonOfAscended extends \Buff {
 	public function applyOnDamage(int $damageCount, \Spell $fromSpell = null): int {
 		return round($damageCount * 1.25);
 	}
+
 
 }

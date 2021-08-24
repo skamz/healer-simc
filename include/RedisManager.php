@@ -15,6 +15,7 @@ class RedisManager {
 	const STAT_MASTERY = "stat_mastery";
 
 	const KEY_FILL_WORK_LOCK = "fill_work_lock";
+	const AVG_RESULT_WORK_LOCK = "avg_result_work_lock";
 
 	use \Traits\Singleton;
 

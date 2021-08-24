@@ -9,6 +9,10 @@ class Atonement extends \Buff {
 
 	protected float $duration = 15;
 
+	public function __construct() {
+
+	}
+
 	public static function getHealAmount(int $damageAmount): int {
 		$masteryPercent = \Place::getInstance()->getMyPlayer()->getStatCalculator()->getMasteryPercent();
 		$healPercent = 0.5 * (1 + $masteryPercent / 100);

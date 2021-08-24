@@ -3,6 +3,7 @@
 
 class Helper {
 
+	const ONE_MINUTE = 60;
 	const ONE_HOUR = 3600;
 
 	protected static $spellRealSP = [];

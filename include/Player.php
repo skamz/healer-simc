@@ -11,7 +11,9 @@ class Player extends Unit {
 	protected int $mastery;
 	protected int $versatility;
 	protected string $covenant;
-	protected string $covenantMedium;
+	protected \Mediums\Medium $covenantMedium;
+	protected array $conduits = [];
+	protected \Legendary\Legendary $legendary;
 
 
 	/**
@@ -25,11 +27,12 @@ class Player extends Unit {
 		$this->maxHealth = $this->health;
 	}
 
-	public static function getInstance() {
-		if (!isset(self::$instance)) {
+	public static function getInstance(): self {
+		return Place::getInstance()->getMyPlayer();
+		/*if (!isset(self::$instance)) {
 			self::$instance = new self();
 		}
-		return self::$instance;
+		return self::$instance;*/
 	}
 
 	public function getInt() {
@@ -104,17 +107,40 @@ class Player extends Unit {
 	}
 
 	public function setCovenantMedium(string $medium) {
-		$this->covenantMedium = $medium;
+		$this->covenantMedium = new $medium();
 		return $this;
+	}
+
+	public function setLegendary(string $className): self {
+		$this->legendary = new $className();
+		return $this;
+	}
+
+	public function getLegendary(): \Legendary\Legendary {
+		return $this->legendary;
+	}
+
+	public function getMedium(): \Mediums\Medium {
+		return $this->covenantMedium;
 	}
 
 	public function isVentir() {
 		return $this->covenant == \Enum\Covenant::TYPE_VENTIR;
 	}
 
-	public function addConduit(\Mediums\Ventir\Conduits\Conduit $conduit) {
+	public function addConduit(\Mediums\Ventir\Conduits\Conduit $conduit): self {
 		$conduit->apply();
+		$this->conduits[] = $conduit;
 		return $this;
+	}
+
+	public function hasConduit(string $conduitClass): bool {
+		foreach ($this->conduits as $conduit) {
+			if (get_class($conduit) == $conduit) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

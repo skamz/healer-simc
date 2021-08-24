@@ -3,6 +3,7 @@
 
 namespace Spells\Priest;
 
+use Legendary\Priest\ClarityOfMind;
 use Spells\Priest\DC\DcSpell;
 use Spells\SpellSchool\Holy;
 
@@ -25,8 +26,12 @@ class PowerWordShield extends DcSpell {
 	}
 
 	public function applyBuffs(): array {
+		$atonement = new \Buffs\Priest\Atonement();
+		if (ClarityOfMind::isActive()) {
+			$atonement->setDuration($atonement->getBaseDuration() + ClarityOfMind::INC_ATONEMENT_BUFF_TIME);
+		}
 		return [
-			new \Buffs\Priest\Atonement(),
+			$atonement
 		];
 	}
 

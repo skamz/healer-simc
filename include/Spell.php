@@ -1,7 +1,7 @@
 <?php
 
 
-class Spell {
+abstract class Spell {
 
 	const PING = 0.07;
 
@@ -161,13 +161,9 @@ class Spell {
 		return $baseValue / (1 + $hastePercents / 100);
 	}
 
-	public function getDamageAmount() {
-		throw new Exception("Наносимый урон не определен");
-	}
+	abstract public function getDamageAmount();
 
-	public function getHealAmount(): int {
-		throw new Exception("Объем исцеления не определен");
-	}
+	abstract public function getHealAmount(): int;
 
 	public static function applyVersatility(float $amount) {
 		$versaPercent = Player::getInstance()->getStatCalculator()->getVersatilityPercent();
@@ -243,6 +239,7 @@ class Spell {
 	}
 
 	public function afterSuccessCast() {
+		Place::getInstance()->getMyPlayer()->getMedium()->castTrigger($this);
 	}
 
 	public function getSpellCommonTargets(int $playerNum): array {
@@ -253,13 +250,9 @@ class Spell {
 		return $this->spellSchool;
 	}
 
-	public function getRealDamageSPParams(): array {
-		throw new Exception("Damage params not set");
-	}
+	abstract public function getRealDamageSPParams(): array;
 
-	public function getRealHealSPParams(): array {
-		throw new Exception("Damage params not set");
-	}
+	abstract public function getRealHealSPParams(): array;
 
 	public function getRealSPParams(int $type) {
 		switch ($type) {
