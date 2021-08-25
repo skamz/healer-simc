@@ -19,6 +19,8 @@ function fillWork() {
 		select * from priest_dc";
 	Database::getInstance()->query($sql);
 
+	Database::getInstance()->query("truncate table priest_dc");
+
 	RedisManager::getInstance()->setex(RedisManager::KEY_FILL_WORK_LOCK, 1, Helper::ONE_HOUR);
 	echo "fillWork\n";
 }
