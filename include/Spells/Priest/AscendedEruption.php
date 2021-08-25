@@ -11,7 +11,7 @@ class AscendedEruption extends DcSpell {
 	protected string $spellSchool = Arcane::class;
 
 	public function getDamageAmount() {
-		$return = \Player::getInstance()->getInt() * 2.1;
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(self::SP_TYPE_DAMAGE);
 		$return = \Spell::applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseDamage", $return, $this);
 		return $return;
@@ -22,6 +22,14 @@ class AscendedEruption extends DcSpell {
 		$return = $this->applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);
 		return $return;
+	}
+
+	public function getRealDamageSPParams(): array {
+		return [
+			1827 => 2806,
+			1828 => 2821,
+			1339 => 2085,
+		];
 	}
 
 }

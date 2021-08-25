@@ -3,9 +3,9 @@
 require_once(__DIR__ . "/autoloader.php");
 
 function storeResult($id) {
-	$damage = (int)Details::getTotalDamage();
-	Database::getInstance()->query("update priest_dc_work set total_heal=total_heal+{$damage}, iterations = iterations + 1 where id = {$id} limit 1 ");
-	echo "total damage: {$damage}<br>\n";
+	$atonementResult = intval(Details::getHealFromSpell(\Buffs\Priest\Atonement::class));
+	Database::getInstance()->query("update priest_dc_work set total_heal=total_heal+{$atonementResult}, iterations = iterations + 1 where id = {$id} limit 1 ");
+	echo "total Atonement heal: {$atonementResult}<br>\n";
 }
 
 function addSpells(array $spellList, string $rotation) {
@@ -27,18 +27,9 @@ function registerRotations(array $rotations) {
 }
 
 $player = include(__DIR__ . "/player.php");
-$workTime = 10;
+$workTime = 40;
 TimeTicker::getInstance()->getTotalWorkTime($workTime);
 
-$spellList = [
-	\Spells\Priest\Smite::class,
-	\Spells\Priest\DC\Penance::class,
-	\Spells\Priest\DC\Schism::class,
-	\Spells\Priest\DC\MindBlast::class,
-	\Spells\Priest\DC\PowerWordSolace::class,
-	\Spells\Priest\AscendedBlast::class,
-	\Spells\Priest\AscendedNova::class,
-];
 
 $db = Database::getInstance();
 $id = RedisManager::getInstance()->spop(RedisManager::ROTATIONS);
@@ -59,7 +50,6 @@ try {
 	$rotation->run($rotationInfoSteps);
 } catch (\Exceptions\CombatTimeDone $ex) {
 } finally {
-	echo \Legendary\Priest\ClarityOfMind::isActive() ? "Leg ClarityOfMind apply" : "not leg";
 	storeResult($id);
 }
 
@@ -68,4 +58,11 @@ if (TimeTicker::getInstance()->getCombatTimer() >= $workTime) {
 	exit("Time over");
 }
 $rotation->skipGcd();
+$spellList = [
+	\Spells\Priest\BoonOfAscended::class,
+	\Spells\Priest\AscendedBlast::class,
+	\Spells\Priest\AscendedNova::class,
+	\Spells\Priest\DC\MindBlast::class,
+	\Spells\Priest\DC\Schism::class,
+];
 addSpells($spellList, trim($rotationInfo["rotation"]));

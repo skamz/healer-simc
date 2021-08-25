@@ -21,6 +21,7 @@ class BoonOfAscended extends \Buff {
 		if (empty($fromSpell) || !in_array($fromSpell->getName(), $increase)) {
 			return $amount;
 		}
+
 		$increasePercent = $this->stackCount * self::INCREASE_BY_STACK;
 		return round($amount * (1 + $increasePercent));
 	}
@@ -38,14 +39,6 @@ class BoonOfAscended extends \Buff {
 		$spellObject = new AscendedEruption();
 		$toEnemy = \Place::getInstance()->getRandomEnemy();
 		\Caster::applySpellToEnemy($toEnemy, $spellObject);
-
-		$toPlayer = \Place::getInstance()->getRandomNumPlayer();
-		\Caster::applySpellToPlayer($toPlayer, $spellObject);
 	}
-
-	public function applyOnDamage(int $damageCount, \Spell $fromSpell = null): int {
-		return round($damageCount * 1.25);
-	}
-
 
 }

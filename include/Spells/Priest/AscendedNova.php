@@ -7,6 +7,8 @@ use Spells\SpellSchool\Arcane;
 
 class AscendedNova extends DcSpell {
 
+	const BOON_OF_ASCENDED_STACKS = 1;
+
 	protected int $targetCount = 6;
 	protected string $spellSchool = Arcane::class;
 	protected float $gcd = 1;
@@ -22,7 +24,7 @@ class AscendedNova extends DcSpell {
 	}
 
 	public function applyBuffs(): array {
-		// увеличивает количество ставок бафа BoonOfAscended на 1 за каждый таргет
+		\Player::getInstance()->getBuff(\Buffs\Priest\BoonOfAscended::class)->increaseStackCount(self::BOON_OF_ASCENDED_STACKS);
 		return [];
 	}
 
@@ -35,6 +37,7 @@ class AscendedNova extends DcSpell {
 
 	public function getRealDamageSPParams(): array {
 		return [
+			1456 => 1042,
 			1370 => 932,
 			1309 => 933,
 			1288 => 896,

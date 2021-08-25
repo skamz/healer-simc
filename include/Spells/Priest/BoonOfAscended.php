@@ -17,6 +17,10 @@ class BoonOfAscended extends DcSpell {
 		return 0;
 	}
 
+	public function applySpecial() {
+
+	}
+
 	public function applyBuffs(): array {
 		$toPlayerModel = \Place::getInstance()->getMyPlayer();
 		$toPlayerModel->addBuff(new \Buffs\Priest\BoonOfAscended());

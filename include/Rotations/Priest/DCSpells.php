@@ -17,6 +17,7 @@ use Spells\Priest\DC\PurgeWicked;
 use Spells\Priest\DC\Schism;
 use Spells\Priest\DC\Shadowfiend;
 use Spells\Priest\DC\ShadowWordPain;
+use Spells\Priest\DC\SpiritShell;
 use Spells\Priest\PowerWordShield;
 use Spells\Priest\Smite;
 
@@ -38,6 +39,7 @@ class DCSpells {
 	const ASCENDED_BLAST = 14;
 	const ASCENDED_NOVA = 15;
 	const SHADOWFIEND = 16;
+	const SPIRIT_SHELL = 17;
 
 	public static function getAliases(): array {
 		return [
@@ -57,6 +59,7 @@ class DCSpells {
 			AscendedBlast::class => self::ASCENDED_BLAST,
 			AscendedNova::class => self::ASCENDED_NOVA,
 			Shadowfiend::class => self::SHADOWFIEND,
+			SpiritShell::class => self::SPIRIT_SHELL,
 		];
 	}
 

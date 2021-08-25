@@ -10,6 +10,10 @@ function isAllowFill() {
 	return false;
 }
 
+function resetLock() {
+	RedisManager::getInstance()->del(RedisManager::KEY_FILL_WORK_LOCK);
+}
+
 function fillWork() {
 	if (!isAllowFill()) {
 		return false;
@@ -95,6 +99,9 @@ $sleepCounter = 0;
 while (true) {
 	fillWork();
 	$countInList = RedisManager::getInstance()->scard(RedisManager::ROTATIONS);
+	if (empty($countInList)) {
+		resetLock();
+	}
 	echo "lost count: " . $countInList;
 	if ($countInList > $insertByStep / 2) {
 		echo " - sleep\n";
@@ -114,7 +121,7 @@ while (true) {
 
 		$topValue = getTopValue();
 
-		$cleanBy = intval($topValue * 0.7);
+		$cleanBy = intval($topValue * 0.5);
 		$rotationRows = $db->query("select id from priest_dc_work where iterations<10 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
 		if (empty($rotationRows)) {
 			$cleanBy = intval($topValue * 0.85);

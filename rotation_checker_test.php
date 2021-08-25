@@ -78,9 +78,26 @@ Details::printDamage();
 Details::printHeal();
 echo "Atonement heal: " . Details::getHealFromSpell(\Buffs\Priest\Atonement::class) . "<br>\n";
 echo "max median period: " . Details::getMedianByPeriod() . "<br>\n";
+
+if (TimeTicker::getInstance()->getCombatTimer() >= $workTime) {
+	exit("Time over");
+}
+
+$spellList = [
+	\Spells\Priest\BoonOfAscended::class,
+	\Spells\Priest\AscendedBlast::class,
+	\Spells\Priest\AscendedNova::class,
+	\Spells\Priest\DC\MindBlast::class,
+	\Spells\Priest\DC\Schism::class,
+];
+foreach ($spellList as $spellClass) {
+	if ($spellClass::isAvailable()) {
+		echo "{$spellClass} isAvailable<br>\n";
+	}else{
+		echo "{$spellClass} NOT Available<br>\n";
+	}
+}
+
 Details::analyzePeakByMedian();
 
-if ($preventEnd) {
-	exit("GG");
-}
 

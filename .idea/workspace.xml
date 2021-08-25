@@ -54,17 +54,18 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="ssh.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\OpenServer\domains\wow.ru\include\Spells\Priest" />
       <recent name="F:\OpenServer\domains\wow.ru\include" />
       <recent name="F:\OpenServer\domains\wow.ru\include\Buffs\Covenant\Kyrian" />
       <recent name="F:\OpenServer\domains\wow.ru\include\Events" />
       <recent name="F:\OpenServer\domains\wow.ru\include\Mediums\Ventir" />
-      <recent name="F:\OpenServer\domains\wow.ru" />
     </key>
   </component>
   <component name="RunManager" selected="PHP HTTP Request.Wow">
@@ -129,6 +130,7 @@
       <workItem from="1629125512860" duration="1453000" />
       <workItem from="1629224595103" duration="6349000" />
       <workItem from="1629316114961" duration="3072000" />
+      <workItem from="1629823353009" duration="13264000" />
     </task>
     <servers />
   </component>

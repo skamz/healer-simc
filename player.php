@@ -3,11 +3,11 @@ const INC_AMOUNT = 50;
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = (new Player())
-	->setInt(1820)
-	->setCrit(697)
-	->setHaste(875)
-	->setMatery(277)
-	->setVersatility(311)
+	->setInt(1827)
+	->setCrit(657)
+	->setHaste(930)
+	->setMatery(207)
+	->setVersatility(365)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 Place::getInstance()->addPlayer($player);
@@ -52,7 +52,7 @@ for ($i = 1; $i < 20; $i++) {
 Place::getInstance()->getMyPlayer()
 	->setLegendary(\Legendary\Priest\ClarityOfMind::class)
 	->setConvenant(\Enum\Covenant::TYPE_KYRIAN)
-	->setCovenantMedium(\Mediums\Kyrian\Pelagos::class)
+	->setCovenantMedium(\Mediums\Kyrian\Mikanikos::class)
 	->addConduit(new \Mediums\Ventir\Conduits\RabidShadows());
 
 \Buffs\RealPPM::getInstance()->initProc([

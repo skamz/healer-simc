@@ -37,8 +37,9 @@ $rotationInfoSteps = explode(" ", $globalRotation);
 try {
 	$rotation = new \Rotations\Priest\DC1();
 	$rotation->run($rotationInfoSteps);
-} catch (\Exceptions\PreventEndException $ex) {
-	$preventEnd = true;
+} catch (\Exceptions\CombatTimeDone $ex) {
+} finally {
+
 }
 
 $atonementResult = intval(Details::getHealFromSpell(\Buffs\Priest\Atonement::class));
