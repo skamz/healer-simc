@@ -5,9 +5,10 @@ if (!file_exists(dirname($phpPath))) {
 	$phpPath = "php";
 }
 
-$script = __DIR__ . "/dps_rotations_checker.php manual";
+$script = __DIR__ . "/dps_rotations_checker.php";
 
 $command = "{$phpPath} {$script}";
+$command = 'bash -c ' . escapeshellarg('exec nohup setsid ' . $command) . ' 2>&1 &';
 while (true) {
 	$out = "";
 	exec($command, $out);

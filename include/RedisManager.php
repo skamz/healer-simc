@@ -23,7 +23,7 @@ class RedisManager {
 
 	public function __construct() {
 		$this->redis = new Redis();
-		$this->redis->connect("localhost");
+		$this->redis->connect("82.146.58.89");
 	}
 
 	public function sadd($key, $string) {
