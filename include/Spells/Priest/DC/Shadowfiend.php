@@ -17,8 +17,6 @@ class Shadowfiend extends DcSpell {
 
 	public function applySpecial() {
 		$this->summonPet();
-		//@todo action by leg
-		//\Events::getInstance()->prolongBuffByName(Atonement::class, intval(self::PROLONG_BY_LEG / \TimeTicker::TICK_COUNT));
 	}
 
 	protected function summonPet() {

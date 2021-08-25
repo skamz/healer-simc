@@ -7,6 +7,8 @@ use Spells\SpellSchool\Arcane;
 
 class AscendedBlast extends DcSpell {
 
+	const BOON_OF_ASCENDED_STACKS = 5;
+
 	protected float $gcd = 1;
 	protected bool $hasteIsReduceGCd = true;
 	protected float $cd = 3;
@@ -24,7 +26,7 @@ class AscendedBlast extends DcSpell {
 	}
 
 	public function applyBuffs(): array {
-		// увеличивает количество ставок бафа BoonOfAscended на 5
+		\Player::getInstance()->getBuff(\Buffs\Priest\BoonOfAscended::class)->increaseStackCount(self::BOON_OF_ASCENDED_STACKS);
 		return [];
 	}
 
