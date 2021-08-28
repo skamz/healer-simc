@@ -13,6 +13,7 @@ class AscendedNova extends DcSpell {
 	protected string $spellSchool = Arcane::class;
 	protected float $gcd = 1;
 	protected bool $isDamageSpell = true;
+	protected bool $isTriggeredAtonement = true;
 
 	public static function isAvailable(): bool {
 		$cdAvailable = parent::isAvailable();

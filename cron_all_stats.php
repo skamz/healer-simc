@@ -26,7 +26,7 @@ function viewProgress(array $calcTypes) {
 			$progress = $redis->get($redisTypeKeys["progress"]);
 			if ($progress < 100) {
 				$waitData[] = "{$type} ({$progress}%)";
-			} 
+			}
 		}
 		if (empty($waitData)) {
 			break;
@@ -64,32 +64,24 @@ function analyzeOnceRotation(array $statInfo) {
 	return $incResults;
 }
 
-function startProcesses($calcTypes) {
+function startProcesses($calcTypes, $rotation) {
 	foreach ($calcTypes as $type) {
-		$command = 'setsid nohup /usr/bin/php /var/www/admin/data/www/wow-sim.ru/cron_one_stat.php --rotation="8 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3" --type=' . $type . ' > /dev/null &';
+		$command = 'setsid nohup /usr/bin/php /var/www/admin/data/www/wow-sim.ru/cron_one_stat.php --rotation="' . $rotation . '" --type=' . $type . ' > /dev/null &';
+		echo "run: " . $command . "\n";
 		exec($command);
 	}
 	sleep(10);
 }
 
-$rotations = [
-	//"8 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	"8 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-	//"8 5 5 5 5 5 5 5 5 5 5 5 5 5 5 4 4 11 2 6 1 9 3 3 3 3 3 3",
-];
+$analyzeRotation = "8 5 5 5 5 5 5 5 5 5 4 13 14 4 17 14 2 14 15 15 14 15 15 14 1 9 3 3";
 
 
 $args = getopt("", ["type:"]);
 
 $calcTypes = ["base", "int", "crit", "haste", "versa", "mastery"];
 if ($args["type"] == "start") {
-	startProcesses($calcTypes);
+	echo "INC_AMOUNT: " . INC_AMOUNT . "\n";
+	startProcesses($calcTypes, $analyzeRotation);
 }
 viewProgress($calcTypes);
 $statInfo = getData($calcTypes);

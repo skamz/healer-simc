@@ -76,22 +76,31 @@ class BaseRotation {
 
 
 	public function run($rotationInfoSteps) {
-		if (empty($damageEnemy)) {
-			$damageEnemy = \Place::getInstance()->getRandomEnemy();
-		}
-
 		while (!empty($rotationInfoSteps)) {
 			$nextSpell = array_shift($rotationInfoSteps);
 			$this->applySpell($nextSpell);
 		}
 	}
 
-	public function skipGcd() {
+	public function waitGcd() {
 		while (\TimeTicker::getInstance()->tick()) {
 			if (!\TimeTicker::getInstance()->isGcd()) {
 				break;
 			}
 		}
+	}
+
+	public function waitCasting() {
+		while (\TimeTicker::getInstance()->tick()) {
+			if (!\TimeTicker::getInstance()->isCastingProgress()) {
+				break;
+			}
+		}
+	}
+
+	public function waitAvailableCast() {
+		$this->waitGcd();
+		$this->waitCasting();
 	}
 
 }

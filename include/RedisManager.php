@@ -7,6 +7,7 @@ class RedisManager {
 	const SIM_RESULTS = "sim_results";
 	const FUTURE_ROTATION = "future_rotation";
 	const AVG_RESULT = "avg_result";
+	const RUN_ROTATION_COUNT = "run_rotation_count";
 
 	const STAT_INT = "stat_int";
 	const STAT_CRIT = "stat_crit";

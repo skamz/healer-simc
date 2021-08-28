@@ -4,7 +4,7 @@ require_once(dirname(__DIR__, 2) . "/autoloader.php");
 
 function startRotation($rotation) {
 	echo "add: " . $rotation . "<br>\n";
-	//Database::getInstance()->query("insert ignore into priest_dc set rotation='8 {$rotation}'");
+	Database::getInstance()->query("insert ignore into priest_dc set rotation='{$rotation}'");
 }
 
 function fillStates($startPath) {
@@ -13,7 +13,7 @@ function fillStates($startPath) {
 			17 => 1,
 			13 => 1,
 			14 => 1,
-			11 => 1,
+			11 => 0,
 			4 => 2,
 		],
 		"path" => [$startPath],
@@ -38,7 +38,7 @@ function getBuffList() {
 	$firstState = [
 		"spells" => [
 			4 => 0,
-			5 => 99,
+			5 => 10,
 		],
 		"path" => [],
 	];
@@ -57,11 +57,6 @@ function getBuffList() {
 			$state["path"][] = $spell;
 			$state["spells"][$spell]--;
 
-			/*startRotation(implode(" ", $state["path"]) . " 4 4 17");
-			startRotation(implode(" ", $state["path"]) . " 13 4 4 17");
-			startRotation(implode(" ", $state["path"]) . " 13 14 4 4 17");
-			startRotation(implode(" ", $state["path"]) . " 4 13 4 17");
-			startRotation(implode(" ", $state["path"]) . " 4 13 14 4 17");*/
 			fillStates(implode(" ", $state["path"]));
 
 			if (count($state["path"]) <= $length) {

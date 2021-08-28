@@ -15,6 +15,7 @@ function resetLock() {
 }
 
 function fillWork() {
+	return;
 	if (!isAllowFill()) {
 		return false;
 	}
@@ -23,9 +24,16 @@ function fillWork() {
 		select * from priest_dc";
 	Database::getInstance()->query($sql);
 
-	Database::getInstance()->query("truncate table priest_dc");
+	//if (!rand(0, 10)) {
+	//Database::getInstance()->query("truncate table priest_dc");
+	//}
 
-	RedisManager::getInstance()->setex(RedisManager::KEY_FILL_WORK_LOCK, 1, Helper::ONE_HOUR);
+	$count = getCountInWork();
+
+	if ($count > 50000) {
+		RedisManager::getInstance()->setex(RedisManager::KEY_FILL_WORK_LOCK, 1, Helper::ONE_HOUR);
+	}
+
 	echo "fillWork\n";
 }
 
@@ -120,10 +128,9 @@ while (true) {
 	//@todo кривой код, переделать на getCheckRotations
 	$rotationRows = $db->query("select id from priest_dc_work where iterations=0 limit {$insertByStep}")->fetchAll();
 	if (empty($rotationRows)) {
-
 		$topValue = getTopValue();
 
-		$cleanBy = intval($topValue * 0.5);
+		$cleanBy = intval($topValue * 0.7);
 		$rotationRows = $db->query("select id from priest_dc_work where iterations<10 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
 		if (empty($rotationRows)) {
 			$cleanBy = intval($topValue * 0.85);
@@ -144,7 +151,8 @@ while (true) {
 	}
 	echo "add count: " . count($rotationRows) . "\n";
 	if (count($rotationRows) < $insertByStep) {
-		echo "Близко ко концу, speel 10 sec\n";
+		echo "Близко ко концу (или началу?), speel 10 sec\n";
+		resetLock();
 		sleep(10);
 	}
 }

@@ -30,6 +30,7 @@ class PowerWordShield extends DcSpell {
 		if (ClarityOfMind::isActive()) {
 			$atonement->setDuration($atonement->getBaseDuration() + ClarityOfMind::INC_ATONEMENT_BUFF_TIME);
 		}
+		echo "atonement->Duration: " . $atonement->getDuration() . "<br>";
 		return [
 			$atonement
 		];

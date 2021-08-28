@@ -14,6 +14,7 @@ class AscendedBlast extends DcSpell {
 	protected float $cd = 3;
 	protected bool $hasteIsReduceCd = true;
 	protected string $spellSchool = Arcane::class;
+	protected bool $isTriggeredAtonement = true;
 	protected bool $isDamageSpell = true;
 
 	public static function isAvailable(): bool {

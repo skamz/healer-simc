@@ -57,7 +57,6 @@ function getCommand($rotation, $type, $incAmount = INC_AMOUNT) {
 
 function getRotation($rotation, $type, $iterations = 50000) {
 	global $redisStatJsonProgress, $redisStatJsonData;
-	$calcTypes = ["base", "int", "crit", "haste", "versa", "mastery"];
 
 	$execCommand = getCommand($rotation, $type);
 	echo "ExecCommand: {$execCommand}\n";
@@ -71,15 +70,7 @@ function getRotation($rotation, $type, $iterations = 50000) {
 			RedisManager::getInstance()->set($redisStatJsonData, $avg);
 		}
 
-		$out = [];
-
-		exec($execCommand, $out);
-		$out = array_filter($out);
-		if (count($out) > 1) {
-			throw new Exception("Stat script in debug mode");
-		}
-		$jsonData = array_shift($out);
-		$healAmount = getHealAmount(json_decode($jsonData, true));
+		$healAmount = WorkRotationManager::executeHealRotation($execCommand);
 		$summary[] = $healAmount;
 	}
 

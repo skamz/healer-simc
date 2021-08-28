@@ -1,16 +1,18 @@
 <?php
-const INC_AMOUNT = 50;
+
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
 $player = (new Player())
-	->setInt(1827)
-	->setCrit(657)
-	->setHaste(930)
-	->setMatery(207)
-	->setVersatility(365)
+	->setInt(1853)
+	->setCrit(599)
+	->setHaste(886)
+	->setMatery(340)
+	->setVersatility(363)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 Place::getInstance()->addPlayer($player);
+
+define("INC_AMOUNT", intval($player->getInt() * 0.05));
 
 global $globalRotation;
 $options = getopt("r:i:c:h:m:v", ["rotation:", "int:", "crit:", "haste:", "mastery:", "versa:"]);
@@ -52,7 +54,7 @@ for ($i = 1; $i < 20; $i++) {
 Place::getInstance()->getMyPlayer()
 	->setLegendary(\Legendary\Priest\ClarityOfMind::class)
 	->setConvenant(\Enum\Covenant::TYPE_KYRIAN)
-	->setCovenantMedium(\Mediums\Kyrian\Mikanikos::class)
+	->setCovenantMedium(\Mediums\Kyrian\Pelagos::class)
 	->addConduit(new \Mediums\Ventir\Conduits\RabidShadows());
 
 \Buffs\RealPPM::getInstance()->initProc([
