@@ -13,6 +13,11 @@ function printFormatedStat(array $calcTypes) {
 	return implode(", ", $return);
 }
 
+function printInfo($infoStr) {
+	file_put_contents("php://strout", $infoStr);
+	echo $infoStr . "\n";
+}
+
 function viewProgress(array $calcTypes) {
 	$redisKeys = [];
 	foreach ($calcTypes as $type) {
@@ -31,7 +36,7 @@ function viewProgress(array $calcTypes) {
 		if (empty($waitData)) {
 			break;
 		} else {
-			echo " Progress: " . implode("; ", $waitData) . ". " . printFormatedStat($calcTypes) . "       \r";
+			printInfo(" Progress: " . implode("; ", $waitData) . ". " . printFormatedStat($calcTypes));
 			sleep(10);
 		}
 	}
@@ -65,18 +70,21 @@ function analyzeOnceRotation(array $statInfo) {
 }
 
 function startProcesses($calcTypes, $rotation) {
+	$dir = __DIR__;
 	foreach ($calcTypes as $type) {
-		$command = 'setsid nohup /usr/bin/php /var/www/admin/data/www/wow-sim.ru/cron_one_stat.php --rotation="' . $rotation . '" --type=' . $type . ' > /dev/null &';
-		echo "run: " . $command . "\n";
+		$command = 'setsid nohup /usr/bin/php ' . $dir . '/cron_one_stat.php --rotation="' . $rotation . '" --type=' . $type . ' > /dev/null &';
+		printInfo("run: " . $command);
 		exec($command);
 	}
 	sleep(10);
 }
 
-$analyzeRotation = "8 5 5 5 5 5 5 5 5 5 4 13 14 4 17 14 2 14 15 15 14 15 15 14 1 9 3 3";
 
-
-$args = getopt("", ["type:"]);
+$args = getopt("", ["type:", "rotation:"]);
+if (empty($args["rotation"])) {
+	throw new Exception("Rotation no set");
+}
+$analyzeRotation = trim($args["rotation"]);
 
 $calcTypes = ["base", "int", "crit", "haste", "versa", "mastery"];
 if ($args["type"] == "start") {
