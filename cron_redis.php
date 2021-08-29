@@ -15,7 +15,6 @@ function resetLock() {
 }
 
 function fillWork() {
-	return;
 	if (!isAllowFill()) {
 		return false;
 	}
@@ -23,10 +22,6 @@ function fillWork() {
 	$sql = "insert ignore into priest_dc_work 
 		select * from priest_dc";
 	Database::getInstance()->query($sql);
-
-	//if (!rand(0, 10)) {
-	//Database::getInstance()->query("truncate table priest_dc");
-	//}
 
 	$count = getCountInWork();
 
@@ -106,6 +101,8 @@ $db = new Database();
 $insertByStep = 5000;
 $sleepCounter = 0;
 
+RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 10);
+
 while (true) {
 	fillWork();
 	$countInList = RedisManager::getInstance()->scard(RedisManager::ROTATIONS);
@@ -130,20 +127,19 @@ while (true) {
 	if (empty($rotationRows)) {
 		$topValue = getTopValue();
 
-		$cleanBy = intval($topValue * 0.7);
-		$rotationRows = $db->query("select id from priest_dc_work where iterations<10 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
-		if (empty($rotationRows)) {
-			$cleanBy = intval($topValue * 0.85);
-			$rotationRows = $db->query("select id from priest_dc_work where iterations<100 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
-			if (empty($rotationRows)) {
-				$cleanBy = intval($topValue * 0.95);
-				$rotationRows = $db->query("select id from priest_dc_work where iterations<1000 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
-				if (empty($rotationRows)) {
+		RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 100);
 
-					continue;
-				}
+		$cleanBy = intval($topValue * 0.85);
+		$rotationRows = $db->query("select id from priest_dc_work where iterations<100 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
+		if (empty($rotationRows)) {
+			$cleanBy = intval($topValue * 0.95);
+			$rotationRows = $db->query("select id from priest_dc_work where iterations<10000 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
+			if (empty($rotationRows)) {
+
+				continue;
 			}
 		}
+
 	}
 
 	foreach ($rotationRows as $row) {

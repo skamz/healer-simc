@@ -2,9 +2,8 @@
 
 require_once(__DIR__ . "/autoloader.php");
 
-
-$player = include(__DIR__ . "/player.php");
-
-for ($i = 0; $i < 400; $i++) {
-	Database::getInstance()->query("delete from `priest_dc_work_all` WHERE `iterations`=1 limit 10000");
-}
+file_put_contents("php://stdout", "stdout", 8);
+file_put_contents("php://stderr", "stderr", 8);
+file_put_contents("/dev/stdout", "/dev/stdout", 8);
+file_put_contents("/dev/stderr", "/dev/stderr", 8);
+error_log("test error_log");

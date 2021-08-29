@@ -14,8 +14,10 @@ function printFormatedStat(array $calcTypes) {
 }
 
 function printInfo($infoStr) {
-	file_put_contents("php://strout", $infoStr);
+	file_put_contents("php://stdout", $infoStr, 8);
+	error_log($infoStr);
 	echo $infoStr . "\n";
+
 }
 
 function viewProgress(array $calcTypes) {
@@ -72,7 +74,7 @@ function analyzeOnceRotation(array $statInfo) {
 function startProcesses($calcTypes, $rotation) {
 	$dir = __DIR__;
 	foreach ($calcTypes as $type) {
-		$command = 'setsid nohup /usr/bin/php ' . $dir . '/cron_one_stat.php --rotation="' . $rotation . '" --type=' . $type . ' > /dev/null &';
+		$command = 'setsid nohup php ' . $dir . '/cron_one_stat.php --rotation="' . $rotation . '" --type=' . $type . ' > /dev/null &';
 		printInfo("run: " . $command);
 		exec($command);
 	}

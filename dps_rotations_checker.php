@@ -1,10 +1,14 @@
 <?php
 
+ob_start();
 require_once(__DIR__ . "/autoloader.php");
 
 function sendResult() {
+	$log = ob_get_contents();
+	ob_end_clean();
 	$atonementResult = intval(Details::getHealFromSpell(\Buffs\Priest\Atonement::class));
 	echo json_encode(["atonement" => $atonementResult]);
+	ob_start();
 }
 
 $args = getopt("", ["type:", "rotation:"]);
@@ -29,7 +33,7 @@ try {
 
 
 if (TimeTicker::getInstance()->getCombatTimer() >= $workTime) {
-	exit("Time over");
+	exit;
 }
 $rotation->waitAvailableCast();
 $spellList = [
@@ -40,3 +44,5 @@ $spellList = [
 	\Spells\Priest\DC\Schism::class,
 ];
 WorkRotationManager::addSpells($spellList, trim($args["rotation"]));
+$log = ob_get_contents();
+ob_end_clean();

@@ -25,7 +25,7 @@ $rotationInfoSteps = explode(" ", $globalRotation);
 try {
 	$rotation = new \Rotations\BaseRotation();
 	$rotation->run($rotationInfoSteps);
-} catch (\Exceptions\CombatTimeDone $ex) {
+} catch (Exception $ex) {
 } finally {
 	$atonementResult = intval(Details::getHealFromSpell(\Buffs\Priest\Atonement::class));
 	$log = ob_get_contents();

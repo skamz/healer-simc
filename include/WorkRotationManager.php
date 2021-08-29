@@ -19,7 +19,6 @@ class WorkRotationManager {
 
 	public static function registerRotations(array $rotations) {
 		foreach ($rotations as $testRotation) {
-			echo "add rotation: " . $testRotation . "\n";
 			RedisManager::getInstance()->sadd(RedisManager::FUTURE_ROTATION, $testRotation);
 		}
 	}

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25ff351a-f303-435b-ada3-5732563ea01a" name="Default Changelist" comment="" />
+    <list default="true" id="a31146cb-9c6a-49e0-8abe-8b11fc99300f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,136 +24,34 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
-  <component name="PhpServers">
-    <servers>
-      <server host="wow.ru" id="472602d4-d7dd-431e-a68f-f00a1d0c6f2c" name="wow.ru" />
-    </servers>
-  </component>
-  <component name="PhpWebServerValidation" path_to_validation_script="F:\OpenServer\domains\wow.ru" selected_validation_type="LOCAL" web_path_to_validation_script="http://wow.ru/" />
-  <component name="ProjectId" id="1jdh7lpxxB8hJv9vc9rZRUEPDGg" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1xOVTPR1RgBpqd5396jljRY8ED4" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="ToolWindowCommit.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
-    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="ssh.settings" />
     <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\OpenServer\domains\wow.ru\include" />
-      <recent name="F:\OpenServer\domains\wow.ru\include\Spells\Priest" />
-      <recent name="F:\OpenServer\domains\wow.ru\include\Buffs\Covenant\Kyrian" />
-      <recent name="F:\OpenServer\domains\wow.ru\include\Events" />
-      <recent name="F:\OpenServer\domains\wow.ru\include\Mediums\Ventir" />
-    </key>
-  </component>
-  <component name="RunManager" selected="PHP HTTP Request.Wow">
-    <configuration name="Wow" type="PhpHttpRequestRunConfigurationType" factoryName="PHP HTTP Request" server_name="wow.ru" url="/view_spell_values.php">
-      <method v="2" />
-    </configuration>
-    <configuration name="view_spell_values.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" temporary="true" path="$PROJECT_DIR$/view_spell_values.php">
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="PHP HTTP Request.Wow" />
-      <item itemvalue="PHP Script.view_spell_values.php" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="PHP Script.view_spell_values.php" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="25ff351a-f303-435b-ada3-5732563ea01a" name="Default Changelist" comment="" />
-      <created>1604139712027</created>
+      <changelist id="a31146cb-9c6a-49e0-8abe-8b11fc99300f" name="Changes" comment="" />
+      <created>1630226130252</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1604139712027</updated>
-      <workItem from="1604139713848" duration="3291000" />
-      <workItem from="1604149208874" duration="7275000" />
-      <workItem from="1604157286799" duration="606000" />
-      <workItem from="1604159517517" duration="2827000" />
-      <workItem from="1604225998753" duration="17822000" />
-      <workItem from="1604332690796" duration="1435000" />
-      <workItem from="1604334787478" duration="8932000" />
-      <workItem from="1604480639139" duration="28720000" />
-      <workItem from="1604594955417" duration="11086000" />
-      <workItem from="1604741123489" duration="12074000" />
-      <workItem from="1604823999019" duration="10862000" />
-      <workItem from="1604846973246" duration="6648000" />
-      <workItem from="1604933911115" duration="8944000" />
-      <workItem from="1605021535612" duration="9000" />
-      <workItem from="1605021740723" duration="8046000" />
-      <workItem from="1605104779152" duration="11138000" />
-      <workItem from="1605345862818" duration="691000" />
-      <workItem from="1605347970631" duration="1055000" />
-      <workItem from="1605360284900" duration="633000" />
-      <workItem from="1605361232223" duration="5317000" />
-      <workItem from="1605428401293" duration="6690000" />
-      <workItem from="1627807088693" duration="10260000" />
-      <workItem from="1627884905247" duration="44000" />
-      <workItem from="1628620823552" duration="5015000" />
-      <workItem from="1628702679261" duration="3661000" />
-      <workItem from="1628778070477" duration="3626000" />
-      <workItem from="1628784144432" duration="6039000" />
-      <workItem from="1628792149406" duration="1498000" />
-      <workItem from="1628799165575" duration="81000" />
-      <workItem from="1629014742260" duration="4484000" />
-      <workItem from="1629025335824" duration="152000" />
-      <workItem from="1629027364302" duration="1477000" />
-      <workItem from="1629036447882" duration="417000" />
-      <workItem from="1629044928994" duration="590000" />
-      <workItem from="1629125512860" duration="1453000" />
-      <workItem from="1629224595103" duration="6349000" />
-      <workItem from="1629316114961" duration="3072000" />
-      <workItem from="1629823353009" duration="13264000" />
-      <workItem from="1629907372331" duration="1573000" />
-      <workItem from="1629991871452" duration="3069000" />
-      <workItem from="1629995424792" duration="63000" />
-      <workItem from="1630089427781" duration="28000" />
-      <workItem from="1630089579005" duration="84000" />
-      <workItem from="1630090224312" duration="411000" />
-      <workItem from="1630144204963" duration="5975000" />
-      <workItem from="1630150450496" duration="171000" />
+      <updated>1630226130252</updated>
+      <workItem from="1630226131718" duration="943000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="index.php">
-        <watch expression="$this-&gt;buffs[$buffNum]" language="PHP" />
-      </configuration>
-    </watches-manager>
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

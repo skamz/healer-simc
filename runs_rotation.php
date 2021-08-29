@@ -21,6 +21,7 @@ function doRotation($rotation, $iterationCount) {
 
 	$summary = [];
 	for ($iter = 0; $iter < $iterationCount; $iter++) {
+		echo "{$iter}, ";
 		$healAmount = WorkRotationManager::executeHealRotation($execCommand);
 
 		$summary[] = $healAmount;
@@ -29,6 +30,8 @@ function doRotation($rotation, $iterationCount) {
 }
 
 $rotationInfo = WorkRotationManager::fetchRotation();
+print_r($rotationInfo);
 $runCount = WorkRotationManager::getRunCount();
+echo "Run count: " . $runCount . "\n";
 $totalRotationsHeal = doRotation($rotationInfo["rotation"], $runCount);
 WorkRotationManager::storeResult($rotationInfo["id"], $totalRotationsHeal, $runCount);
