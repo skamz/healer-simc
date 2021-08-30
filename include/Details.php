@@ -6,7 +6,14 @@ class Details {
 	protected static array $heal = [];
 	protected static array $damage = [];
 
-	public static bool $isLog = true;
+	public static bool $isLog = false;
+
+	public static function log($string) {
+		if (!self::$isLog) {
+			return;
+		}
+		echo $string . "<br>\n";
+	}
 
 	public static function damage(int $amount, string $spellName) {
 		if (!self::$isLog) return;

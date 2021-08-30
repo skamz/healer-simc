@@ -30,7 +30,9 @@ while (true) {
 		}
 	}
 	$insertValues = array_filter($insertValues);
-	$db->query("insert ignore into priest_dc(rotation) values('" . implode("'), ('", $insertValues) . "')");
+	$sql = "insert ignore into priest_dc_work(rotation) values('" . implode("'), ('", $insertValues) . "')";
+	echo $sql . "\n";
+	$db->query($sql);
 
 	echo "add: " . count($insertValues) . "\n";
 }
