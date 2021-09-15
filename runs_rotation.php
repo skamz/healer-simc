@@ -1,7 +1,6 @@
 <?php
 
 require_once(__DIR__ . "/autoloader.php");
-$player = include(__DIR__ . "/player.php");
 
 function getCommand($rotation) {
 	$phpPath = "F:/OpenServer/modules/php/PHP_7.4/php";

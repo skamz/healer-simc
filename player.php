@@ -1,7 +1,7 @@
 <?php
 
 
-$statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PRIEST_DC);
+$statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PALADIN_HOLY);
 $player = (new Player())
 	->setInt(1853)
 	->setCrit(599)

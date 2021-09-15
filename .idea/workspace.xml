@@ -37,6 +37,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -47,7 +48,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1630226130252</updated>
-      <workItem from="1630226131718" duration="943000" />
+      <workItem from="1630226131718" duration="1518000" />
+      <workItem from="1630228596903" duration="553000" />
+      <workItem from="1631725107347" duration="1248000" />
     </task>
     <servers />
   </component>

@@ -19,6 +19,12 @@ class DefaultStatPercents {
 				self::MASTERY => 11,
 				self::VERSA => 0
 			],
+			SpecList::PALADIN_HOLY=>[
+				self::CRIT => 6,
+				self::HASTE => 0,
+				self::MASTERY => 12,
+				self::VERSA => 0
+			],
 		];
 	}
 

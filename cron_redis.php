@@ -101,7 +101,7 @@ $db = new Database();
 $insertByStep = 5000;
 $sleepCounter = 0;
 
-RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 10);
+RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 1);
 
 while (true) {
 	fillWork();
@@ -129,7 +129,7 @@ while (true) {
 
 		RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 100);
 
-		$cleanBy = intval($topValue * 0.85);
+		$cleanBy = intval($topValue * 0.7);
 		$rotationRows = $db->query("select id from priest_dc_work where iterations<100 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
 		if (empty($rotationRows)) {
 			$cleanBy = intval($topValue * 0.95);
