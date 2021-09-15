@@ -7,9 +7,11 @@ class WorkRotationManager {
 	}
 
 	public static function addSpells(array $spellList, string $rotation) {
+		return false;
 		$return = [];
 		foreach ($spellList as $spellClass) {
 			if ($spellClass::isAvailable()) {
+				Details::log("$spellClass isAvailable");
 				$spellNum = \Rotations\Priest\DCSpells::getSpellNum($spellClass);
 				$return[] = trim("{$rotation} {$spellNum}");
 			}

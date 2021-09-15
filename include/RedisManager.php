@@ -24,7 +24,7 @@ class RedisManager {
 
 	public function __construct() {
 		$this->redis = new Redis();
-		$this->redis->connect("82.146.58.89");
+		$this->redis->connect("wow-sim.eia6nr.ng.0001.euw1.cache.amazonaws.com");
 	}
 
 	public function sadd($key, $string) {

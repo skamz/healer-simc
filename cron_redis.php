@@ -101,8 +101,6 @@ $db = new Database();
 $insertByStep = 5000;
 $sleepCounter = 0;
 
-RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 1);
-
 while (true) {
 	fillWork();
 	$countInList = RedisManager::getInstance()->scard(RedisManager::ROTATIONS);
@@ -127,19 +125,26 @@ while (true) {
 	if (empty($rotationRows)) {
 		$topValue = getTopValue();
 
-		RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 100);
-
 		$cleanBy = intval($topValue * 0.7);
-		$rotationRows = $db->query("select id from priest_dc_work where iterations<100 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
+		$rotationRows = $db->query("select id from priest_dc_work where iterations<10 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
 		if (empty($rotationRows)) {
-			$cleanBy = intval($topValue * 0.95);
-			$rotationRows = $db->query("select id from priest_dc_work where iterations<10000 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
+			RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 100);
+			$cleanBy = intval($topValue * 0.85);
+			$rotationRows = $db->query("select id from priest_dc_work where iterations<100 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
 			if (empty($rotationRows)) {
+				$cleanBy = intval($topValue * 0.95);
+				$rotationRows = $db->query("select id from priest_dc_work where iterations<10000 and total_heal/iterations>{$cleanBy} limit {$insertByStep}")->fetchAll();
+				if (empty($rotationRows)) {
 
-				continue;
+					continue;
+				}
 			}
+		} else {
+			RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 10);
 		}
 
+	} else {
+		RedisManager::getInstance()->set(RedisManager::RUN_ROTATION_COUNT, 1);
 	}
 
 	foreach ($rotationRows as $row) {
@@ -147,8 +152,8 @@ while (true) {
 	}
 	echo "add count: " . count($rotationRows) . "\n";
 	if (count($rotationRows) < $insertByStep) {
-		echo "Близко ко концу (или началу?), speel 10 sec\n";
+		echo "Близко ко концу (или началу?), speel 1 sec\n";
 		resetLock();
-		sleep(10);
+		sleep(1);
 	}
 }

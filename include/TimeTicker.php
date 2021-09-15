@@ -55,6 +55,9 @@ class TimeTicker {
 
 	protected function tickPets() {
 		$pets = Place::getInstance()->getPets();
+		if (empty($pets)) {
+			return;
+		}
 		foreach ($pets as $petNum => $pet) {
 			/** @var $pet \Pets\Pet */
 			$pet->tick();
