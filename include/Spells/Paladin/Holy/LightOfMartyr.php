@@ -2,7 +2,9 @@
 
 namespace Spells\Paladin\Holy;
 
-class LightOfMartyr extends \Spell {
+class LightOfMartyr extends HPSpell {
+
+	protected bool $isTriggerBeaconHeal = true;
 
 	public function getDamageAmount() {
 		// TODO: Implement getDamageAmount() method.
@@ -13,10 +15,17 @@ class LightOfMartyr extends \Spell {
 	}
 
 	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
+		return [];
 	}
 
 	public function getRealHealSPParams(): array {
-		// TODO: Implement getRealHealSPParams() method.
+		return [
+			1367 => 2870,
+			1341 => 2816,
+			1330 => 2793,
+			1280 => 2688,
+			1243 => 2610,
+			1182 => 2482,
+		];
 	}
 }

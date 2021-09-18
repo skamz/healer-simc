@@ -2,7 +2,11 @@
 
 namespace Spells\Paladin;
 
-class HammerOfWrath extends \Spell {
+use Spells\Paladin\Holy\HPSpell;
+
+class HammerOfWrath extends HPSpell {
+
+	protected int $gainHolyPower = 1;
 
 	public function getDamageAmount() {
 		// TODO: Implement getDamageAmount() method.
@@ -13,10 +17,13 @@ class HammerOfWrath extends \Spell {
 	}
 
 	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
+		return [
+			1367 => 1413,
+			1280=>1322,
+		];
 	}
 
 	public function getRealHealSPParams(): array {
-		// TODO: Implement getRealHealSPParams() method.
+		return [];
 	}
 }

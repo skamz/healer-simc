@@ -15,6 +15,7 @@ class Player extends Unit {
 	protected array $conduits = [];
 	protected \Legendary\Legendary $legendary;
 
+	protected $resources = [];
 
 	/**
 	 * @var StatCalculator
@@ -141,6 +142,13 @@ class Player extends Unit {
 			}
 		}
 		return false;
+	}
+
+	public function getHolyPowerResource(): \Resources\Resource {
+		if (empty($this->resources[\Resources\EnumList::PALADIN_HOLY_POWER])) {
+			throw new Exception("Resource not set");
+		}
+		return $this->resources[\Resources\EnumList::PALADIN_HOLY_POWER];
 	}
 
 }

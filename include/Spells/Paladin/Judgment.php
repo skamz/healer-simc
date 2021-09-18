@@ -13,10 +13,13 @@ class Judgment extends \Spell {
 	}
 
 	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
+		return [
+			1367 => 1910,
+			1280=>1788,
+		];
 	}
 
 	public function getRealHealSPParams(): array {
-		// TODO: Implement getRealHealSPParams() method.
+		return [];
 	}
 }

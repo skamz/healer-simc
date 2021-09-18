@@ -2,9 +2,10 @@
 
 namespace Spells\Paladin\Holy;
 
-class LightOfDawn extends HPSpell {
-
-	protected int $targetCount = 5;
+/**
+ * В нормальном бою все 25 стаков стикивают секунд за 3-5
+ */
+class JudgmentOfLight extends HPSpell {
 
 	public function getDamageAmount() {
 		// TODO: Implement getDamageAmount() method.
@@ -15,17 +16,17 @@ class LightOfDawn extends HPSpell {
 	}
 
 	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
+		return [];
 	}
 
 	public function getRealHealSPParams(): array {
 		return [
-			1367 => 1435,
-			1341 => 1408,
-			1330 => 1396,
-			1280 => 1344,
-			1243 => 1305,
-			1182 => 1241,
+			1367 => 96,
+			1341 => 94,
+			1330 => 93,
+			1280 => 89,
+			1243 => 87,
+			1182 => 82,
 		];
 	}
 }

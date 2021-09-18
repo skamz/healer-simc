@@ -2,7 +2,10 @@
 
 namespace Spells\Paladin\Holy;
 
-class HolyShock extends \Spell {
+class HolyShock extends HPSpell {
+
+	protected int $gainHolyPower = 1;
+	protected bool $isTriggerBeaconHeal = true;
 
 	public function getDamageAmount() {
 	}
@@ -16,6 +19,13 @@ class HolyShock extends \Spell {
 	}
 
 	public function getRealHealSPParams(): array {
-		// TODO: Implement getRealHealSPParams() method.
+		return [
+			1367 => 2118,
+			1341 => 2078,
+			1330 => 2061,
+			1280 => 1984,
+			1243 => 1926,
+			1182 => 1832,
+		];
 	}
 }

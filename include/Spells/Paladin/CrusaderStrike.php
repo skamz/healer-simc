@@ -2,7 +2,14 @@
 
 namespace Spells\Paladin;
 
-class CrusaderStrike extends \Spell {
+use Spells\Paladin\Holy\HPSpell;
+
+class CrusaderStrike extends HPSpell {
+
+	protected int $gainHolyPower = 1;
+	protected int $changeCount = 2;
+	protected float $cd = 6;
+	protected bool $hasteIsReduceCd = true;
 
 	public function getDamageAmount() {
 		// TODO: Implement getDamageAmount() method.
@@ -13,10 +20,13 @@ class CrusaderStrike extends \Spell {
 	}
 
 	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
+		return [
+			1367 => 1000,
+			1280 => 937,
+		];
 	}
 
 	public function getRealHealSPParams(): array {
-		// TODO: Implement getRealHealSPParams() method.
+		return [];
 	}
 }
