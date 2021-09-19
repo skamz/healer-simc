@@ -4,19 +4,10 @@ namespace Spells\Paladin\Holy;
 
 class LightOfDawn extends HPSpell {
 
+	protected float $cd = 1.5;
+	protected bool $hasteIsReduceCd = true;
 	protected int $targetCount = 5;
-
-	public function getDamageAmount() {
-		// TODO: Implement getDamageAmount() method.
-	}
-
-	public function getHealAmount(): int {
-		// TODO: Implement getHealAmount() method.
-	}
-
-	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
-	}
+	protected static int $costHolyPower = 3;
 
 	public function getRealHealSPParams(): array {
 		return [

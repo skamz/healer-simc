@@ -14,6 +14,13 @@ class Event {
 		$this->args = $args;
 	}
 
+	/**
+	 * @param array $args
+	 */
+	public function setArgs(array $args): void {
+		$this->args = $args;
+	}
+
 	public function getObject() {
 		return $this->object;
 	}

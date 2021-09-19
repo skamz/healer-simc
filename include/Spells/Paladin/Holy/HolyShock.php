@@ -4,18 +4,16 @@ namespace Spells\Paladin\Holy;
 
 class HolyShock extends HPSpell {
 
+	protected float $cd = 7.5;
+	protected bool $hasteIsReduceCd = true;
 	protected int $gainHolyPower = 1;
 	protected bool $isTriggerBeaconHeal = true;
 
-	public function getDamageAmount() {
-	}
-
-	public function getRealDamageSPParams(): array {
-		// TODO: Implement getRealDamageSPParams() method.
-	}
-
 	public function getHealAmount(): int {
-		// TODO: Implement getHealAmount() method.
+		$return = \Player::getInstance()->getInt() * $this->getRealSP(static::SP_TYPE_HEAL);
+		$return = \Spell::applySecondary($return);
+		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);
+		return $return;
 	}
 
 	public function getRealHealSPParams(): array {

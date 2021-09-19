@@ -3,11 +3,11 @@
 
 $statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PALADIN_HOLY);
 $player = (new Player())
-	->setInt(1853)
-	->setCrit(599)
-	->setHaste(886)
-	->setMatery(340)
-	->setVersatility(363)
+	->setInt(1856)
+	->setCrit(367)
+	->setHaste(1138)
+	->setMatery(383)
+	->setVersatility(252)
 	->setName("Player-Main")
 	->setStatCalculator($statCalculator);
 Place::getInstance()->addPlayer($player);
@@ -51,16 +51,16 @@ for ($i = 1; $i < 20; $i++) {
 	$addPlayer = $addPlayer->setName("Player{$i}");
 	Place::getInstance()->addPlayer($addPlayer);
 }
-Place::getInstance()->getMyPlayer()
-	->setLegendary(\Legendary\Priest\ClarityOfMind::class)
-	->setConvenant(\Enum\Covenant::TYPE_KYRIAN)
-	->setCovenantMedium(\Mediums\Kyrian\Pelagos::class)
-	->addConduit(new \Mediums\Ventir\Conduits\RabidShadows());
+Player::getInstance()
+	//->setLegendary(\Legendary\Priest\ClarityOfMind::class)
+	->registerResource(\Resources\EnumList::PALADIN_HOLY_POWER, new \Resources\HolyPower())
+	->setConvenant(\Enum\Covenant::TYPE_VENTIR)
+	->setCovenantMedium(\Mediums\Ventir\Theotar::class);
+//->addConduit(new \Mediums\Ventir\Conduits\RabidShadows());
 
 \Buffs\RealPPM::getInstance()->initProc([
 	\Buffs\CelestialGuidance::class,
-	\Buffs\GladiatorInsignia::class,
-	\Buffs\Priest\PowerDarkSide::class,
+	// add DivinePurpose
 ]);
 
 Place::getInstance()->addEnemy((new Enemy())->setName("Boss"));

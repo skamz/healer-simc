@@ -15,7 +15,7 @@ class Player extends Unit {
 	protected array $conduits = [];
 	protected \Legendary\Legendary $legendary;
 
-	protected $resources = [];
+	protected array $resources = [];
 
 	/**
 	 * @var StatCalculator
@@ -142,6 +142,11 @@ class Player extends Unit {
 			}
 		}
 		return false;
+	}
+
+	public function registerResource(int $type, \Resources\Resource $resource): self {
+		$this->resources[$type] = $resource;
+		return $this;
 	}
 
 	public function getHolyPowerResource(): \Resources\Resource {

@@ -6,15 +6,15 @@ namespace Rotations;
 
 use Buffs\Priest\Atonement;
 use Exceptions\CombatTimeDone;
-use Rotations\Priest\DC1;
-use Rotations\Priest\DCSpells;
 
 class BaseRotation {
 
 	protected array $talents = [];
 	protected array $spellBook = [];
+	protected EnumSpells $spellList;
 
-	public function __construct() {
+	public function __construct(EnumSpells $spellList) {
+		$this->spellList = $spellList;
 		$this->fillSpellBook();
 	}
 
@@ -48,7 +48,7 @@ class BaseRotation {
 	}
 
 	public function applySpell(int $spellNumber) {
-		$spellClass = DCSpells::getSpellClass($spellNumber);
+		$spellClass = $this->spellList->getSpellClass($spellNumber);
 		/** @var \Spell $spell */
 		$spell = new $spellClass();
 

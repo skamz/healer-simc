@@ -8,16 +8,10 @@ class CrusaderStrike extends HPSpell {
 
 	protected int $gainHolyPower = 1;
 	protected int $changeCount = 2;
+	protected int $maxChangeCount = 2;
 	protected float $cd = 6;
 	protected bool $hasteIsReduceCd = true;
-
-	public function getDamageAmount() {
-		// TODO: Implement getDamageAmount() method.
-	}
-
-	public function getHealAmount(): int {
-		// TODO: Implement getHealAmount() method.
-	}
+	protected bool $isDamageSpell = true;
 
 	public function getRealDamageSPParams(): array {
 		return [
@@ -26,7 +20,4 @@ class CrusaderStrike extends HPSpell {
 		];
 	}
 
-	public function getRealHealSPParams(): array {
-		return [];
-	}
 }

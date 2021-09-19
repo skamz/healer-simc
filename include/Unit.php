@@ -53,6 +53,15 @@ class Unit {
 		return null;
 	}
 
+	public function existBuff(string $buffName): bool {
+		$buffNum = $this->hasBuff($buffName);
+		if (is_null($buffNum)) {
+			return false;
+		}
+		return true;
+	}
+
+
 	public function getBuff(string $buffName): ?Buff {
 		$buffNum = $this->hasBuff($buffName);
 		if (empty($buffNum)) {

@@ -26,34 +26,39 @@ class SpellState {
 	}
 
 	public function cast(string $spellName) {
-		$this->registerSpellByName($spellName);
-		$this->spells[$spellName]->decChangeCount();
-		$this->checkStartCooddownTimer($spellName);
+		$this->getSpellObject($spellName)->decChangeCount();
+		$this->checkStartCooldownTimer($spellName);
 	}
 
 	public function endCooldownTime(string $spellName) {
-		$this->spells[$spellName]->incChangeCount();
-		$this->checkStartCooddownTimer($spellName);
+		$this->getSpellObject($spellName)->incChangeCount();
+		$this->checkStartCooldownTimer($spellName);
+	}
+
+	protected function getSpellObject(string $spellName): Spell {
+		if (empty($this->spells[$spellName])) {
+			$this->registerSpellByName($spellName);
+		}
+		return $this->spells[$spellName];
 	}
 
 	public function getChangeCount($spellName) {
-		return $this->spells[$spellName]->getChangeCount();
+		return $this->getSpellObject($spellName)->getChangeCount();
 	}
 
-	protected function checkStartCooddownTimer(string $spellName) {
-		$this->registerSpellByName($spellName);
-		$lostTimer = TimeTicker::getInstance()->getSpellCdTimer($spellName);
-		if (empty($lostTimer) && $this->spells[$spellName]->getChangeCount() < $this->spells[$spellName]->getMaxChangeCount()) {
-			TimeTicker::getInstance()->startSpellCooldown($this->spells[$spellName]);
+	protected function checkStartCooldownTimer(string $spellName) {
+		$spell = $this->getSpellObject($spellName);
+		if (!$spell->getIsChangeCooldown() && $spell->getChangeCount() < $spell->getMaxChangeCount()) {
+			Details::log("Start {$spellName} cooldown {$spell->getCd()} sec");
+			$event = new \Events\Event($this, "endCooldownTime", $spellName);
+			$iterationStep = TimeTicker::getInstance()->getIterationAfterTime($spell->getCd());
+			Events::getInstance()->registerEvent($iterationStep, $event);
+			$spell->setIsChangeCooldown(true);
 		}
 	}
 
 	public function isAvailable(string $spellName): bool {
-		$this->registerSpellByName($spellName);
-		if (!isset($this->spells[$spellName])) {
-			return false;
-		}
-		if ($this->spells[$spellName]->getChangeCount() == 0) {
+		if ($this->getSpellObject($spellName)->getChangeCount() == 0) {
 			return false;
 		}
 
@@ -61,9 +66,7 @@ class SpellState {
 	}
 
 	public function startCastingSpell(string $castToType, int $castToNum, Spell $spell) {
-		if(Details::$isLog){
-			echo TimeTicker::getInstance()->getCombatTimer() . ": Start cast " . $spell->getName() . "<br>\n";
-		}
+		Details::log(TimeTicker::getInstance()->getCombatTimer() . ": Start cast " . $spell->getName());
 
 		$this->casting = [
 			"cast_type" => $castToType,

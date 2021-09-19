@@ -21,7 +21,7 @@ use Spells\Priest\DC\SpiritShell;
 use Spells\Priest\PowerWordShield;
 use Spells\Priest\Smite;
 
-class DCSpells {
+class DCSpells extends \Rotations\EnumSpells {
 
 	const PENANCE = 1;
 	const SCHISM = 2;
@@ -61,23 +61,6 @@ class DCSpells {
 			Shadowfiend::class => self::SHADOWFIEND,
 			SpiritShell::class => self::SPIRIT_SHELL,
 		];
-	}
-
-	public static function getSpellClass(int $spellNum): string {
-		$spellList = self::getAliases();
-		$spellListFlip = array_flip($spellList);
-		if (empty($spellListFlip[$spellNum])) {
-			throw new \Exception("неизвестный спелл {$spellNum}");
-		}
-		return $spellListFlip[$spellNum];
-	}
-
-	public static function getSpellNum(string $spellName): int {
-		$spellList = self::getAliases();
-		if (empty($spellList[$spellName])) {
-			throw new \Exception("неизвестный спелл");
-		}
-		return $spellList[$spellName];
 	}
 
 }

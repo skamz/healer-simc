@@ -43,7 +43,7 @@ class TimeTicker {
 		$this->tickEvents();
 		//$this->tickPlayersBuffs();
 		//$this->tickEnemyBuffs();
-		$this->tickSpellCd();
+		//$this->tickSpellCd();
 		$this->tickSpellCasting();
 
 		return true;
@@ -167,6 +167,10 @@ class TimeTicker {
 
 	public function isCastingProgress(): bool {
 		return $this->castingTime > 0;
+	}
+
+	public function getIterationAfterTime(float $seconds) {
+		return $this->iteration + $seconds / self::TICK_COUNT;
 	}
 
 }

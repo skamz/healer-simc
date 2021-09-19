@@ -6,7 +6,7 @@ class Details {
 	protected static array $heal = [];
 	protected static array $damage = [];
 
-	public static bool $isLog = false;
+	public static bool $isLog = true;
 
 	public static function log($string) {
 		if (!self::$isLog) {

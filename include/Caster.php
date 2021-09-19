@@ -4,8 +4,9 @@
 class Caster {
 
 	public static function playerCastSpell(int $toUnit, Spell $spell) {
+		//@todo: не подходящее место, не известно есть ли чарка
 		\Buffs\RealPPM::getInstance()->tryProc(3, new \Buffs\CelestialGuidance());
-		\Buffs\RealPPM::getInstance()->tryProc(1.5, new \Buffs\GladiatorInsignia());
+		//\Buffs\RealPPM::getInstance()->tryProc(1.5, new \Buffs\GladiatorInsignia());
 		if ($spell->isDamageSpell()) {
 			self::castSpellToEnemy($toUnit, $spell);
 		} else {

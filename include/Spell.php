@@ -121,6 +121,12 @@ abstract class Spell {
 
 	protected string $spellSchool;
 
+	/**
+	 * В процессе восстановление (стака использованя)
+	 * @var bool
+	 */
+	protected bool $isChangeCooldown = false;
+
 	public function __construct() {
 	}
 
@@ -217,10 +223,12 @@ abstract class Spell {
 	}
 
 	public function incChangeCount() {
+		Details::log(TimeTicker::getInstance()->getCombatTimer() . ": " . get_class($this) . " inc changeCount");
 		$this->changeCount++;
 		if ($this->changeCount > $this->maxChangeCount) {
 			throw new Exception("changeCount > maxChangeCount. " . get_class($this));
 		}
+		$this->setIsChangeCooldown(false);
 	}
 
 	public function decChangeCount() {
@@ -239,10 +247,27 @@ abstract class Spell {
 	}
 
 	public function afterSuccessCast() {
-		Place::getInstance()->getMyPlayer()->getMedium()->castTrigger($this);
+		Player::getInstance()->getMedium()->castTrigger($this);
+	}
+
+	public function getRandomPlayerTargets(int $playerNum): array {
+		//стратегия выбора доп.целей - рандом, без повторений
+		$list = Place::getInstance()->getPlayersAllNums();
+		$toCastKey = array_search($playerNum, $list);
+		if ($toCastKey !== false) {
+			unset($list[$toCastKey]);
+		}
+
+		shuffle($list);
+		$commonTargets = array_slice($list, 0, $this->getTargetCount() - 1);
+		array_unshift($commonTargets, $playerNum);
+		return $commonTargets;
 	}
 
 	public function getSpellCommonTargets(int $playerNum): array {
+		if ($this->getTargetCount() > 1) {
+			return $this->getRandomPlayerTargets($playerNum);
+		}
 		return [$playerNum];
 	}
 
@@ -275,6 +300,17 @@ abstract class Spell {
 
 	public function isDamageSpell(): bool {
 		return $this->isDamageSpell;
+	}
+
+	public function getIsChangeCooldown(): bool {
+		return $this->isChangeCooldown;
+	}
+
+	public function setIsChangeCooldown(bool $value) {
+		if ($this->isChangeCooldown === $value) {
+			throw new Exception("ChangeCooldown state not change. Bug?");
+		}
+		$this->isChangeCooldown = $value;
 	}
 
 }
