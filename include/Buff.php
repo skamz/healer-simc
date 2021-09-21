@@ -18,6 +18,7 @@ abstract class Buff {
 	protected int $startIterationNum;
 	protected int $iterationEnd = 0;
 	protected int $stackCount = 1;
+	protected int $maxStackCount = 1;
 
 	protected array $eventsId = [];
 
@@ -68,9 +69,8 @@ abstract class Buff {
 	}
 
 	public function reApply(Buff $buff) {
-		Events::getInstance()->removeEvent($this->getFadeEventId());
 		$this->setDuration($buff->duration);
-		//$this->setFadeEventId($fadeEventId);
+		Events::getInstance()->registerBuffFade($this);
 	}
 
 	public function getDuration() {
@@ -103,6 +103,9 @@ abstract class Buff {
 
 	public function applyFade() {
 
+	}
+
+	public function onHealTaken(int $amount, Spell $fromSpell, Player $player) {
 	}
 
 	public function applyOnDamage(int $damageCount, Spell $fromSpell = null) {
@@ -179,7 +182,14 @@ abstract class Buff {
 	}
 
 	public function increaseStackCount(int $intCount): int {
-		$this->stackCount += $intCount;
+		if ($this->stackCount < $this->maxStackCount) {
+			$this->stackCount = min($this->stackCount + $intCount, $this->maxStackCount);
+			Details::log("Inc buff " . get_class($this) . " stack count. To: " . $this->stackCount);
+		}
+		return $this->stackCount;
+	}
+
+	public function getStackCount(): int {
 		return $this->stackCount;
 	}
 

@@ -64,7 +64,7 @@ class Unit {
 
 	public function getBuff(string $buffName): ?Buff {
 		$buffNum = $this->hasBuff($buffName);
-		if (empty($buffNum)) {
+		if (is_null($buffNum)) {
 			return null;
 		}
 		return $this->getBuffByNum($buffNum);
@@ -99,7 +99,7 @@ class Unit {
 		unset($this->buffs[$buffNum]);
 	}
 
-	public function healTaken(int $amount, string $spellName, Unit $unit = null) {
+	public function healTaken(int $amount, Spell $spell, Unit $unit = null) {
 		if (Details::$isLog) {
 
 			if (isset($unit)) {
@@ -107,7 +107,7 @@ class Unit {
 			}
 			echo "taken heal {$amount}<br>\n";
 		}
-		Details::heal($amount, $spellName);
+		Details::heal($amount, $spell->getName());
 		$this->health += $amount;
 		$this->health = min($this->health, $this->maxHealth);
 		//echo "Heal unit at {$amount}<br>\n";

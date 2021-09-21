@@ -38,10 +38,10 @@ class Player extends Unit {
 
 	public function getInt() {
 		$return = $this->int;
-		if ($this->hasBuff(\Buffs\GladiatorInsignia::class)) {
+		if ($this->hasBuff(\Buffs\GladiatorInsignia::class) !== null) {
 			$return += \Buffs\GladiatorInsignia::INC_VALUE;
 		}
-		if ($this->hasBuff(\Buffs\CelestialGuidance::class)) {
+		if ($this->hasBuff(\Buffs\CelestialGuidance::class) !== null) {
 			$return *= 1 + \Buffs\CelestialGuidance::PERCENT / 100;
 		}
 		return $return;
@@ -97,8 +97,8 @@ class Player extends Unit {
 		return $this;
 	}
 
-	public function healTaken(int $amount, string $spellName, Unit $unit = null) {
-		parent::healTaken($amount, $spellName, $this);
+	public function healTaken(int $amount, Spell $spell, Unit $unit = null) {
+		parent::healTaken($amount, $spell, $this);
 		Place::registerHeal($amount);
 	}
 

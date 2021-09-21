@@ -6,7 +6,7 @@ use Buffs\Priest\PowerDarkSide;
 use Spells\SpellSchool\Holy;
 
 /**
- * Class Penance https://www.wowhead.com/spell=172098/penance
+ * Classes Penance https://www.wowhead.com/spell=172098/penance
  * @package Spells\Priest\DC
  */
 class Penance extends DcSpell {

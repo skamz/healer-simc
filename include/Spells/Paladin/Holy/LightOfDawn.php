@@ -19,4 +19,9 @@ class LightOfDawn extends HPSpell {
 			1182 => 1241,
 		];
 	}
+
+	public function applySpecial() {
+		parent::applySpecial();
+
+	}
 }

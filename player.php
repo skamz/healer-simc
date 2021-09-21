@@ -1,7 +1,7 @@
 <?php
 
-
-$statCalculator = CalculatorFactory::createStatCalculator(\Enum\SpecList::PALADIN_HOLY);
+$spec = \Enum\SpecList::PALADIN_HOLY;
+$statCalculator = CalculatorFactory::createStatCalculator($spec);
 $player = (new Player())
 	->setInt(1856)
 	->setCrit(367)
@@ -57,6 +57,8 @@ Player::getInstance()
 	->setConvenant(\Enum\Covenant::TYPE_VENTIR)
 	->setCovenantMedium(\Mediums\Ventir\Theotar::class);
 //->addConduit(new \Mediums\Ventir\Conduits\RabidShadows());
+
+\Classes\ClassBuffer::apply($spec);
 
 \Buffs\RealPPM::getInstance()->initProc([
 	\Buffs\CelestialGuidance::class,

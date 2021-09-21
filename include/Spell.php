@@ -163,7 +163,7 @@ abstract class Spell {
 	}
 
 	protected function applyHaste($baseValue) {
-		$hastePercents = Player::getInstance()->getStatCalculator()->getHastePercent();
+		$hastePercents = Player::getInstance()->getStatCalculator()->getHastePercent(null, $this);
 		return $baseValue / (1 + $hastePercents / 100);
 	}
 
@@ -179,17 +179,17 @@ abstract class Spell {
 		return $amount;
 	}
 
-	public static function applyCrit(float $amount, $critCoefficient = 2) {
-		$critPercent = Player::getInstance()->getStatCalculator()->getCritPercent();
+	public function applyCrit(float $amount, $critCoefficient = 2) {
+		$critPercent = Player::getInstance()->getStatCalculator()->getCritPercent(null, $this);
 		if (Helper::isProc($critPercent)) {
 			return $amount * $critCoefficient;
 		}
 		return $amount;
 	}
 
-	public static function applySecondary(float $amount) {
-		$amount = self::applyVersatility($amount);
-		$amount = self::applyCrit($amount);
+	public function applySecondary(float $amount): int {
+		$amount = $this->applyVersatility($amount);
+		$amount = $this->applyCrit($amount);
 		return round($amount);
 	}
 

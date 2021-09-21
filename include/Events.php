@@ -44,7 +44,7 @@ class Events {
 		/** @var Player $player */
 		foreach ($players as $player) {
 			/** @var Buff $buff */
-			foreach ($player->getBuffs() as $buff){
+			foreach ($player->getBuffs() as $buff) {
 				if ($buff->getName() == $buffName) {
 					$this->moveBuffFade($buff->getFadeEventId(), $addSteps);
 				}
@@ -68,6 +68,20 @@ class Events {
 			return $this->registerEvent($iterationEnd + $addSteps, $event);
 		}
 		return null;
+	}
+
+	public function removeBuffFade(Buff $buff) {
+		Events::getInstance()->removeEvent($buff->getFadeEventId());
+	}
+
+	public function registerBuffFade(Buff $buff) {
+		$this->removeBuffFade($buff);
+
+		$buffNum = $buff->unit->hasBuff(get_class($buff));
+		$fadeEvent = new \Events\Event($buff->unit, "fadeBuff", $buffNum);
+		$iterationEnd = TimeTicker::getInstance()->getIterationAfterTime($buff->getDuration());
+		$eventId = Events::getInstance()->registerEvent($iterationEnd, $fadeEvent);
+		$buff->setFadeEventId($eventId);
 	}
 
 }

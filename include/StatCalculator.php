@@ -30,17 +30,17 @@ class StatCalculator {
 		$this->versaCalculator = $versa;
 	}
 
-	public function getCritPercent(int $critCount = null) {
+	public function getCritPercent(int $critCount = null, Spell $fromSpell = null) {
 		if (!isset($critCount)) {
 			$critCount = Player::getInstance()->getCritCount();
 		}
-		$critCount = Player::getInstance()->applyBuffs("applyCritAmount", $critCount);
+		$critCount = Player::getInstance()->applyBuffs("applyCritAmount", $critCount, $fromSpell);
 		$return = $this->critCalculator->calcPercent($critCount);
-		$return = Player::getInstance()->applyBuffs("applyCritPercents", $return);
+		$return = Player::getInstance()->applyBuffs("applyCritPercents", $return, $fromSpell);
 		return $return;
 	}
 
-	public function getMasteryPercent(int $masteryCount = null) {
+	public function getMasteryPercent(int $masteryCount = null, Spell $fromSpell = null) {
 		if (!isset($masteryCount)) {
 			$masteryCount = Player::getInstance()->getMasteryCount();
 		}
@@ -50,7 +50,7 @@ class StatCalculator {
 		return $return;
 	}
 
-	public function getHastePercent(int $hasteCount = null) {
+	public function getHastePercent(int $hasteCount = null, Spell $fromSpell = null) {
 		if (!isset($hasteCount)) {
 			$hasteCount = Player::getInstance()->getHasteCount();
 		}
@@ -61,7 +61,7 @@ class StatCalculator {
 
 	}
 
-	public function getVersatilityPercent(int $versatilityCount = null) {
+	public function getVersatilityPercent(int $versatilityCount = null, Spell $fromSpell = null) {
 		if (!isset($versatilityCount)) {
 			$versatilityCount = Player::getInstance()->getVersatilityCount();
 		}

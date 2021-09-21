@@ -15,13 +15,16 @@ $workTime = 40;
 TimeTicker::getInstance()->getTotalWorkTime($workTime);
 
 if (empty($_GET["r"])) {
-	$_GET["r"] = "1 2 4 2 5 2 4 2 5 6 1 2 4 2 5 4 6 1 4";
+	$_GET["r"] = "6 1 2 6 4 2 5 2 4 2 5 1 2 4 2 5 4 6 1 4";
 }
 $wasMoreAtonement = false;
 $rotationInfoSteps = explode(" ", $_GET["r"]);
 
 echo "Rotation: " . $_GET["r"] . "<br>\n";
 $rotationVariables = [];
+
+Place::getInstance()->getPlayer(1)->addBuff(new \Buffs\Paladin\Holy\BeaconOfLight());
+Place::getInstance()->getPlayer(2)->addBuff(new \Buffs\Paladin\Holy\BeaconOfLight());
 
 try {
 	$rotation = new \Rotations\Paladin\Holy\LightOfMartyrRotation(new \Rotations\Paladin\Holy\PaladinSpells());

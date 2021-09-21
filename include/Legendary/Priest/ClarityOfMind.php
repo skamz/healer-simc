@@ -14,11 +14,6 @@ class ClarityOfMind extends Legendary {
 
 	}
 
-	public static function isLegOnPlayer() {
-		$activeLeg = get_class(\Player::getInstance()->getLegendary());
-		return ($activeLeg == self::class);
-	}
-
 	public static function isActive(): bool {
 		if (self::isLegOnPlayer()) {
 			return (bool)\Player::getInstance()->hasBuff(Rapture::class);

@@ -52,7 +52,9 @@ class Caster {
 
 		foreach ($applyToPlayers as $player) {
 			/** @var $player Player */
-			$player->healTaken($spell->getHealAmount(), $spell->getName());
+			$healAmount = $spell->getHealAmount();
+			$player->healTaken($healAmount, $spell);
+			$spell->afterHeal($healAmount);
 
 			foreach ($spell->applyBuffs() as $applyBuff) {
 				$player = $player->addBuff(clone $applyBuff);

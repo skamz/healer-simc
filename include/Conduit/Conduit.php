@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Mediums\Ventir\Conduits;
+namespace Conduit;
 
 
 abstract class Conduit {

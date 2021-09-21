@@ -11,7 +11,7 @@ class HolyShock extends HPSpell {
 
 	public function getHealAmount(): int {
 		$return = \Player::getInstance()->getInt() * $this->getRealSP(static::SP_TYPE_HEAL);
-		$return = \Spell::applySecondary($return);
+		$return = $this->applySecondary($return);
 		$return = \Player::getInstance()->applyBuffs("increaseHeal", $return, $this);
 		return $return;
 	}

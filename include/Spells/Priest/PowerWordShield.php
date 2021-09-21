@@ -9,7 +9,7 @@ use Spells\SpellSchool\Holy;
 
 /**
  * https://www.wowdb.com/spells/17-power-word-shield
- * Class Power_Word_Shield
+ * Classes Power_Word_Shield
  * @package Spells\Priest
  */
 class PowerWordShield extends DcSpell {

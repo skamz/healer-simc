@@ -132,4 +132,15 @@ class Place {
 		return self::$totalHeal;
 	}
 
+	public function getPlayersNumWithBuff(string $buffName): array {
+		$return = [];
+		foreach ($this->getAllPlayers() as $num => $player) {
+			/** @var Player $player */
+			if ($player->existBuff($buffName)) {
+				$return[] = $num;
+			}
+		}
+		return $return;
+	}
+
 }

@@ -8,7 +8,7 @@ use Spells\Priest\DC\DcSpell;
 use Spells\SpellSchool\Holy;
 
 /**
- * Class Smite https://www.wowhead.com/spell=585/smite
+ * Classes Smite https://www.wowhead.com/spell=585/smite
  * @package Spells\Priest
  */
 class Smite extends DcSpell {

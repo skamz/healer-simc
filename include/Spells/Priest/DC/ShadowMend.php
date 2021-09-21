@@ -7,7 +7,7 @@ namespace Spells\Priest\DC;
 use Spells\SpellSchool\Shadow;
 
 /**
- * Class ShadowMend https://www.wowdb.com/spells/186263-shadow-mend
+ * Classes ShadowMend https://www.wowdb.com/spells/186263-shadow-mend
  * @package Spells\Priest\DC
  */
 class ShadowMend extends DcSpell {

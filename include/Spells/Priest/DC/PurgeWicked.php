@@ -9,7 +9,7 @@ use Buffs\RealPPM;
 use Spells\SpellSchool\Fire;
 
 /**
- * Class PurgeWicked Очищение зла https://www.wowhead.com/spell=204197/purge-the-wicked
+ * Classes PurgeWicked Очищение зла https://www.wowhead.com/spell=204197/purge-the-wicked
  * @package Spells\Priest\DC
  */
 class PurgeWicked extends DcSpell {
